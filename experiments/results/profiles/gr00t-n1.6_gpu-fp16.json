@@ -1,0 +1,41 @@
+{
+  "model": "gr00t-n1.6",
+  "hardware": "m5-gpu",
+  "precision": "fp16",
+  "stages": {
+    "vision": {
+      "time_s": 0.030804326714132912,
+      "pass_s": 0.00456360395764932,
+      "layers_profiled": 4,
+      "layer_scale": 6.75,
+      "repeats": 1
+    },
+    "vlm": {
+      "time_s": 0.031107084127143025,
+      "pass_s": 0.007776771031785756,
+      "layers_profiled": 4,
+      "layer_scale": 4.0,
+      "repeats": 1
+    },
+    "action": {
+      "time_s": 0.2010553441941738,
+      "pass_s": 0.006282979506067932,
+      "layers_profiled": 4,
+      "layer_scale": 8.0,
+      "repeats": 4
+    }
+  },
+  "latency_s": 0.26296675503544975,
+  "host_s": null,
+  "avg_power_w": null,
+  "energy_j_per_call": null,
+  "method": "synthetic shape-faithful stacks",
+  "env": {
+    "torch": "2.15.0",
+    "device": "mps"
+  },
+  "notes": [
+    "host preprocessing not measured (synthetic inputs)",
+    "layers extrapolated linearly"
+  ]
+}

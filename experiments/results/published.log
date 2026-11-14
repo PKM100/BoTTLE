@@ -1,0 +1,89 @@
+Spec-only (31 cases): {'n': 31, 'mape': 0.5386454427017255, 'median_ape': 0.5793095994739215, 'max_ape': 0.9285317523551007, 'within_25pct': 0.0967741935483871, 'within_2x': 0.41935483870967744}
+  edge: {'n': 13, 'mape': 0.5788453243253282, 'median_ape': 0.5828986334225998, 'max_ape': 0.8837087626024769, 'within_25pct': 0.0, 'within_2x': 0.3076923076923077}  geo-mean pred/meas=0.41
+  pi0_4090_paper           meas    73.0  spec    71.8  ideal   45.7  stages {'vision': {'measured_ms': 14, 'spec_ms': 9.236259244939468}, 'vlm': {'measured_ms': 32, 'spec_ms': 41.20898986460048}, 'action': {'measured_ms': 27, 'spec_ms': 16.3584}}
+  openvla_4090_paper       meas   167.0  spec   193.5  ideal  137.2
+  openvla_a100_oft         meas   239.6  spec   126.9  ideal   93.5
+  oft_a100_oft             meas   112.0  spec    65.3  ideal   37.1
+  n15_h100_repo            meas    47.9  spec    15.5  ideal   14.8  stages {'backbone': {'measured_ms': 23.18, 'spec_ms': 2.847527813731343}, 'action': {'measured_ms': 24.7, 'spec_ms': 4.61340672}}
+  n16_5090                 meas    58.0  spec    24.4  ideal   21.4  stages {'backbone': {'measured_ms': 18, 'spec_ms': 5.6074611352744625}, 'action': {'measured_ms': 38, 'spec_ms': 12.12591542857143}}
+  n16_h100                 meas    77.0  spec    20.6  ideal   19.5  stages {'backbone': {'measured_ms': 23, 'spec_ms': 3.210821311044776}, 'action': {'measured_ms': 49, 'spec_ms': 9.343878342686567}}
+  n16_4090                 meas    82.0  spec    30.4  ideal   25.9  stages {'backbone': {'measured_ms': 25, 'spec_ms': 6.987869018154425}, 'action': {'measured_ms': 55, 'spec_ms': 16.778516317460316}}
+  n16_thor                 meas   117.0  spec    76.3  ideal   63.0  stages {'backbone': {'measured_ms': 38, 'spec_ms': 17.168715721611722}, 'action': {'measured_ms': 74, 'spec_ms': 48.481906402930406}}
+  n16_orin                 meas   300.0  spec   108.0  ideal   87.5  stages {'backbone': {'measured_ms': 93, 'spec_ms': 25.623764919717644}, 'action': {'measured_ms': 202, 'spec_ms': 64.62976}}
+  n17_h100                 meas   101.5  spec    15.6  ideal   14.7
+  n17_l40                  meas   123.7  spec    24.6  ideal   20.8
+  n17_thor                 meas   106.8  spec    49.6  ideal   41.7
+  n17_orin                 meas   357.9  spec    77.6  ideal   61.1
+  openvla_h100nvl_where    meas   103.8  spec    61.8  ideal   48.8
+  openvla_thor_where       meas   445.0  spec   565.9  ideal  431.6
+  oft_h100nvl_where        meas    42.4  spec    30.0  ideal   19.5
+  oft_thor_where           meas   181.0  spec   102.9  ideal   80.3
+  pi05_h100nvl_where       meas   111.6  spec    26.8  ideal   22.3
+  pi05_thor_where          meas   208.0  spec    87.6  ideal   71.7
+  n17_h100nvl_where        meas    74.9  spec    15.4  ideal   14.6
+  n17_thor_where           meas   149.0  spec    49.6  ideal   41.7
+  smolvla_h100nvl_where    meas   208.3  spec    14.9  ideal   14.2
+  smolvla_thor_where       meas   308.0  spec    35.8  ideal   31.6
+  oft_h100nvl_fused        meas    41.8  spec    30.0  ideal   19.5
+  oft_a10g_fused           meas   204.1  spec   150.6  ideal   80.3
+  oft_4090_fused           meas   102.1  spec   114.5  ideal   61.3
+  oft_thor_fused           meas   180.6  spec   102.9  ideal   80.3
+  n17_thor_hwb             meas   119.0  spec    49.6  ideal   41.7
+  oft_thor_hwb             meas   250.0  spec   102.9  ideal   80.3
+  pi05_thor_hwb            meas   405.0  spec    87.6  ideal   71.7
+
+Transfer (32 ref->target pairs):
+  naive_same  all   59.9% [38.0,94.1] med  48.0 max  388.3 <=25% 0.25 2x 0.59   edge   50.8% (n=18)
+  spec        all   51.8% [35.4,67.9] med  55.7 max   88.4 <=25% 0.06 2x 0.44   edge   54.0% (n=18)
+  global      all   48.8% [37.2,73.3] med  36.3 max  202.8 <=25% 0.34 2x 0.88   edge   63.3% (n=18)
+  additive    all   32.8% [27.1,39.7] med  31.2 max   99.9 <=25% 0.41 2x 0.84   edge   33.4% (n=18)
+  overhead    all   28.1% [19.4,36.0] med  22.7 max   99.9 <=25% 0.56 2x 1.00   edge   27.7% (n=18)
+  groups=8  diff CIs: {"overhead-global": {"lo": -0.4843740631924507, "hi": -0.02746752640557476, "p_le_0": 0.9884}, "overhead-naive_same": {"lo": -0.592430028591523, "hi": -0.11745254298352192, "p_le_0": 1.0}, "overhead-spec": {"lo": -0.43591727160635596, "hi": -0.0013443172575351436, "p_le_0": 0.9758}, "overhead-additive": {"lo": -0.08558393114774474, "hi": -0.024390405880109656, "p_le_0": 1.0}}
+  group-macro MAPE: {'naive_same': 57.6, 'spec': 55.1, 'global': 60.0, 'additive': 31.0, 'overhead': 23.5}
+  host-prior sensitivity: {'registry': (28.1, 27.7), 'all_equal': (32.8, 33.4), 'edge_halved_gap': (30.3, 31.6), 'edge_x0.75': (31.4, 33.5), 'edge_x1.25': (28.5, 28.4)}
+  gr00t-n1.6-repo    n=12 naive_same= 40.2 spec= 57.0 global= 42.8 additive= 27.0 overhead= 21.7
+  gr00t-n1.7-repo    n= 6 naive_same= 32.9 spec= 71.4 global= 73.1 additive= 32.5 overhead= 31.5
+  where-openvla      n= 1 naive_same= 76.7 spec= 27.2 global=113.7 additive= 36.2 overhead= 39.8
+  where-oft          n= 1 naive_same= 76.6 spec= 43.2 global= 19.8 additive= 37.3 overhead= 34.1
+  where-pi05         n= 1 naive_same= 46.3 spec= 57.9 global= 75.5 additive= 18.1 overhead=  3.5
+  where-n17          n= 1 naive_same= 49.7 spec= 66.7 global= 62.0 additive= 28.5 overhead= 13.4
+  where-smolvla      n= 1 naive_same= 32.4 spec= 88.4 global= 62.7 additive= 26.0 overhead=  4.6
+  where-oft-fused    n= 9 naive_same=106.0 spec= 29.1 global= 30.7 additive= 42.6 overhead= 39.5
+  gr00t-n1.6   rtx-5090  ->h100-sxm               meas   77.0 spec   20.6 glob   48.9 ovh   60.9
+  gr00t-n1.6   rtx-5090  ->rtx-4090               meas   82.0 spec   30.4 glob   72.3 ovh   64.0
+  gr00t-n1.6   rtx-5090  ->jetson-agx-thor        meas  117.0 spec   76.3 glob  181.4 ovh  130.1
+  gr00t-n1.6   rtx-5090  ->jetson-agx-orin-64gb   meas  300.0 spec  108.0 glob  256.8 ovh  197.6
+  gr00t-n1.6   h100-sxm  ->rtx-5090               meas   58.0 spec   24.4 glob   91.4 ovh   71.4
+  gr00t-n1.6   h100-sxm  ->rtx-4090               meas   82.0 spec   30.4 glob  114.0 ovh   77.5
+  gr00t-n1.6   h100-sxm  ->jetson-agx-thor        meas  117.0 spec   76.3 glob  285.9 ovh  151.6
+  gr00t-n1.6   h100-sxm  ->jetson-agx-orin-64gb   meas  300.0 spec  108.0 glob  404.7 ovh  233.5
+  gr00t-n1.6   rtx-4090  ->rtx-5090               meas   58.0 spec   24.4 glob   65.7 ovh   76.0
+  gr00t-n1.6   rtx-4090  ->h100-sxm               meas   77.0 spec   20.6 glob   55.4 ovh   82.4
+  gr00t-n1.6   rtx-4090  ->jetson-agx-thor        meas  117.0 spec   76.3 glob  205.6 ovh  158.8
+  gr00t-n1.6   rtx-4090  ->jetson-agx-orin-64gb   meas  300.0 spec  108.0 glob  291.1 ovh  245.5
+  gr00t-n1.7   h100-sxm  ->l40                    meas  123.7 spec   24.6 glob  160.5 ovh  110.6
+  gr00t-n1.7   h100-sxm  ->jetson-agx-thor        meas  106.8 spec   49.6 glob  323.4 ovh  164.2
+  gr00t-n1.7   h100-sxm  ->jetson-agx-orin-64gb   meas  357.9 spec   77.6 glob  505.3 ovh  268.5
+  gr00t-n1.7   l40       ->h100-sxm               meas  101.5 spec   15.6 glob   78.2 ovh  114.6
+  gr00t-n1.7   l40       ->jetson-agx-thor        meas  106.8 spec   49.6 glob  249.2 ovh  181.7
+  gr00t-n1.7   l40       ->jetson-agx-orin-64gb   meas  357.9 spec   77.6 glob  389.4 ovh  297.7
+  openvla      h100-nvl  ->jetson-agx-thor        meas  445.0 spec  565.9 glob  950.8 ovh  622.0
+  openvla-oft  h100-nvl  ->jetson-agx-thor        meas  181.0 spec  102.9 glob  145.2 ovh  119.4
+  pi05         h100-nvl  ->jetson-agx-thor        meas  208.0 spec   87.6 glob  364.9 ovh  200.7
+  gr00t-n1.7   h100-nvl  ->jetson-agx-thor        meas  149.0 spec   49.6 glob  241.4 ovh  129.0
+  smolvla      h100-nvl  ->jetson-agx-thor        meas  308.0 spec   35.8 glob  501.2 ovh  293.7
+  openvla-oft  h100-nvl  ->a10g                   meas  204.1 spec  150.6 glob  209.6 ovh  162.3
+  openvla-oft  h100-nvl  ->rtx-4090               meas  102.1 spec  114.5 glob  159.4 ovh  124.3
+  openvla-oft  h100-nvl  ->jetson-agx-thor        meas  180.6 spec  102.9 glob  143.2 ovh  118.6
+  openvla-oft  a10g      ->h100-nvl               meas   41.8 spec   30.0 glob   40.7 ovh   83.6
+  openvla-oft  a10g      ->rtx-4090               meas  102.1 spec  114.5 glob  155.2 ovh  159.1
+  openvla-oft  a10g      ->jetson-agx-thor        meas  180.6 spec  102.9 glob  139.4 ovh  174.2
+  openvla-oft  rtx-4090  ->h100-nvl               meas   41.8 spec   30.0 glob   26.8 ovh   26.8
+  openvla-oft  rtx-4090  ->a10g                   meas  204.1 spec  150.6 glob  134.2 ovh  134.2
+  openvla-oft  rtx-4090  ->jetson-agx-thor        meas  180.6 spec  102.9 glob   91.7 ovh   91.7
+
+Software-stack spread (same model+device, different sources):
+  gr00t-n1.7   jetson-agx-thor    [106.8, 149, 119]  max/min 1.40
+  openvla-oft  h100-nvl           [42.4, 41.8]  max/min 1.01
+  openvla-oft  jetson-agx-thor    [181, 180.6, 250]  max/min 1.38
+  pi05         jetson-agx-thor    [208, 405]  max/min 1.95

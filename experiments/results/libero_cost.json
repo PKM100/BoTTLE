@@ -1,0 +1,1794 @@
+{
+  "ranking": {
+    "h100-sxm": {
+      "tau_latency_vs_usd": 0.6,
+      "fastest": "openvla-oft",
+      "cheapest": "openvla-oft",
+      "per_model": {
+        "openvla": {
+          "latency_ms": 107.53502922105353,
+          "time_per_success_s": 57.064123332986036,
+          "energy_per_success_kj": 27.278173594931772,
+          "usd_per_1k_success": 116.58214703032247,
+          "success": 0.765
+        },
+        "openvla-oft": {
+          "latency_ms": 39.1226698057725,
+          "time_per_success_s": 12.093311136373716,
+          "energy_per_success_kj": 3.073853433299021,
+          "usd_per_1k_success": 24.593870304160266,
+          "success": 0.971
+        },
+        "pi0": {
+          "latency_ms": 116.99615758206086,
+          "time_per_success_s": 17.43060719939465,
+          "energy_per_success_kj": 5.940254012288276,
+          "usd_per_1k_success": 35.51110581854152,
+          "success": 0.9415
+        },
+        "pi05": {
+          "latency_ms": 110.68306657617119,
+          "time_per_success_s": 16.086109179613125,
+          "energy_per_success_kj": 5.415398720803281,
+          "usd_per_1k_success": 32.7692034366582,
+          "success": 0.9685
+        },
+        "smolvla": {
+          "latency_ms": 208.28004564413953,
+          "time_per_success_s": 19.858139202041215,
+          "energy_per_success_kj": 6.6172789811856205,
+          "usd_per_1k_success": 40.45041811490068,
+          "success": 0.8725
+        },
+        "gr00t-n1.6": {
+          "latency_ms": 77.0,
+          "time_per_success_s": 13.18317913131234,
+          "energy_per_success_kj": 3.714913927075085,
+          "usd_per_1k_success": 26.825476454778798,
+          "success": 0.969875
+        }
+      }
+    },
+    "a10g": {
+      "tau_latency_vs_usd": 0.8666666666666667,
+      "fastest": "gr00t-n1.6",
+      "cheapest": "gr00t-n1.6",
+      "per_model": {
+        "openvla": {
+          "latency_ms": 340.5565461499679,
+          "time_per_success_s": 141.4718175900674,
+          "energy_per_success_kj": 44.77473116402327,
+          "usd_per_1k_success": 208.8216804574022,
+          "success": 0.765
+        },
+        "openvla-oft": {
+          "latency_ms": 162.94449293946022,
+          "time_per_success_s": 15.554047904086232,
+          "energy_per_success_kj": 3.4092919132467197,
+          "usd_per_1k_success": 22.89573459588569,
+          "success": 0.971
+        },
+        "pi0": {
+          "latency_ms": 186.0889797790448,
+          "time_per_success_s": 20.720100401690768,
+          "energy_per_success_kj": 5.01083878334938,
+          "usd_per_1k_success": 30.51977234565751,
+          "success": 0.9415
+        },
+        "pi05": {
+          "latency_ms": 170.59955331625648,
+          "time_per_success_s": 18.773380034235398,
+          "energy_per_success_kj": 4.476915976635845,
+          "usd_per_1k_success": 27.649710378805995,
+          "success": 0.9685
+        },
+        "smolvla": {
+          "latency_ms": 220.98491843465368,
+          "time_per_success_s": 20.22098450037974,
+          "energy_per_success_kj": 4.497853533735006,
+          "usd_per_1k_success": 29.768252087376748,
+          "success": 0.8725
+        },
+        "gr00t-n1.6": {
+          "latency_ms": 99.89479140563934,
+          "time_per_success_s": 13.823955241732266,
+          "energy_per_success_kj": 2.8197736746167523,
+          "usd_per_1k_success": 20.34025614410076,
+          "success": 0.969875
+        }
+      }
+    },
+    "l4": {
+      "tau_latency_vs_usd": 0.8666666666666667,
+      "fastest": "gr00t-n1.6",
+      "cheapest": "gr00t-n1.6",
+      "per_model": {
+        "openvla": {
+          "latency_ms": 554.255672066526,
+          "time_per_success_s": 218.88033643029536,
+          "energy_per_success_kj": 42.98154744069729,
+          "usd_per_1k_success": 317.35911497022994,
+          "success": 0.765
+        },
+        "openvla-oft": {
+          "latency_ms": 167.59228675179634,
+          "time_per_success_s": 15.683950618551453,
+          "energy_per_success_kj": 2.748047792268798,
+          "usd_per_1k_success": 22.726658091995834,
+          "success": 0.971
+        },
+        "pi0": {
+          "latency_ms": 201.1654383979925,
+          "time_per_success_s": 21.43788709160676,
+          "energy_per_success_kj": 3.864799809762139,
+          "usd_per_1k_success": 31.0688614086044,
+          "success": 0.9415
+        },
+        "pi05": {
+          "latency_ms": 185.2920634898298,
+          "time_per_success_s": 19.43234314303647,
+          "energy_per_success_kj": 3.490552293123808,
+          "usd_per_1k_success": 28.16179775335774,
+          "success": 0.9685
+        },
+        "smolvla": {
+          "latency_ms": 226.69834476255738,
+          "time_per_success_s": 20.384157317193083,
+          "energy_per_success_kj": 3.584810437722645,
+          "usd_per_1k_success": 29.5379923559386,
+          "success": 0.8725
+        },
+        "gr00t-n1.6": {
+          "latency_ms": 123.24344647960199,
+          "time_per_success_s": 14.477434022855602,
+          "energy_per_success_kj": 2.506743349374054,
+          "usd_per_1k_success": 20.977122262395746,
+          "success": 0.969875
+        }
+      }
+    },
+    "t4": {
+      "tau_latency_vs_usd": 0.3333333333333333,
+      "fastest": "gr00t-n1.6",
+      "cheapest": "gr00t-n1.6",
+      "per_model": {
+        "openvla": {
+          "latency_ms": 596.266581070973,
+          "time_per_success_s": 234.0980039205949,
+          "energy_per_success_kj": 45.231192372418136,
+          "usd_per_1k_success": 336.9183482494147,
+          "success": 0.765
+        },
+        "openvla-oft": {
+          "latency_ms": 297.06737961299604,
+          "time_per_success_s": 19.302692477036,
+          "energy_per_success_kj": 3.387332808713108,
+          "usd_per_1k_success": 27.76654645825535,
+          "success": 0.971
+        },
+        "pi0": {
+          "latency_ms": 280.2921309317075,
+          "time_per_success_s": 25.205090527989082,
+          "energy_per_success_kj": 4.51322163939541,
+          "usd_per_1k_success": 36.26078531617008,
+          "success": 0.9415
+        },
+        "pi05": {
+          "latency_ms": 253.8606775351422,
+          "time_per_success_s": 22.50766427902251,
+          "energy_per_success_kj": 4.011112239773615,
+          "usd_per_1k_success": 32.37939231173723,
+          "success": 0.9685
+        },
+        "smolvla": {
+          "latency_ms": 281.4205728339414,
+          "time_per_success_s": 21.946998873948772,
+          "energy_per_success_kj": 3.8008605162810993,
+          "usd_per_1k_success": 31.56822509394389,
+          "success": 0.8725
+        },
+        "gr00t-n1.6": {
+          "latency_ms": 138.2150917880358,
+          "time_per_success_s": 14.8964582662895,
+          "energy_per_success_kj": 2.5226937065308666,
+          "usd_per_1k_success": 21.424455731510477,
+          "success": 0.969875
+        }
+      }
+    },
+    "rtx-4090": {
+      "tau_latency_vs_usd": 1.0,
+      "fastest": "gr00t-n1.6",
+      "cheapest": "gr00t-n1.6",
+      "per_model": {
+        "openvla": {
+          "latency_ms": 228.50787467287537,
+          "time_per_success_s": 100.88427817053915,
+          "energy_per_success_kj": 38.76179014153437,
+          "usd_per_1k_success": 145.14228236445288,
+          "success": 0.765
+        },
+        "openvla-oft": {
+          "latency_ms": 124.84093421452114,
+          "time_per_success_s": 14.48907903734845,
+          "energy_per_success_kj": 3.425339992159363,
+          "usd_per_1k_success": 20.756212482222633,
+          "success": 0.971
+        },
+        "pi0": {
+          "latency_ms": 146.64388457277062,
+          "time_per_success_s": 18.84212858900331,
+          "energy_per_success_kj": 5.077701222630736,
+          "usd_per_1k_success": 27.01810758120115,
+          "success": 0.9415
+        },
+        "pi05": {
+          "latency_ms": 134.5477064791998,
+          "time_per_success_s": 17.156444821047852,
+          "energy_per_success_kj": 4.5411757307374305,
+          "usd_per_1k_success": 24.597544338258558,
+          "success": 0.9685
+        },
+        "smolvla": {
+          "latency_ms": 182.01662275778864,
+          "time_per_success_s": 19.10806797584965,
+          "energy_per_success_kj": 4.669481116607592,
+          "usd_per_1k_success": 27.379448122516898,
+          "success": 0.8725
+        },
+        "gr00t-n1.6": {
+          "latency_ms": 82.0,
+          "time_per_success_s": 13.323118408125776,
+          "energy_per_success_kj": 2.9167717770557977,
+          "usd_per_1k_success": 19.076219831748553,
+          "success": 0.969875
+        }
+      }
+    },
+    "rtx-5090": {
+      "tau_latency_vs_usd": 0.8666666666666667,
+      "fastest": "gr00t-n1.6",
+      "cheapest": "gr00t-n1.6",
+      "per_model": {
+        "openvla": {
+          "latency_ms": 163.59881082864018,
+          "time_per_success_s": 77.3721815723999,
+          "energy_per_success_kj": 33.30521379337236,
+          "usd_per_1k_success": 112.11871927652284,
+          "success": 0.765
+        },
+        "openvla-oft": {
+          "latency_ms": 102.3456284122451,
+          "time_per_success_s": 13.86035035349746,
+          "energy_per_success_kj": 3.430243801750845,
+          "usd_per_1k_success": 19.979132189977072,
+          "success": 0.971
+        },
+        "pi0": {
+          "latency_ms": 133.05688631237626,
+          "time_per_success_s": 18.195254760492546,
+          "energy_per_success_kj": 5.346627884748135,
+          "usd_per_1k_success": 26.262869008781998,
+          "success": 0.9415
+        },
+        "pi05": {
+          "latency_ms": 122.64550623120161,
+          "time_per_success_s": 16.62262787728961,
+          "energy_per_success_kj": 4.790796873643093,
+          "usd_per_1k_success": 23.98904839553906,
+          "success": 0.9685
+        },
+        "smolvla": {
+          "latency_ms": 179.6015134464649,
+          "time_per_success_s": 19.039093569491037,
+          "energy_per_success_kj": 5.10432980069848,
+          "usd_per_1k_success": 27.460431033277324,
+          "success": 0.8725
+        },
+        "gr00t-n1.6": {
+          "latency_ms": 58.0,
+          "time_per_success_s": 12.651409879421287,
+          "energy_per_success_kj": 2.8080714431045544,
+          "usd_per_1k_success": 18.22303623882337,
+          "success": 0.969875
+        }
+      }
+    },
+    "jetson-agx-thor": {
+      "tau_latency_vs_usd": 1.0,
+      "fastest": "gr00t-n1.6",
+      "cheapest": "gr00t-n1.6",
+      "per_model": {
+        "openvla": {
+          "latency_ms": 445.0,
+          "time_per_success_s": 179.30450890507782,
+          "energy_per_success_kj": 41.12050070889784,
+          "usd_per_1k_success": 264.01025745433196,
+          "success": 0.765
+        },
+        "openvla-oft": {
+          "latency_ms": 181.0,
+          "time_per_success_s": 16.058687195955155,
+          "energy_per_success_kj": 3.0638594974711775,
+          "usd_per_1k_success": 23.61922802178286,
+          "success": 0.971
+        },
+        "pi0": {
+          "latency_ms": 210.2415125653449,
+          "time_per_success_s": 21.869996872734568,
+          "energy_per_success_kj": 4.378529737799532,
+          "usd_per_1k_success": 32.17512252049641,
+          "success": 0.9415
+        },
+        "pi05": {
+          "latency_ms": 208.0,
+          "time_per_success_s": 20.450800320225536,
+          "energy_per_success_kj": 4.0923406175627655,
+          "usd_per_1k_success": 30.087115988425992,
+          "success": 0.9685
+        },
+        "smolvla": {
+          "latency_ms": 308.0,
+          "time_per_success_s": 22.70609503640199,
+          "energy_per_success_kj": 4.440594446400626,
+          "usd_per_1k_success": 33.40080082187208,
+          "success": 0.8725
+        },
+        "gr00t-n1.6": {
+          "latency_ms": 117.0,
+          "time_per_success_s": 14.302693345819824,
+          "energy_per_success_kj": 2.6475800879000393,
+          "usd_per_1k_success": 21.033114687777715,
+          "success": 0.969875
+        }
+      }
+    },
+    "jetson-agx-orin-64gb": {
+      "tau_latency_vs_usd": 0.6,
+      "fastest": "gr00t-n1.6",
+      "cheapest": "gr00t-n1.6",
+      "per_model": {
+        "openvla": {
+          "latency_ms": 940.7401129869347,
+          "time_per_success_s": 358.8771099225932,
+          "energy_per_success_kj": 68.41539280812404,
+          "usd_per_1k_success": 516.456709873889,
+          "success": 0.765
+        },
+        "openvla-oft": {
+          "latency_ms": 460.0821275161108,
+          "time_per_success_s": 23.85884516054636,
+          "energy_per_success_kj": 4.28390208323544,
+          "usd_per_1k_success": 34.32402184867844,
+          "success": 0.971
+        },
+        "pi0": {
+          "latency_ms": 460.18389816616804,
+          "time_per_success_s": 33.76969574529666,
+          "energy_per_success_kj": 6.163549505029122,
+          "usd_per_1k_success": 48.58622924774335,
+          "success": 0.9415
+        },
+        "pi05": {
+          "latency_ms": 418.2098967979891,
+          "time_per_success_s": 29.878771814429804,
+          "energy_per_success_kj": 5.436431719184425,
+          "usd_per_1k_success": 42.98744672720268,
+          "success": 0.9685
+        },
+        "smolvla": {
+          "latency_ms": 492.8330813979199,
+          "time_per_success_s": 27.98484246413935,
+          "energy_per_success_kj": 4.99752630585511,
+          "usd_per_1k_success": 40.258666800452616,
+          "success": 0.8725
+        },
+        "gr00t-n1.6": {
+          "latency_ms": 300.0,
+          "time_per_success_s": 19.424470877191556,
+          "energy_per_success_kj": 3.4317393231743725,
+          "usd_per_1k_success": 27.94227152293607,
+          "success": 0.969875
+        }
+      }
+    },
+    "jetson-orin-nano-super": {
+      "tau_latency_vs_usd": 0.7333333333333333,
+      "fastest": "gr00t-n1.6",
+      "cheapest": "gr00t-n1.6",
+      "per_model": {
+        "openvla": {
+          "latency_ms": 1888.1895269119266,
+          "time_per_success_s": 702.0729722988043,
+          "energy_per_success_kj": 117.02884757522749,
+          "usd_per_1k_success": 983.6731419902042,
+          "success": 0.765
+        },
+        "openvla-oft": {
+          "latency_ms": 1093.377316889171,
+          "time_per_success_s": 41.559020228333196,
+          "energy_per_success_kj": 6.808358072536327,
+          "usd_per_1k_success": 58.22330244375349,
+          "success": 0.971
+        },
+        "pi0": {
+          "latency_ms": 846.2329120947069,
+          "time_per_success_s": 52.14939955086046,
+          "energy_per_success_kj": 8.566624356963548,
+          "usd_per_1k_success": 73.06116961752222,
+          "success": 0.9415
+        },
+        "pi05": {
+          "latency_ms": 754.7992952024699,
+          "time_per_success_s": 44.974898598880834,
+          "energy_per_success_kj": 7.377344746374834,
+          "usd_per_1k_success": 63.00926632404652,
+          "success": 0.9685
+        },
+        "smolvla": {
+          "latency_ms": 669.4722552703834,
+          "time_per_success_s": 33.029575677830245,
+          "energy_per_success_kj": 5.349022050526697,
+          "usd_per_1k_success": 46.27114850411836,
+          "success": 0.8725
+        },
+        "gr00t-n1.6": {
+          "latency_ms": 357.96694884045394,
+          "time_per_success_s": 21.046841457154464,
+          "energy_per_success_kj": 3.38248515212417,
+          "usd_per_1k_success": 29.483448027496966,
+          "success": 0.969875
+        }
+      }
+    }
+  },
+  "cheapest_device": {
+    "openvla|compute-only|sync": "rtx-5090",
+    "openvla|compute-only|async": "rtx-5090",
+    "openvla|robot|sync": "rtx-5090",
+    "openvla|robot|async": "h100-sxm",
+    "openvla|robot+operator|sync": "h100-sxm",
+    "openvla|robot+operator|async": "h100-sxm",
+    "openvla-oft|compute-only|sync": "rtx-4090",
+    "openvla-oft|compute-only|async": "rtx-4090",
+    "openvla-oft|robot|sync": "rtx-5090",
+    "openvla-oft|robot|async": "rtx-4090",
+    "openvla-oft|robot+operator|sync": "h100-sxm",
+    "openvla-oft|robot+operator|async": "rtx-5090",
+    "pi0|compute-only|sync": "jetson-orin-nano-super",
+    "pi0|compute-only|async": "jetson-orin-nano-super",
+    "pi0|robot|sync": "rtx-5090",
+    "pi0|robot|async": "rtx-4090",
+    "pi0|robot+operator|sync": "rtx-5090",
+    "pi0|robot+operator|async": "rtx-5090",
+    "pi05|compute-only|sync": "jetson-orin-nano-super",
+    "pi05|compute-only|async": "jetson-orin-nano-super",
+    "pi05|robot|sync": "rtx-5090",
+    "pi05|robot|async": "rtx-4090",
+    "pi05|robot+operator|sync": "rtx-5090",
+    "pi05|robot+operator|async": "rtx-5090",
+    "smolvla|compute-only|sync": "jetson-orin-nano-super",
+    "smolvla|compute-only|async": "jetson-orin-nano-super",
+    "smolvla|robot|sync": "rtx-4090",
+    "smolvla|robot|async": "rtx-4090",
+    "smolvla|robot+operator|sync": "rtx-5090",
+    "smolvla|robot+operator|async": "rtx-4090",
+    "gr00t-n1.6|compute-only|sync": "jetson-orin-nano-super",
+    "gr00t-n1.6|compute-only|async": "jetson-orin-nano-super",
+    "gr00t-n1.6|robot|sync": "rtx-5090",
+    "gr00t-n1.6|robot|async": "rtx-4090",
+    "gr00t-n1.6|robot+operator|sync": "rtx-5090",
+    "gr00t-n1.6|robot+operator|async": "rtx-5090"
+  },
+  "realtime": {
+    "openvla": {
+      "h100-sxm": false,
+      "a10g": false,
+      "l4": false,
+      "t4": false,
+      "rtx-4090": false,
+      "rtx-5090": false,
+      "jetson-agx-thor": false,
+      "jetson-agx-orin-64gb": false,
+      "jetson-orin-nano-super": false
+    },
+    "openvla-oft": {
+      "h100-sxm": true,
+      "a10g": true,
+      "l4": true,
+      "t4": true,
+      "rtx-4090": true,
+      "rtx-5090": true,
+      "jetson-agx-thor": true,
+      "jetson-agx-orin-64gb": false,
+      "jetson-orin-nano-super": false
+    },
+    "pi0": {
+      "h100-sxm": true,
+      "a10g": true,
+      "l4": true,
+      "t4": false,
+      "rtx-4090": true,
+      "rtx-5090": true,
+      "jetson-agx-thor": true,
+      "jetson-agx-orin-64gb": false,
+      "jetson-orin-nano-super": false
+    },
+    "pi05": {
+      "h100-sxm": true,
+      "a10g": true,
+      "l4": true,
+      "t4": false,
+      "rtx-4090": true,
+      "rtx-5090": true,
+      "jetson-agx-thor": true,
+      "jetson-agx-orin-64gb": false,
+      "jetson-orin-nano-super": false
+    },
+    "smolvla": {
+      "h100-sxm": true,
+      "a10g": true,
+      "l4": true,
+      "t4": true,
+      "rtx-4090": true,
+      "rtx-5090": true,
+      "jetson-agx-thor": true,
+      "jetson-agx-orin-64gb": true,
+      "jetson-orin-nano-super": false
+    },
+    "gr00t-n1.6": {
+      "h100-sxm": true,
+      "a10g": true,
+      "l4": true,
+      "t4": true,
+      "rtx-4090": true,
+      "rtx-5090": true,
+      "jetson-agx-thor": true,
+      "jetson-agx-orin-64gb": true,
+      "jetson-orin-nano-super": true
+    }
+  },
+  "long_over_spatial_cost_ratio_thor": {
+    "openvla": 4.253571214032558,
+    "openvla-oft": 2.3950715712763473,
+    "pi0": 2.773104064847785,
+    "pi05": 2.5181391875053816,
+    "smolvla": 3.160530075709672,
+    "gr00t-n1.6": 2.40382746216006
+  },
+  "succ_frac_sensitivity": {
+    "0.4": {
+      "cheapest": "gr00t-n1.6",
+      "order": [
+        "gr00t-n1.6",
+        "openvla-oft",
+        "pi05",
+        "pi0",
+        "smolvla",
+        "openvla"
+      ]
+    },
+    "0.6": {
+      "cheapest": "gr00t-n1.6",
+      "order": [
+        "gr00t-n1.6",
+        "openvla-oft",
+        "pi05",
+        "pi0",
+        "smolvla",
+        "openvla"
+      ]
+    },
+    "0.8": {
+      "cheapest": "gr00t-n1.6",
+      "order": [
+        "gr00t-n1.6",
+        "openvla-oft",
+        "pi05",
+        "smolvla",
+        "pi0",
+        "openvla"
+      ]
+    },
+    "1.0": {
+      "cheapest": "gr00t-n1.6",
+      "order": [
+        "gr00t-n1.6",
+        "openvla-oft",
+        "pi05",
+        "smolvla",
+        "pi0",
+        "openvla"
+      ]
+    }
+  },
+  "thor_energy": {
+    "rows": [
+      {
+        "model": "openvla",
+        "measured_j": 20.93,
+        "implied_w": 47.03370786516854,
+        "default_j": 38.27,
+        "loo_j": 21.448777353140436
+      },
+      {
+        "model": "openvla-oft",
+        "measured_j": 14.32,
+        "implied_w": 79.11602209944752,
+        "default_j": 15.565999999999999,
+        "loo_j": 7.272384721164987
+      },
+      {
+        "model": "pi05",
+        "measured_j": 9.05,
+        "implied_w": 43.50961538461539,
+        "default_j": 17.887999999999998,
+        "loo_j": 10.208748740344294
+      },
+      {
+        "model": "gr00t-n1.7",
+        "measured_j": 6.9,
+        "implied_w": 46.30872483221477,
+        "default_j": 12.814,
+        "loo_j": 7.208731068804326
+      },
+      {
+        "model": "smolvla",
+        "measured_j": 7.35,
+        "implied_w": 23.863636363636363,
+        "default_j": 26.488,
+        "loo_j": 16.62954140397136
+      }
+    ],
+    "default_mape": 1.070594520771747,
+    "loo_mape": 0.39044860348905475
+  },
+  "pi0_jax_sensitivity": {
+    "h100-sxm": {
+      "pi0_latency_ms": 28.623496094736065,
+      "fastest": "pi0",
+      "cheapest": "openvla-oft"
+    },
+    "a10g": {
+      "pi0_latency_ms": 97.71631829172006,
+      "fastest": "pi0",
+      "cheapest": "gr00t-n1.6"
+    },
+    "l4": {
+      "pi0_latency_ms": 112.79277691066774,
+      "fastest": "pi0",
+      "cheapest": "gr00t-n1.6"
+    },
+    "t4": {
+      "pi0_latency_ms": 169.82630407255155,
+      "fastest": "gr00t-n1.6",
+      "cheapest": "gr00t-n1.6"
+    },
+    "rtx-4090": {
+      "pi0_latency_ms": 72.99999999999999,
+      "fastest": "pi0",
+      "cheapest": "gr00t-n1.6"
+    },
+    "rtx-5090": {
+      "pi0_latency_ms": 59.41300173960561,
+      "fastest": "gr00t-n1.6",
+      "cheapest": "gr00t-n1.6"
+    },
+    "jetson-agx-thor": {
+      "pi0_latency_ms": 92.41129724891188,
+      "fastest": "pi0",
+      "cheapest": "gr00t-n1.6"
+    },
+    "jetson-agx-orin-64gb": {
+      "pi0_latency_ms": 263.8002059721131,
+      "fastest": "pi0",
+      "cheapest": "gr00t-n1.6"
+    },
+    "jetson-orin-nano-super": {
+      "pi0_latency_ms": 593.7395935594931,
+      "fastest": "gr00t-n1.6",
+      "cheapest": "gr00t-n1.6"
+    }
+  },
+  "anchors": {
+    "openvla": [
+      "h100-nvl",
+      103.8
+    ],
+    "openvla-oft": [
+      "h100-nvl",
+      42.4
+    ],
+    "pi0": [
+      "h100-nvl",
+      118.15615395409404
+    ],
+    "pi05": [
+      "h100-nvl",
+      111.6
+    ],
+    "smolvla": [
+      "h100-nvl",
+      208.3
+    ],
+    "gr00t-n1.6": [
+      "h100-sxm",
+      77.0
+    ]
+  },
+  "measured_cells": [
+    "gr00t-n1.6|rtx-5090",
+    "gr00t-n1.6|h100-sxm",
+    "gr00t-n1.6|rtx-4090",
+    "gr00t-n1.6|jetson-agx-thor",
+    "gr00t-n1.6|jetson-agx-orin-64gb",
+    "openvla|jetson-agx-thor",
+    "openvla-oft|jetson-agx-thor",
+    "pi05|jetson-agx-thor",
+    "smolvla|jetson-agx-thor"
+  ],
+  "success_sources": {
+    "openvla": [
+      "OpenVLA-OFT arXiv 2502.19645 Table I (fine-tuned OpenVLA)",
+      500
+    ],
+    "openvla-oft": [
+      "OpenVLA-OFT arXiv 2502.19645 Table I",
+      500
+    ],
+    "pi0": [
+      "OpenVLA-OFT arXiv 2502.19645 Table I (pi0 fine-tuned)",
+      500
+    ],
+    "pi05": [
+      "openpi examples/libero/README.md (replan_steps=5)",
+      500
+    ],
+    "smolvla": [
+      "SmolVLA arXiv 2506.01844 LIBERO table (0.45B)",
+      500
+    ],
+    "gr00t-n1.6": [
+      "Isaac-GR00T n1d6 examples/LIBERO/README.md",
+      200
+    ]
+  },
+  "mc": {
+    "n": 2000,
+    "p_cheapest_model": {
+      "compute-only": {
+        "h100-sxm": {
+          "openvla-oft": 0.983,
+          "gr00t-n1.6": 0.017
+        },
+        "a10g": {
+          "openvla-oft": 0.147,
+          "pi05": 0.0005,
+          "smolvla": 0.0805,
+          "gr00t-n1.6": 0.772
+        },
+        "l4": {
+          "openvla-oft": 0.2405,
+          "pi0": 0.0005,
+          "pi05": 0.0075,
+          "smolvla": 0.1085,
+          "gr00t-n1.6": 0.643
+        },
+        "t4": {
+          "pi05": 0.002,
+          "smolvla": 0.1575,
+          "gr00t-n1.6": 0.8405
+        },
+        "rtx-4090": {
+          "openvla-oft": 0.135,
+          "pi05": 0.002,
+          "smolvla": 0.028,
+          "gr00t-n1.6": 0.835
+        },
+        "rtx-5090": {
+          "openvla-oft": 0.0705,
+          "smolvla": 0.001,
+          "gr00t-n1.6": 0.9285
+        },
+        "jetson-agx-thor": {
+          "openvla-oft": 0.025,
+          "smolvla": 0.0175,
+          "gr00t-n1.6": 0.9575
+        },
+        "jetson-agx-orin-64gb": {
+          "openvla-oft": 0.0885,
+          "pi0": 0.0005,
+          "pi05": 0.0075,
+          "smolvla": 0.3295,
+          "gr00t-n1.6": 0.574
+        },
+        "jetson-orin-nano-super": {
+          "smolvla": 0.324,
+          "gr00t-n1.6": 0.676
+        }
+      },
+      "robot": {
+        "h100-sxm": {
+          "openvla-oft": 0.983,
+          "gr00t-n1.6": 0.017
+        },
+        "a10g": {
+          "openvla-oft": 0.152,
+          "pi05": 0.001,
+          "smolvla": 0.054,
+          "gr00t-n1.6": 0.793
+        },
+        "l4": {
+          "openvla-oft": 0.243,
+          "pi0": 0.0005,
+          "pi05": 0.008,
+          "smolvla": 0.0975,
+          "gr00t-n1.6": 0.651
+        },
+        "t4": {
+          "pi05": 0.002,
+          "smolvla": 0.1435,
+          "gr00t-n1.6": 0.8545
+        },
+        "rtx-4090": {
+          "openvla-oft": 0.1395,
+          "pi05": 0.002,
+          "smolvla": 0.0005,
+          "gr00t-n1.6": 0.858
+        },
+        "rtx-5090": {
+          "openvla-oft": 0.0795,
+          "gr00t-n1.6": 0.9205
+        },
+        "jetson-agx-thor": {
+          "openvla-oft": 0.027,
+          "smolvla": 0.0125,
+          "gr00t-n1.6": 0.9605
+        },
+        "jetson-agx-orin-64gb": {
+          "openvla-oft": 0.089,
+          "pi0": 0.0005,
+          "pi05": 0.0075,
+          "smolvla": 0.3235,
+          "gr00t-n1.6": 0.5795
+        },
+        "jetson-orin-nano-super": {
+          "smolvla": 0.309,
+          "gr00t-n1.6": 0.691
+        }
+      },
+      "robot+operator": {
+        "h100-sxm": {
+          "openvla-oft": 0.983,
+          "gr00t-n1.6": 0.017
+        },
+        "a10g": {
+          "openvla-oft": 0.152,
+          "pi05": 0.001,
+          "smolvla": 0.0535,
+          "gr00t-n1.6": 0.7935
+        },
+        "l4": {
+          "openvla-oft": 0.243,
+          "pi0": 0.0005,
+          "pi05": 0.008,
+          "smolvla": 0.097,
+          "gr00t-n1.6": 0.6515
+        },
+        "t4": {
+          "pi05": 0.002,
+          "smolvla": 0.1435,
+          "gr00t-n1.6": 0.8545
+        },
+        "rtx-4090": {
+          "openvla-oft": 0.1395,
+          "pi05": 0.002,
+          "smolvla": 0.0005,
+          "gr00t-n1.6": 0.858
+        },
+        "rtx-5090": {
+          "openvla-oft": 0.08,
+          "gr00t-n1.6": 0.92
+        },
+        "jetson-agx-thor": {
+          "openvla-oft": 0.027,
+          "smolvla": 0.0125,
+          "gr00t-n1.6": 0.9605
+        },
+        "jetson-agx-orin-64gb": {
+          "openvla-oft": 0.089,
+          "pi0": 0.0005,
+          "pi05": 0.0075,
+          "smolvla": 0.3235,
+          "gr00t-n1.6": 0.5795
+        },
+        "jetson-orin-nano-super": {
+          "smolvla": 0.309,
+          "gr00t-n1.6": 0.691
+        }
+      }
+    },
+    "p_cheapest_device": {
+      "compute-only": {
+        "openvla": {
+          "a10g": 0.0005,
+          "l4": 0.0005,
+          "rtx-4090": 0.436,
+          "rtx-5090": 0.563
+        },
+        "openvla-oft": {
+          "l4": 0.002,
+          "rtx-4090": 0.8745,
+          "rtx-5090": 0.1235
+        },
+        "pi0": {
+          "jetson-orin-nano-super": 1.0
+        },
+        "pi05": {
+          "jetson-orin-nano-super": 1.0
+        },
+        "smolvla": {
+          "jetson-orin-nano-super": 1.0
+        },
+        "gr00t-n1.6": {
+          "jetson-orin-nano-super": 1.0
+        }
+      },
+      "robot": {
+        "openvla": {
+          "h100-sxm": 0.343,
+          "a10g": 0.006,
+          "rtx-4090": 0.157,
+          "rtx-5090": 0.494
+        },
+        "openvla-oft": {
+          "h100-sxm": 0.0375,
+          "a10g": 0.0285,
+          "l4": 0.0465,
+          "rtx-4090": 0.323,
+          "rtx-5090": 0.558,
+          "jetson-agx-thor": 0.0065
+        },
+        "pi0": {
+          "h100-sxm": 0.018,
+          "a10g": 0.071,
+          "l4": 0.044,
+          "t4": 0.007,
+          "rtx-4090": 0.3345,
+          "rtx-5090": 0.471,
+          "jetson-agx-thor": 0.0545
+        },
+        "pi05": {
+          "h100-sxm": 0.014,
+          "a10g": 0.06,
+          "l4": 0.0455,
+          "t4": 0.0075,
+          "rtx-4090": 0.374,
+          "rtx-5090": 0.4955,
+          "jetson-agx-thor": 0.0035
+        },
+        "smolvla": {
+          "h100-sxm": 0.001,
+          "a10g": 0.0655,
+          "l4": 0.09,
+          "t4": 0.038,
+          "rtx-4090": 0.4225,
+          "rtx-5090": 0.381,
+          "jetson-agx-thor": 0.002
+        },
+        "gr00t-n1.6": {
+          "a10g": 0.0045,
+          "l4": 0.0005,
+          "rtx-4090": 0.073,
+          "rtx-5090": 0.922
+        }
+      },
+      "robot+operator": {
+        "openvla": {
+          "h100-sxm": 0.6425,
+          "a10g": 0.003,
+          "rtx-4090": 0.078,
+          "rtx-5090": 0.2765
+        },
+        "openvla-oft": {
+          "h100-sxm": 0.672,
+          "a10g": 0.0045,
+          "l4": 0.004,
+          "rtx-4090": 0.1,
+          "rtx-5090": 0.2195
+        },
+        "pi0": {
+          "h100-sxm": 0.205,
+          "a10g": 0.057,
+          "l4": 0.0305,
+          "t4": 0.004,
+          "rtx-4090": 0.2755,
+          "rtx-5090": 0.3815,
+          "jetson-agx-thor": 0.0465
+        },
+        "pi05": {
+          "h100-sxm": 0.163,
+          "a10g": 0.0555,
+          "l4": 0.0375,
+          "t4": 0.002,
+          "rtx-4090": 0.3055,
+          "rtx-5090": 0.434,
+          "jetson-agx-thor": 0.0025
+        },
+        "smolvla": {
+          "h100-sxm": 0.042,
+          "a10g": 0.105,
+          "l4": 0.0885,
+          "t4": 0.0305,
+          "rtx-4090": 0.3515,
+          "rtx-5090": 0.3805,
+          "jetson-agx-thor": 0.002
+        },
+        "gr00t-n1.6": {
+          "a10g": 0.016,
+          "l4": 0.0005,
+          "rtx-4090": 0.053,
+          "rtx-5090": 0.9305
+        }
+      }
+    },
+    "usd_per_1k": {
+      "compute-only": {
+        "openvla|h100-sxm": [
+          19.25220999844957,
+          38.83885647272637,
+          82.7695428297927
+        ],
+        "openvla|a10g": [
+          5.492256183360475,
+          11.822375757806181,
+          25.845590703917875
+        ],
+        "openvla|l4": [
+          5.319466491236911,
+          11.946257064620921,
+          27.381330319753694
+        ],
+        "openvla|rtx-4090": [
+          2.197189854152309,
+          4.5693470651066965,
+          9.34836458302709
+        ],
+        "openvla|rtx-5090": [
+          2.1525072359767687,
+          4.366012475300586,
+          8.844616882795806
+        ],
+        "openvla|jetson-agx-thor": [
+          6.774763675303181,
+          13.00230470783196,
+          27.014347975532765
+        ],
+        "openvla|jetson-agx-orin-64gb": [
+          6.707721429000019,
+          15.362699541286306,
+          36.03170752526441
+        ],
+        "openvla-oft|h100-sxm": [
+          3.7928835385611843,
+          7.374267592547647,
+          15.79166827040599
+        ],
+        "openvla-oft|a10g": [
+          0.5968459633775065,
+          1.1658832436039102,
+          2.4131622182088313
+        ],
+        "openvla-oft|l4": [
+          0.4111796331314825,
+          0.8144657062476677,
+          1.757593526784314
+        ],
+        "openvla-oft|rtx-4090": [
+          0.27305173985115283,
+          0.5247654948032205,
+          1.0640210443721438
+        ],
+        "openvla-oft|rtx-5090": [
+          0.32995118687289166,
+          0.622245567493863,
+          1.247635708021515
+        ],
+        "openvla-oft|jetson-agx-thor": [
+          0.5792487242396627,
+          1.1231283567692905,
+          2.370683878902106
+        ],
+        "openvla-oft|jetson-agx-orin-64gb": [
+          0.4889128756719363,
+          0.9939712412831423,
+          2.251595490734112
+        ],
+        "pi0|h100-sxm": [
+          5.566929677977284,
+          11.10614107655178,
+          23.64570869978504
+        ],
+        "pi0|a10g": [
+          0.8127126653021073,
+          1.6384399829202856,
+          3.3307836237201274
+        ],
+        "pi0|l4": [
+          0.5763730084889299,
+          1.146687510245768,
+          2.4619115176060458
+        ],
+        "pi0|t4": [
+          0.5334605138673608,
+          1.0776208699930416,
+          2.380818753448576
+        ],
+        "pi0|rtx-4090": [
+          0.38721396458585594,
+          0.732705724905451,
+          1.485873316008779
+        ],
+        "pi0|rtx-5090": [
+          0.4589673739149882,
+          0.8739078105255292,
+          1.7500111240626006
+        ],
+        "pi0|jetson-agx-thor": [
+          0.7990008873203063,
+          1.58706867531676,
+          3.4167103614348378
+        ],
+        "pi0|jetson-agx-orin-64gb": [
+          0.6771230883946158,
+          1.4054827854063614,
+          3.1317736842160167
+        ],
+        "pi0|jetson-orin-nano-super": [
+          0.1447177810165493,
+          0.30287204969795456,
+          0.6581529994861661
+        ],
+        "pi05|h100-sxm": [
+          5.0090211254928025,
+          10.065519540131449,
+          22.008564765901614
+        ],
+        "pi05|a10g": [
+          0.7294693290459324,
+          1.4407612535968644,
+          3.0851365274873084
+        ],
+        "pi05|l4": [
+          0.5131094118796923,
+          1.0305803878163282,
+          2.227128358293202
+        ],
+        "pi05|t4": [
+          0.4721888326050997,
+          0.953476832615303,
+          2.1245147189702034
+        ],
+        "pi05|rtx-4090": [
+          0.3443733230942316,
+          0.6552641518074177,
+          1.3564453243171704
+        ],
+        "pi05|rtx-5090": [
+          0.4119547478188617,
+          0.7870755257946956,
+          1.583930095563038
+        ],
+        "pi05|jetson-agx-thor": [
+          0.7350389533327443,
+          1.4433012462248043,
+          3.0429689256236747
+        ],
+        "pi05|jetson-agx-orin-64gb": [
+          0.6116001032571492,
+          1.2288356311321256,
+          2.6787180435366618
+        ],
+        "pi05|jetson-orin-nano-super": [
+          0.12308376270991139,
+          0.25898490601682805,
+          0.5707104466653447
+        ],
+        "smolvla|h100-sxm": [
+          5.527625838584416,
+          11.380099300735786,
+          25.64495820752207
+        ],
+        "smolvla|a10g": [
+          0.669199800015187,
+          1.4024961573087167,
+          3.2801510056616694
+        ],
+        "smolvla|l4": [
+          0.4719036520829194,
+          0.9882610345961393,
+          2.264777948582351
+        ],
+        "smolvla|t4": [
+          0.39398564463136976,
+          0.8388972580398905,
+          2.0126569091818265
+        ],
+        "smolvla|rtx-4090": [
+          0.3259775102240462,
+          0.6623206216743581,
+          1.4121851874930118
+        ],
+        "smolvla|rtx-5090": [
+          0.4011237705204266,
+          0.8107929538701367,
+          1.813949873378506
+        ],
+        "smolvla|jetson-agx-thor": [
+          0.6855862887993315,
+          1.4819019052364018,
+          3.3982047057382387
+        ],
+        "smolvla|jetson-agx-orin-64gb": [
+          0.43060502583364435,
+          1.0247526916143475,
+          2.772679365346699
+        ],
+        "smolvla|jetson-orin-nano-super": [
+          0.06362119048964396,
+          0.15815387604804632,
+          0.46701222419874333
+        ],
+        "gr00t-n1.6|h100-sxm": [
+          4.069395050756538,
+          7.973472714191646,
+          17.16046769033495
+        ],
+        "gr00t-n1.6|a10g": [
+          0.5246314197222537,
+          1.0318516310714292,
+          2.1663901362767506
+        ],
+        "gr00t-n1.6|l4": [
+          0.3784574795565073,
+          0.74817211905357,
+          1.6382012868294882
+        ],
+        "gr00t-n1.6|t4": [
+          0.314027864349978,
+          0.622964058618043,
+          1.3148413945886401
+        ],
+        "gr00t-n1.6|rtx-4090": [
+          0.2487753368639153,
+          0.46251448995809225,
+          0.9458119668375284
+        ],
+        "gr00t-n1.6|rtx-5090": [
+          0.2886891685234845,
+          0.5388875453335147,
+          1.110396209642117
+        ],
+        "gr00t-n1.6|jetson-agx-thor": [
+          0.5153477450751176,
+          0.9961993199463556,
+          2.104207285833991
+        ],
+        "gr00t-n1.6|jetson-agx-orin-64gb": [
+          0.40253431252706495,
+          0.7816376068072964,
+          1.6740978168467908
+        ],
+        "gr00t-n1.6|jetson-orin-nano-super": [
+          0.05947108292274504,
+          0.11892463686509498,
+          0.2455949149405942
+        ]
+      },
+      "robot": {
+        "openvla|h100-sxm": [
+          79.85580276389211,
+          151.8131899365251,
+          267.46796353436054
+        ],
+        "openvla|a10g": [
+          115.5704211279187,
+          272.2129768670893,
+          533.7091497532381
+        ],
+        "openvla|l4": [
+          168.54804902661922,
+          406.16590317029465,
+          806.3405098448651
+        ],
+        "openvla|rtx-4090": [
+          77.4960924894238,
+          184.28417669608405,
+          355.12083454433116
+        ],
+        "openvla|rtx-5090": [
+          61.85473801953127,
+          143.36823424181472,
+          269.1009425499533
+        ],
+        "openvla|jetson-agx-thor": [
+          155.73425417409018,
+          324.8319256218608,
+          560.0390827030207
+        ],
+        "openvla|jetson-agx-orin-64gb": [
+          269.6276699929887,
+          645.7843508004606,
+          1359.735177072598
+        ],
+        "openvla-oft|h100-sxm": [
+          15.74040396048707,
+          29.536213008272746,
+          49.07622963911769
+        ],
+        "openvla-oft|a10g": [
+          13.57142136543111,
+          29.172843893217173,
+          51.43230677270727
+        ],
+        "openvla-oft|l4": [
+          13.295214194599488,
+          29.21531192885942,
+          51.929880473299605
+        ],
+        "openvla-oft|rtx-4090": [
+          11.956163692243345,
+          25.714933570167055,
+          46.36666461410006
+        ],
+        "openvla-oft|rtx-5090": [
+          11.61755494895025,
+          24.9647785815553,
+          43.57132644956498
+        ],
+        "openvla-oft|jetson-agx-thor": [
+          13.639595757145553,
+          28.910514080314222,
+          50.10999960573528
+        ],
+        "openvla-oft|jetson-agx-orin-64gb": [
+          19.002744511733543,
+          42.952510852095294,
+          80.28992105783573
+        ],
+        "pi0|h100-sxm": [
+          23.479764619237464,
+          43.91878048060506,
+          73.87894547099174
+        ],
+        "pi0|a10g": [
+          17.935885854757135,
+          39.31363890776096,
+          71.89939491638087
+        ],
+        "pi0|l4": [
+          18.632751069913873,
+          40.16307388946268,
+          72.99343282930813
+        ],
+        "pi0|t4": [
+          21.424821665640934,
+          46.77678568741939,
+          88.98141134020172
+        ],
+        "pi0|rtx-4090": [
+          15.581103946483738,
+          34.09858681434153,
+          61.7808241582664
+        ],
+        "pi0|rtx-5090": [
+          14.945989982640038,
+          33.16318082436201,
+          59.74478593938229
+        ],
+        "pi0|jetson-agx-thor": [
+          18.36635165680221,
+          39.81087902162294,
+          73.97541221143324
+        ],
+        "pi0|jetson-agx-orin-64gb": [
+          26.187943881316176,
+          60.2344041793807,
+          116.09212659938372
+        ],
+        "pi0|jetson-orin-nano-super": [
+          38.65645680153984,
+          91.354280484724,
+          186.67729797900066
+        ],
+        "pi05|h100-sxm": [
+          21.571190542171554,
+          40.05633490172067,
+          67.49267399094023
+        ],
+        "pi05|a10g": [
+          16.224035345817782,
+          35.25637749415033,
+          64.95481706223947
+        ],
+        "pi05|l4": [
+          16.546035695549865,
+          36.173726325312046,
+          66.27020789642103
+        ],
+        "pi05|t4": [
+          18.644128836904443,
+          41.754317093706405,
+          79.8897881283165
+        ],
+        "pi05|rtx-4090": [
+          14.026777470598283,
+          30.762671830499045,
+          55.15831696229273
+        ],
+        "pi05|rtx-5090": [
+          13.662887807339809,
+          30.02825095660427,
+          53.60567201541889
+        ],
+        "pi05|jetson-agx-thor": [
+          17.368857649497908,
+          37.0294604701495,
+          64.96845985653236
+        ],
+        "pi05|jetson-agx-orin-64gb": [
+          23.650408470733392,
+          53.136784422942206,
+          103.3989030214793
+        ],
+        "pi05|jetson-orin-nano-super": [
+          33.033476278501496,
+          79.81040559183998,
+          158.59150515882007
+        ],
+        "smolvla|h100-sxm": [
+          22.476208343509057,
+          45.81307610477721,
+          88.01503919167071
+        ],
+        "smolvla|a10g": [
+          15.369471694570008,
+          35.30584981256514,
+          70.50720764573929
+        ],
+        "smolvla|l4": [
+          15.19677807864512,
+          35.41812963653901,
+          71.99233744456542
+        ],
+        "smolvla|t4": [
+          15.381867895362582,
+          37.09931801173564,
+          77.92109713456108
+        ],
+        "smolvla|rtx-4090": [
+          13.985397005135884,
+          32.84325216230562,
+          61.59289565092459
+        ],
+        "smolvla|rtx-5090": [
+          14.13560366333013,
+          32.89603226902253,
+          61.93110548513981
+        ],
+        "smolvla|jetson-agx-thor": [
+          15.763286820622266,
+          37.794750972483676,
+          77.64021636150477
+        ],
+        "smolvla|jetson-agx-orin-64gb": [
+          16.492815541744754,
+          43.617957731319585,
+          109.18448091914006
+        ],
+        "smolvla|jetson-orin-nano-super": [
+          17.576438014678597,
+          47.94878485122968,
+          134.08385476318114
+        ],
+        "gr00t-n1.6|h100-sxm": [
+          17.05437808064641,
+          32.11567414352059,
+          53.306318576671885
+        ],
+        "gr00t-n1.6|a10g": [
+          12.242932894267284,
+          26.138389267578045,
+          45.37551577826367
+        ],
+        "gr00t-n1.6|l4": [
+          12.389301047255877,
+          27.109229249906004,
+          47.96472929425173
+        ],
+        "gr00t-n1.6|t4": [
+          12.421019229259855,
+          27.7065996080405,
+          49.364573958081586
+        ],
+        "gr00t-n1.6|rtx-4090": [
+          10.934811757899407,
+          23.678403564879446,
+          41.033270188143774
+        ],
+        "gr00t-n1.6|rtx-5090": [
+          10.446284557712547,
+          22.513556952827603,
+          39.22780534662372
+        ],
+        "gr00t-n1.6|jetson-agx-thor": [
+          12.126480994465009,
+          25.845477234132108,
+          45.118269764213686
+        ],
+        "gr00t-n1.6|jetson-agx-orin-64gb": [
+          15.830376781084732,
+          34.33716473395525,
+          60.68890086539036
+        ],
+        "gr00t-n1.6|jetson-orin-nano-super": [
+          16.438316473159194,
+          37.418968431034024,
+          68.23655989328047
+        ]
+      },
+      "robot+operator": {
+        "openvla|h100-sxm": [
+          448.26218162221795,
+          782.996060500788,
+          1280.9448998470523
+        ],
+        "openvla|a10g": [
+          920.0878822165297,
+          1765.5644676572513,
+          3071.3558206117527
+        ],
+        "openvla|l4": [
+          1343.8646666395737,
+          2663.6183016012355,
+          4879.75885608624
+        ],
+        "openvla|rtx-4090": [
+          636.5501140784744,
+          1195.6310860528608,
+          2103.693523118124
+        ],
+        "openvla|rtx-5090": [
+          509.35606089249313,
+          929.545958097384,
+          1544.1305832811886
+        ],
+        "openvla|jetson-agx-thor": [
+          1254.5480306577867,
+          2066.728448176369,
+          3204.4198909344277
+        ],
+        "openvla|jetson-agx-orin-64gb": [
+          2162.9608823176604,
+          4281.11609973436,
+          7903.243414176046
+        ],
+        "openvla-oft|h100-sxm": [
+          91.11896886836821,
+          151.83144540416922,
+          235.6753054465629
+        ],
+        "openvla-oft|a10g": [
+          109.64631179048328,
+          185.18148393491828,
+          293.7376755425005
+        ],
+        "openvla-oft|l4": [
+          110.4996911080829,
+          187.70557417460154,
+          299.9788126777833
+        ],
+        "openvla-oft|rtx-4090": [
+          97.55790706316026,
+          168.22227934994666,
+          267.9825598569703
+        ],
+        "openvla-oft|rtx-5090": [
+          94.86171396196258,
+          161.6166011237512,
+          252.1849740639408
+        ],
+        "openvla-oft|jetson-agx-thor": [
+          109.32845340120592,
+          184.1108877141709,
+          285.3987650063501
+        ],
+        "openvla-oft|jetson-agx-orin-64gb": [
+          157.32498938034894,
+          278.7393701488563,
+          470.2838656013381
+        ],
+        "pi0|h100-sxm": [
+          133.6166266569256,
+          223.18549160753076,
+          346.51865182977656
+        ],
+        "pi0|a10g": [
+          145.09591526745473,
+          251.8144679321409,
+          410.7040857130569
+        ],
+        "pi0|l4": [
+          150.04708689845646,
+          260.5923895160029,
+          425.3206952157401
+        ],
+        "pi0|t4": [
+          173.44916005869914,
+          304.7169142727135,
+          514.303661869829
+        ],
+        "pi0|rtx-4090": [
+          129.5863806616778,
+          223.21614280075926,
+          352.64724745541207
+        ],
+        "pi0|rtx-5090": [
+          126.16103734776232,
+          213.06305332199958,
+          340.0368323036273
+        ],
+        "pi0|jetson-agx-thor": [
+          147.75421453255055,
+          257.6712301959581,
+          425.48987027623457
+        ],
+        "pi0|jetson-agx-orin-64gb": [
+          215.7770983464946,
+          395.8545132132281,
+          687.092537610632
+        ],
+        "pi0|jetson-orin-nano-super": [
+          326.0849211264967,
+          615.4866583344225,
+          1090.9043140584458
+        ],
+        "pi05|h100-sxm": [
+          121.87024121442442,
+          204.98658858162122,
+          321.930766403334
+        ],
+        "pi05|a10g": [
+          133.1229502977569,
+          227.1362728191877,
+          368.88039257330917
+        ],
+        "pi05|l4": [
+          132.70294305027318,
+          236.076230921265,
+          387.58086510793254
+        ],
+        "pi05|t4": [
+          153.50294788362916,
+          273.8655814496942,
+          456.3456011486528
+        ],
+        "pi05|rtx-4090": [
+          116.64687206965833,
+          199.70518076729968,
+          324.89081534147624
+        ],
+        "pi05|rtx-5090": [
+          112.13036735469827,
+          194.13017853150785,
+          304.37646681335923
+        ],
+        "pi05|jetson-agx-thor": [
+          137.07056223791298,
+          236.45400122894128,
+          366.58968512218695
+        ],
+        "pi05|jetson-agx-orin-64gb": [
+          191.63178155491656,
+          350.4795026615322,
+          612.2061312312252
+        ],
+        "pi05|jetson-orin-nano-super": [
+          285.62103683765764,
+          526.9916103649838,
+          961.9119825691395
+        ],
+        "smolvla|h100-sxm": [
+          133.33932554719644,
+          231.85123509679977,
+          418.3114408142262
+        ],
+        "smolvla|a10g": [
+          125.36905686276964,
+          224.77866351960154,
+          411.8154226762017
+        ],
+        "smolvla|l4": [
+          126.94091509899499,
+          225.57582397880307,
+          422.9123526541616
+        ],
+        "smolvla|t4": [
+          131.93532054466093,
+          237.63067985228005,
+          469.3013575830466
+        ],
+        "smolvla|rtx-4090": [
+          121.50017398959301,
+          207.93320768940208,
+          366.09752349528725
+        ],
+        "smolvla|rtx-5090": [
+          121.63637331009878,
+          208.88451687716272,
+          364.66470647021947
+        ],
+        "smolvla|jetson-agx-thor": [
+          130.13476116984202,
+          238.70295199153216,
+          444.940010360757
+        ],
+        "smolvla|jetson-agx-orin-64gb": [
+          142.19821577724258,
+          280.58539080905064,
+          652.5660152688146
+        ],
+        "smolvla|jetson-orin-nano-super": [
+          155.92156993668607,
+          317.66095692436085,
+          812.105260284942
+        ],
+        "gr00t-n1.6|h100-sxm": [
+          98.95928369209997,
+          164.9742684271775,
+          254.91580695000454
+        ],
+        "gr00t-n1.6|a10g": [
+          98.63792775076342,
+          165.99342658056906,
+          260.54896473287727
+        ],
+        "gr00t-n1.6|l4": [
+          101.01001952029294,
+          175.04442562265865,
+          273.7338240489758
+        ],
+        "gr00t-n1.6|t4": [
+          104.64427379738342,
+          178.16687379829168,
+          282.64553391719784
+        ],
+        "gr00t-n1.6|rtx-4090": [
+          90.40908085499002,
+          153.45975563339277,
+          239.31568326024495
+        ],
+        "gr00t-n1.6|rtx-5090": [
+          86.47163829804828,
+          145.41830585137527,
+          225.85521967083906
+        ],
+        "gr00t-n1.6|jetson-agx-thor": [
+          96.79588000746266,
+          165.57856892645543,
+          256.5288564863544
+        ],
+        "gr00t-n1.6|jetson-agx-orin-64gb": [
+          131.66128670903038,
+          223.85051502101538,
+          352.0732828745034
+        ],
+        "gr00t-n1.6|jetson-orin-nano-super": [
+          142.54801357336297,
+          246.50159223946864,
+          410.1174436015649
+        ]
+      }
+    }
+  }
+}

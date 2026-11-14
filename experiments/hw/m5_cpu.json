@@ -1,0 +1,14 @@
+{
+  "name": "m5-cpu",
+  "peak_tflops": {
+    "fp32": 2.135
+  },
+  "mem_bw_gbs": 126.7,
+  "mem_gb": 16.0,
+  "tdp_w": 0.0,
+  "idle_w": 0.0,
+  "kernel_launch_us": 0.62,
+  "kind": "cpu",
+  "source": "bottle probe on cpu (achieved, torch 2.15.0)",
+  "price_usd": 0.0
+}

@@ -1,0 +1,37 @@
+{\small\setlength{\tabcolsep}{4pt}\begin{tabular}{llrp{9.2cm}}
+\toprule
+Model & Device & ms & Source \\
+\midrule
+pi0 & rtx-4090 & 73 & pi0 paper arXiv 2410.24164, Table I (on-board, 3 cameras, JAX) \\
+openvla & rtx-4090 & 167 & OpenVLA arXiv 2406.09246 Sec 3.5 ($\sim$6 Hz, bf16, no compile) \\
+openvla & a100-40gb & 239.6 & OpenVLA-OFT arXiv 2502.19645 Table II \\
+openvla-oft & a100-40gb & 112 & OpenVLA-OFT arXiv 2502.19645 Table II (wrist + proprio) \\
+gr00t-n1.5 & h100-sxm & 47.88 & Isaac-GR00T n1d5 README FAQ \\
+gr00t-n1.6 & rtx-5090 & 58 & Isaac-GR00T n1d6 scripts/deployment/README.md (eager) \\
+gr00t-n1.6 & h100-sxm & 77 & Isaac-GR00T n1d6 scripts/deployment/README.md (eager) \\
+gr00t-n1.6 & rtx-4090 & 82 & Isaac-GR00T n1d6 scripts/deployment/README.md (eager) \\
+gr00t-n1.6 & jetson-agx-thor & 117 & Isaac-GR00T n1d6 scripts/deployment/README.md (eager) \\
+gr00t-n1.6 & jetson-agx-orin-64gb & 300 & Isaac-GR00T n1d6 scripts/deployment/README.md (eager) \\
+gr00t-n1.7 & h100-sxm & 101.5 & Isaac-GR00T main scripts/deployment/README.md (eager, incl. pre/post) \\
+gr00t-n1.7 & l40 & 123.7 & Isaac-GR00T main scripts/deployment/README.md (eager, incl. pre/post) \\
+gr00t-n1.7 & jetson-agx-thor & 106.8 & Isaac-GR00T main scripts/deployment/README.md (eager, incl. pre/post) \\
+gr00t-n1.7 & jetson-agx-orin-64gb & 357.9 & Isaac-GR00T main scripts/deployment/README.md (eager, incl. pre/post) \\
+openvla & h100-nvl & 103.8 & arXiv 2611.06710 Table 1 (eager) \\
+openvla & jetson-agx-thor & 445 & arXiv 2611.06710 Table 11 (eager, MAXN) \\
+openvla-oft & h100-nvl & 42.4 & arXiv 2611.06710 Table 1 (eager) \\
+openvla-oft & jetson-agx-thor & 181 & arXiv 2611.06710 Table 11 (eager, MAXN) \\
+pi05 & h100-nvl & 111.6 & arXiv 2611.06710 Table 1 (eager) \\
+pi05 & jetson-agx-thor & 208 & arXiv 2611.06710 Table 11 (eager, MAXN) \\
+gr00t-n1.7 & h100-nvl & 74.9 & arXiv 2611.06710 Table 1 (eager) \\
+gr00t-n1.7 & jetson-agx-thor & 149 & arXiv 2611.06710 Table 11 (eager, MAXN) \\
+smolvla & h100-nvl & 208.3 & arXiv 2611.06710 Table 1 (eager) \\
+smolvla & jetson-agx-thor & 308 & arXiv 2611.06710 Table 11 (eager, MAXN) \\
+openvla-oft & h100-nvl & 41.8 & arXiv 2611.06710 Table 5 (fused attention) \\
+openvla-oft & a10g & 204.1 & arXiv 2611.06710 Table 5 (fused attention) \\
+openvla-oft & rtx-4090 & 102.1 & arXiv 2611.06710 Table 5 (fused attention) \\
+openvla-oft & jetson-agx-thor & 180.6 & arXiv 2611.06710 Table 5 (fused attention) \\
+gr00t-n1.7 & jetson-agx-thor & 119 & VLA-HWBench arXiv 2610.34717 Table 7 (eager reference) \\
+openvla-oft & jetson-agx-thor & 250 & VLA-HWBench arXiv 2610.34717 Table 7 (eager reference) \\
+pi05 & jetson-agx-thor & 405 & VLA-HWBench arXiv 2610.34717 Table 7 (eager reference, LeRobot) \\
+\bottomrule
+\end{tabular}}

@@ -1,0 +1,48 @@
+{
+  "model": "openvla",
+  "hardware": "m5-gpu",
+  "precision": "fp16",
+  "stages": {
+    "vision": {
+      "time_s": 0.02988182807166595,
+      "pass_s": 0.004426937492098659,
+      "layers_profiled": 4,
+      "layer_scale": 6.75,
+      "repeats": 1
+    },
+    "vision_dino": {
+      "time_s": 0.018084249109961092,
+      "pass_s": 0.0030140415183268487,
+      "layers_profiled": 4,
+      "layer_scale": 6.0,
+      "repeats": 1
+    },
+    "vlm": {
+      "time_s": 0.47930766409263015,
+      "pass_s": 0.05991345801157877,
+      "layers_profiled": 4,
+      "layer_scale": 8.0,
+      "repeats": 1
+    },
+    "action": {
+      "time_s": 0.9375963248312473,
+      "pass_s": 0.016742791514843702,
+      "layers_profiled": 4,
+      "layer_scale": 8.0,
+      "repeats": 7
+    }
+  },
+  "latency_s": 1.4648700661055045,
+  "host_s": null,
+  "avg_power_w": null,
+  "energy_j_per_call": null,
+  "method": "synthetic shape-faithful stacks",
+  "env": {
+    "torch": "2.15.0",
+    "device": "mps"
+  },
+  "notes": [
+    "host preprocessing not measured (synthetic inputs)",
+    "layers extrapolated linearly"
+  ]
+}

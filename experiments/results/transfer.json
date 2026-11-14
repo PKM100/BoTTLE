@@ -1,0 +1,1638 @@
+{
+  "configs": [
+    [
+      "cpu-fp32",
+      "m5-cpu",
+      "cpu",
+      "fp32"
+    ],
+    [
+      "gpu-fp32",
+      "m5-gpu",
+      "mps",
+      "fp32"
+    ],
+    [
+      "gpu-fp16",
+      "m5-gpu",
+      "mps",
+      "fp16"
+    ]
+  ],
+  "rows": [
+    {
+      "model": "smolvla",
+      "target": "cpu-fp32",
+      "predictor": "roofline_ideal",
+      "pred_s": 0.26880826517283374,
+      "measured_s": 0.572234925115481,
+      "ape": 0.5302484113171066
+    },
+    {
+      "model": "smolvla",
+      "target": "cpu-fp32",
+      "predictor": "roofline_default",
+      "pred_s": 0.5362178103456675,
+      "measured_s": 0.572234925115481,
+      "ape": 0.06294113342093721
+    },
+    {
+      "model": "smolvla",
+      "target": "cpu-fp32",
+      "predictor": "cal_global<-gpu-fp32",
+      "pred_s": 0.3609883636811079,
+      "measured_s": 0.572234925115481,
+      "ape": 0.369160553057369
+    },
+    {
+      "model": "smolvla",
+      "target": "cpu-fp32",
+      "predictor": "cal_stage<-gpu-fp32",
+      "pred_s": 0.3587958979695615,
+      "measured_s": 0.572234925115481,
+      "ape": 0.37299196147953745
+    },
+    {
+      "model": "smolvla",
+      "target": "cpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp32",
+      "pred_s": 0.35758113385394363,
+      "measured_s": 0.572234925115481,
+      "ape": 0.3751148030998261
+    },
+    {
+      "model": "smolvla",
+      "target": "cpu-fp32",
+      "predictor": "cal_global<-gpu-fp16",
+      "pred_s": 0.8340522775152371,
+      "measured_s": 0.572234925115481,
+      "ape": 0.4575347307697438
+    },
+    {
+      "model": "smolvla",
+      "target": "cpu-fp32",
+      "predictor": "cal_stage<-gpu-fp16",
+      "pred_s": 0.6762388620234436,
+      "measured_s": 0.572234925115481,
+      "ape": 0.18175041812936163
+    },
+    {
+      "model": "smolvla",
+      "target": "cpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp16",
+      "pred_s": 0.4750092972250086,
+      "measured_s": 0.572234925115481,
+      "ape": 0.1699050925122258
+    },
+    {
+      "model": "smolvla",
+      "target": "gpu-fp32",
+      "predictor": "roofline_ideal",
+      "pred_s": 0.20193155029885815,
+      "measured_s": 0.26661812304519117,
+      "ape": 0.24261881378322056
+    },
+    {
+      "model": "smolvla",
+      "target": "gpu-fp32",
+      "predictor": "roofline_default",
+      "pred_s": 0.39603876612504274,
+      "measured_s": 0.26661812304519117,
+      "ape": 0.4854157759482654
+    },
+    {
+      "model": "smolvla",
+      "target": "gpu-fp32",
+      "predictor": "cal_global<-cpu-fp32",
+      "pred_s": 0.4226402206414932,
+      "measured_s": 0.26661812304519117,
+      "ape": 0.5851893930325833
+    },
+    {
+      "model": "smolvla",
+      "target": "gpu-fp32",
+      "predictor": "cal_stage<-cpu-fp32",
+      "pred_s": 0.42632907378430795,
+      "measured_s": 0.26661812304519117,
+      "ape": 0.5990251109525895
+    },
+    {
+      "model": "smolvla",
+      "target": "gpu-fp32",
+      "predictor": "cal_overhead<-cpu-fp32",
+      "pred_s": 0.4467173288923752,
+      "measured_s": 0.26661812304519117,
+      "ape": 0.6754949880757266
+    },
+    {
+      "model": "smolvla",
+      "target": "gpu-fp32",
+      "predictor": "cal_global<-gpu-fp16",
+      "pred_s": 0.6160128002051639,
+      "measured_s": 0.26661812304519117,
+      "ape": 1.3104685951928
+    },
+    {
+      "model": "smolvla",
+      "target": "gpu-fp32",
+      "predictor": "cal_stage<-gpu-fp16",
+      "pred_s": 0.5107288192319861,
+      "measured_s": 0.26661812304519117,
+      "ape": 0.9155817819084215
+    },
+    {
+      "model": "smolvla",
+      "target": "gpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp16",
+      "pred_s": 0.37441467325811567,
+      "measured_s": 0.26661812304519117,
+      "ape": 0.4043106634377335
+    },
+    {
+      "model": "smolvla",
+      "target": "gpu-fp16",
+      "predictor": "roofline_ideal",
+      "pred_s": 0.062211210743352036,
+      "measured_s": 0.1665443317615427,
+      "ape": 0.6264585525947186
+    },
+    {
+      "model": "smolvla",
+      "target": "gpu-fp16",
+      "predictor": "roofline_default",
+      "pred_s": 0.10707246932854922,
+      "measured_s": 0.1665443317615427,
+      "ape": 0.3570932844363925
+    },
+    {
+      "model": "smolvla",
+      "target": "gpu-fp16",
+      "predictor": "cal_global<-cpu-fp32",
+      "pred_s": 0.11426440018591422,
+      "measured_s": 0.1665443317615427,
+      "ape": 0.313910002355905
+    },
+    {
+      "model": "smolvla",
+      "target": "gpu-fp16",
+      "predictor": "cal_stage<-cpu-fp32",
+      "pred_s": 0.12459175547392388,
+      "measured_s": 0.1665443317615427,
+      "ape": 0.25190035496186264
+    },
+    {
+      "model": "smolvla",
+      "target": "gpu-fp16",
+      "predictor": "cal_overhead<-cpu-fp32",
+      "pred_s": 0.18778770116461257,
+      "measured_s": 0.1665443317615427,
+      "ape": 0.12755384214147863
+    },
+    {
+      "model": "smolvla",
+      "target": "gpu-fp16",
+      "predictor": "cal_global<-gpu-fp32",
+      "pred_s": 0.07208249101851358,
+      "measured_s": 0.1665443317615427,
+      "ape": 0.5671873653333281
+    },
+    {
+      "model": "smolvla",
+      "target": "gpu-fp16",
+      "predictor": "cal_stage<-gpu-fp32",
+      "pred_s": 0.07612996209146172,
+      "measured_s": 0.1665443317615427,
+      "ape": 0.5428847005104671
+    },
+    {
+      "model": "smolvla",
+      "target": "gpu-fp16",
+      "predictor": "cal_overhead<-gpu-fp32",
+      "pred_s": 0.07868041138096539,
+      "measured_s": 0.1665443317615427,
+      "ape": 0.5275707641997712
+    },
+    {
+      "model": "pi0",
+      "target": "cpu-fp32",
+      "predictor": "roofline_ideal",
+      "pred_s": 2.0135245035540983,
+      "measured_s": 2.9150224772456568,
+      "ape": 0.30925935588097586
+    },
+    {
+      "model": "pi0",
+      "target": "cpu-fp32",
+      "predictor": "roofline_default",
+      "pred_s": 4.025375007108197,
+      "measured_s": 2.9150224772456568,
+      "ape": 0.38090702165414825
+    },
+    {
+      "model": "pi0",
+      "target": "cpu-fp32",
+      "predictor": "cal_global<-gpu-fp32",
+      "pred_s": 2.4741477023734575,
+      "measured_s": 2.9150224772456568,
+      "ape": 0.1512423243092014
+    },
+    {
+      "model": "pi0",
+      "target": "cpu-fp32",
+      "predictor": "cal_stage<-gpu-fp32",
+      "pred_s": 2.4716507531293677,
+      "measured_s": 2.9150224772456568,
+      "ape": 0.1520989040658176
+    },
+    {
+      "model": "pi0",
+      "target": "cpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp32",
+      "pred_s": 2.4707092449039636,
+      "measured_s": 2.9150224772456568,
+      "ape": 0.15242188895967462
+    },
+    {
+      "model": "pi0",
+      "target": "cpu-fp32",
+      "predictor": "cal_global<-gpu-fp16",
+      "pred_s": 3.411583599434113,
+      "measured_s": 2.9150224772456568,
+      "ape": 0.17034555515937091
+    },
+    {
+      "model": "pi0",
+      "target": "cpu-fp32",
+      "predictor": "cal_stage<-gpu-fp16",
+      "pred_s": 3.2512088113796658,
+      "measured_s": 2.9150224772456568,
+      "ape": 0.11532889943670842
+    },
+    {
+      "model": "pi0",
+      "target": "cpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp16",
+      "pred_s": 2.951390879917154,
+      "measured_s": 2.9150224772456568,
+      "ape": 0.012476199739585258
+    },
+    {
+      "model": "pi0",
+      "target": "gpu-fp32",
+      "predictor": "roofline_ideal",
+      "pred_s": 1.4745765125001709,
+      "measured_s": 1.8082964307832299,
+      "ape": 0.18454934301812145
+    },
+    {
+      "model": "pi0",
+      "target": "gpu-fp32",
+      "predictor": "roofline_default",
+      "pred_s": 2.9420520250003412,
+      "measured_s": 1.8082964307832299,
+      "ape": 0.6269744135512374
+    },
+    {
+      "model": "pi0",
+      "target": "gpu-fp32",
+      "predictor": "cal_global<-cpu-fp32",
+      "pred_s": 2.1305214463144253,
+      "measured_s": 1.8082964307832299,
+      "ape": 0.1781925850462635
+    },
+    {
+      "model": "pi0",
+      "target": "gpu-fp32",
+      "predictor": "cal_stage<-cpu-fp32",
+      "pred_s": 2.135545512336078,
+      "measured_s": 1.8082964307832299,
+      "ape": 0.1809709271013195
+    },
+    {
+      "model": "pi0",
+      "target": "gpu-fp32",
+      "predictor": "cal_overhead<-cpu-fp32",
+      "pred_s": 2.194328406284287,
+      "measured_s": 1.8082964307832299,
+      "ape": 0.21347825994096262
+    },
+    {
+      "model": "pi0",
+      "target": "gpu-fp32",
+      "predictor": "cal_global<-gpu-fp16",
+      "pred_s": 2.493446304865802,
+      "measured_s": 1.8082964307832299,
+      "ape": 0.37889245503062363
+    },
+    {
+      "model": "pi0",
+      "target": "gpu-fp32",
+      "predictor": "cal_stage<-gpu-fp16",
+      "pred_s": 2.383429382252223,
+      "measured_s": 1.8082964307832299,
+      "ape": 0.3180523622556092
+    },
+    {
+      "model": "pi0",
+      "target": "gpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp16",
+      "pred_s": 2.1841331245064715,
+      "measured_s": 1.8082964307832299,
+      "ape": 0.20784020104516543
+    },
+    {
+      "model": "pi0",
+      "target": "gpu-fp16",
+      "predictor": "roofline_ideal",
+      "pred_s": 0.38500089156280926,
+      "measured_s": 0.6194158112921286,
+      "ape": 0.3784451663258636
+    },
+    {
+      "model": "pi0",
+      "target": "gpu-fp16",
+      "predictor": "roofline_default",
+      "pred_s": 0.7308573432574141,
+      "measured_s": 0.6194158112921286,
+      "ape": 0.17991392846884802
+    },
+    {
+      "model": "pi0",
+      "target": "gpu-fp16",
+      "predictor": "cal_global<-cpu-fp32",
+      "pred_s": 0.529258908671448,
+      "measured_s": 0.6194158112921286,
+      "ape": 0.1455515034926367
+    },
+    {
+      "model": "pi0",
+      "target": "gpu-fp16",
+      "predictor": "cal_stage<-cpu-fp32",
+      "pred_s": 0.549406163997431,
+      "measured_s": 0.6194158112921286,
+      "ape": 0.11302528288494025
+    },
+    {
+      "model": "pi0",
+      "target": "gpu-fp16",
+      "predictor": "cal_overhead<-cpu-fp32",
+      "pred_s": 0.7247331856961725,
+      "measured_s": 0.6194158112921286,
+      "ape": 0.17002693906755012
+    },
+    {
+      "model": "pi0",
+      "target": "gpu-fp16",
+      "predictor": "cal_global<-gpu-fp32",
+      "pred_s": 0.44921256116262687,
+      "measured_s": 0.6194158112921286,
+      "ape": 0.27478028010691286
+    },
+    {
+      "model": "pi0",
+      "target": "gpu-fp16",
+      "predictor": "cal_stage<-gpu-fp32",
+      "pred_s": 0.45618323684628076,
+      "measured_s": 0.6194158112921286,
+      "ape": 0.26352665119306135
+    },
+    {
+      "model": "pi0",
+      "target": "gpu-fp16",
+      "predictor": "cal_overhead<-gpu-fp32",
+      "pred_s": 0.45804988966872145,
+      "measured_s": 0.6194158112921286,
+      "ape": 0.2605130813286648
+    },
+    {
+      "model": "pi05",
+      "target": "cpu-fp32",
+      "predictor": "roofline_ideal",
+      "pred_s": 1.702442692698829,
+      "measured_s": 2.4816283890686464,
+      "ape": 0.31398161779662964
+    },
+    {
+      "model": "pi05",
+      "target": "cpu-fp32",
+      "predictor": "roofline_default",
+      "pred_s": 3.4032113853976584,
+      "measured_s": 2.4816283890686464,
+      "ape": 0.3713622073266504
+    },
+    {
+      "model": "pi05",
+      "target": "cpu-fp32",
+      "predictor": "cal_global<-gpu-fp32",
+      "pred_s": 2.18809078469098,
+      "measured_s": 2.4816283890686464,
+      "ape": 0.11828427079198219
+    },
+    {
+      "model": "pi05",
+      "target": "cpu-fp32",
+      "predictor": "cal_stage<-gpu-fp32",
+      "pred_s": 2.1857500123426985,
+      "measured_s": 2.4816283890686464,
+      "ape": 0.11922751127012648
+    },
+    {
+      "model": "pi05",
+      "target": "cpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp32",
+      "pred_s": 2.184341364664382,
+      "measured_s": 2.4816283890686464,
+      "ape": 0.11979514165528864
+    },
+    {
+      "model": "pi05",
+      "target": "cpu-fp32",
+      "predictor": "cal_global<-gpu-fp16",
+      "pred_s": 2.7887292883086925,
+      "measured_s": 2.4816283890686464,
+      "ape": 0.12374975261920698
+    },
+    {
+      "model": "pi05",
+      "target": "cpu-fp32",
+      "predictor": "cal_stage<-gpu-fp16",
+      "pred_s": 2.6689038023498917,
+      "measured_s": 2.4816283890686464,
+      "ape": 0.0754647287668762
+    },
+    {
+      "model": "pi05",
+      "target": "cpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp16",
+      "pred_s": 2.485229759026622,
+      "measured_s": 2.4816283890686464,
+      "ape": 0.0014512124272269245
+    },
+    {
+      "model": "pi05",
+      "target": "gpu-fp32",
+      "predictor": "roofline_ideal",
+      "pred_s": 1.2476685295223777,
+      "measured_s": 1.5998084674647544,
+      "ape": 0.22011381056159754
+    },
+    {
+      "model": "pi05",
+      "target": "gpu-fp32",
+      "predictor": "roofline_default",
+      "pred_s": 2.488236059044756,
+      "measured_s": 1.5998084674647544,
+      "ape": 0.5553337225348662
+    },
+    {
+      "model": "pi05",
+      "target": "gpu-fp32",
+      "predictor": "cal_global<-cpu-fp32",
+      "pred_s": 1.8144265940472084,
+      "measured_s": 1.5998084674647544,
+      "ape": 0.13415238820592273
+    },
+    {
+      "model": "pi05",
+      "target": "gpu-fp32",
+      "predictor": "cal_stage<-cpu-fp32",
+      "pred_s": 1.819419956297461,
+      "measured_s": 1.5998084674647544,
+      "ape": 0.13727361324742135
+    },
+    {
+      "model": "pi05",
+      "target": "gpu-fp32",
+      "predictor": "cal_overhead<-cpu-fp32",
+      "pred_s": 1.8762789884165232,
+      "measured_s": 1.5998084674647544,
+      "ape": 0.17281476287589395
+    },
+    {
+      "model": "pi05",
+      "target": "gpu-fp32",
+      "predictor": "cal_global<-gpu-fp16",
+      "pred_s": 2.03896143620626,
+      "measured_s": 1.5998084674647544,
+      "ape": 0.27450346567888806
+    },
+    {
+      "model": "pi05",
+      "target": "gpu-fp32",
+      "predictor": "cal_stage<-gpu-fp16",
+      "pred_s": 1.956375888696751,
+      "measured_s": 1.5998084674647544,
+      "ape": 0.2228813189100415
+    },
+    {
+      "model": "pi05",
+      "target": "gpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp16",
+      "pred_s": 1.8347524864305786,
+      "measured_s": 1.5998084674647544,
+      "ape": 0.14685759185794556
+    },
+    {
+      "model": "pi05",
+      "target": "gpu-fp16",
+      "predictor": "roofline_ideal",
+      "pred_s": 0.3307527317593649,
+      "measured_s": 0.5100645596830873,
+      "ape": 0.3515473179221316
+    },
+    {
+      "model": "pi05",
+      "target": "gpu-fp16",
+      "predictor": "roofline_default",
+      "pred_s": 0.6224546513276261,
+      "measured_s": 0.5100645596830873,
+      "ape": 0.22034483578778521
+    },
+    {
+      "model": "pi05",
+      "target": "gpu-fp16",
+      "predictor": "cal_global<-cpu-fp32",
+      "pred_s": 0.45389514746876863,
+      "measured_s": 0.5100645596830873,
+      "ape": 0.11012216227925689
+    },
+    {
+      "model": "pi05",
+      "target": "gpu-fp16",
+      "predictor": "cal_stage<-cpu-fp32",
+      "pred_s": 0.47550802932865455,
+      "measured_s": 0.5100645596830873,
+      "ape": 0.06774932643017456
+    },
+    {
+      "model": "pi05",
+      "target": "gpu-fp16",
+      "predictor": "cal_overhead<-cpu-fp32",
+      "pred_s": 0.6438145633279726,
+      "measured_s": 0.5100645596830873,
+      "ape": 0.2622217150863936
+    },
+    {
+      "model": "pi05",
+      "target": "gpu-fp16",
+      "predictor": "cal_global<-gpu-fp32",
+      "pred_s": 0.40020649093440613,
+      "measured_s": 0.5100645596830873,
+      "ape": 0.2153807134080008
+    },
+    {
+      "model": "pi05",
+      "target": "gpu-fp16",
+      "predictor": "cal_stage<-gpu-fp32",
+      "pred_s": 0.40733543364712993,
+      "measured_s": 0.5100645596830873,
+      "ape": 0.20140416362153232
+    },
+    {
+      "model": "pi05",
+      "target": "gpu-fp16",
+      "predictor": "cal_overhead<-gpu-fp32",
+      "pred_s": 0.4100964772127156,
+      "measured_s": 0.5100645596830873,
+      "ape": 0.19599103794328263
+    },
+    {
+      "model": "openvla",
+      "target": "cpu-fp32",
+      "predictor": "roofline_ideal",
+      "pred_s": 3.443997513968,
+      "measured_s": 6.130286502128001,
+      "ape": 0.4381995828787956
+    },
+    {
+      "model": "openvla",
+      "target": "cpu-fp32",
+      "predictor": "roofline_default",
+      "pred_s": 5.900560989335632,
+      "measured_s": 6.130286502128001,
+      "ape": 0.03747386239005717
+    },
+    {
+      "model": "openvla",
+      "target": "cpu-fp32",
+      "predictor": "cal_global<-gpu-fp32",
+      "pred_s": 4.473569326676266,
+      "measured_s": 6.130286502128001,
+      "ape": 0.2702511823675191
+    },
+    {
+      "model": "openvla",
+      "target": "cpu-fp32",
+      "predictor": "cal_stage<-gpu-fp32",
+      "pred_s": 4.282459765536568,
+      "measured_s": 6.130286502128001,
+      "ape": 0.3014258364515262
+    },
+    {
+      "model": "openvla",
+      "target": "cpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp32",
+      "pred_s": 4.282459765536568,
+      "measured_s": 6.130286502128001,
+      "ape": 0.3014258364515262
+    },
+    {
+      "model": "openvla",
+      "target": "cpu-fp32",
+      "predictor": "cal_global<-gpu-fp16",
+      "pred_s": 4.992282670477622,
+      "measured_s": 6.130286502128001,
+      "ape": 0.1856363207910992
+    },
+    {
+      "model": "openvla",
+      "target": "cpu-fp32",
+      "predictor": "cal_stage<-gpu-fp16",
+      "pred_s": 4.761704139489224,
+      "measured_s": 6.130286502128001,
+      "ape": 0.2232493313589345
+    },
+    {
+      "model": "openvla",
+      "target": "cpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp16",
+      "pred_s": 4.761704139489224,
+      "measured_s": 6.130286502128001,
+      "ape": 0.2232493313589345
+    },
+    {
+      "model": "openvla",
+      "target": "gpu-fp32",
+      "predictor": "roofline_ideal",
+      "pred_s": 2.9844915936251804,
+      "measured_s": 3.738589537839289,
+      "ape": 0.20170653573538272
+    },
+    {
+      "model": "openvla",
+      "target": "gpu-fp32",
+      "predictor": "roofline_default",
+      "pred_s": 4.931135290688032,
+      "measured_s": 3.738589537839289,
+      "ape": 0.31898279839994764
+    },
+    {
+      "model": "openvla",
+      "target": "gpu-fp32",
+      "predictor": "cal_global<-cpu-fp32",
+      "pred_s": 5.123118321682752,
+      "measured_s": 3.738589537839289,
+      "ape": 0.3703345258499946
+    },
+    {
+      "model": "openvla",
+      "target": "gpu-fp32",
+      "predictor": "cal_stage<-cpu-fp32",
+      "pred_s": 5.49843843770539,
+      "measured_s": 3.738589537839289,
+      "ape": 0.4707253583347914
+    },
+    {
+      "model": "openvla",
+      "target": "gpu-fp32",
+      "predictor": "cal_overhead<-cpu-fp32",
+      "pred_s": 5.439906955125362,
+      "measured_s": 3.738589537839289,
+      "ape": 0.45506932495974034
+    },
+    {
+      "model": "openvla",
+      "target": "gpu-fp32",
+      "predictor": "cal_global<-gpu-fp16",
+      "pred_s": 4.1720814854680945,
+      "measured_s": 3.738589537839289,
+      "ape": 0.11595066621818602
+    },
+    {
+      "model": "openvla",
+      "target": "gpu-fp32",
+      "predictor": "cal_stage<-gpu-fp16",
+      "pred_s": 4.040940284022511,
+      "measured_s": 3.738589537839289,
+      "ape": 0.08087294502994985
+    },
+    {
+      "model": "openvla",
+      "target": "gpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp16",
+      "pred_s": 4.040940284022512,
+      "measured_s": 3.738589537839289,
+      "ape": 0.0808729450299501
+    },
+    {
+      "model": "openvla",
+      "target": "gpu-fp16",
+      "predictor": "roofline_ideal",
+      "pred_s": 1.1275758863866818,
+      "measured_s": 1.4648700661055045,
+      "ape": 0.2302553567877533
+    },
+    {
+      "model": "openvla",
+      "target": "gpu-fp16",
+      "predictor": "roofline_default",
+      "pred_s": 1.7313833644921994,
+      "measured_s": 1.4648700661055045,
+      "ape": 0.18193647651989073
+    },
+    {
+      "model": "openvla",
+      "target": "gpu-fp16",
+      "predictor": "cal_global<-cpu-fp32",
+      "pred_s": 1.798791011318833,
+      "measured_s": 1.4648700661055045,
+      "ape": 0.22795260340126197
+    },
+    {
+      "model": "openvla",
+      "target": "gpu-fp16",
+      "predictor": "cal_stage<-cpu-fp32",
+      "pred_s": 2.211342486284227,
+      "measured_s": 1.4648700661055045,
+      "ape": 0.5095826841238484
+    },
+    {
+      "model": "openvla",
+      "target": "gpu-fp16",
+      "predictor": "cal_overhead<-cpu-fp32",
+      "pred_s": 2.811081254203979,
+      "measured_s": 1.4648700661055045,
+      "ape": 0.9189969945098981
+    },
+    {
+      "model": "openvla",
+      "target": "gpu-fp16",
+      "predictor": "cal_global<-gpu-fp32",
+      "pred_s": 1.3126656136778532,
+      "measured_s": 1.4648700661055045,
+      "ape": 0.10390303955920217
+    },
+    {
+      "model": "openvla",
+      "target": "gpu-fp16",
+      "predictor": "cal_stage<-gpu-fp32",
+      "pred_s": 1.4321386403260545,
+      "measured_s": 1.4648700661055045,
+      "ape": 0.022344251914758265
+    },
+    {
+      "model": "openvla",
+      "target": "gpu-fp16",
+      "predictor": "cal_overhead<-gpu-fp32",
+      "pred_s": 1.4321386403260545,
+      "measured_s": 1.4648700661055045,
+      "ape": 0.022344251914758265
+    },
+    {
+      "model": "openvla-oft",
+      "target": "cpu-fp32",
+      "predictor": "roofline_ideal",
+      "pred_s": 4.1164185394135835,
+      "measured_s": 5.473515855934238,
+      "ape": 0.24793886639596124
+    },
+    {
+      "model": "openvla-oft",
+      "target": "cpu-fp32",
+      "predictor": "roofline_default",
+      "pred_s": 8.232219558827168,
+      "measured_s": 5.473515855934238,
+      "ape": 0.5040094475842284
+    },
+    {
+      "model": "openvla-oft",
+      "target": "cpu-fp32",
+      "predictor": "cal_global<-gpu-fp32",
+      "pred_s": 4.78651774511867,
+      "measured_s": 5.473515855934238,
+      "ape": 0.1255131306636745
+    },
+    {
+      "model": "openvla-oft",
+      "target": "cpu-fp32",
+      "predictor": "cal_stage<-gpu-fp32",
+      "pred_s": 4.786550204261947,
+      "measured_s": 5.473515855934238,
+      "ape": 0.12550720044548724
+    },
+    {
+      "model": "openvla-oft",
+      "target": "cpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp32",
+      "pred_s": 4.786550204261947,
+      "measured_s": 5.473515855934238,
+      "ape": 0.12550720044548724
+    },
+    {
+      "model": "openvla-oft",
+      "target": "cpu-fp32",
+      "predictor": "cal_global<-gpu-fp16",
+      "pred_s": 5.059382129089961,
+      "measured_s": 5.473515855934238,
+      "ape": 0.0756613733739867
+    },
+    {
+      "model": "openvla-oft",
+      "target": "cpu-fp32",
+      "predictor": "cal_stage<-gpu-fp16",
+      "pred_s": 5.058975302393429,
+      "measured_s": 5.473515855934238,
+      "ape": 0.07573569976807058
+    },
+    {
+      "model": "openvla-oft",
+      "target": "cpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp16",
+      "pred_s": 5.058975302393428,
+      "measured_s": 5.473515855934238,
+      "ape": 0.07573569976807075
+    },
+    {
+      "model": "openvla-oft",
+      "target": "gpu-fp32",
+      "predictor": "roofline_ideal",
+      "pred_s": 3.0047497076897844,
+      "measured_s": 3.4926227608521003,
+      "ape": 0.13968673016472263
+    },
+    {
+      "model": "openvla-oft",
+      "target": "gpu-fp32",
+      "predictor": "roofline_default",
+      "pred_s": 6.00687993537957,
+      "measured_s": 3.4926227608521003,
+      "ape": 0.7198765359686491
+    },
+    {
+      "model": "openvla-oft",
+      "target": "gpu-fp32",
+      "predictor": "cal_global<-cpu-fp32",
+      "pred_s": 3.9939110389419072,
+      "measured_s": 3.4926227608521003,
+      "ape": 0.1435277476023511
+    },
+    {
+      "model": "openvla-oft",
+      "target": "gpu-fp32",
+      "predictor": "cal_stage<-cpu-fp32",
+      "pred_s": 3.9940554927756047,
+      "measured_s": 3.4926227608521003,
+      "ape": 0.14356910730352368
+    },
+    {
+      "model": "openvla-oft",
+      "target": "gpu-fp32",
+      "predictor": "cal_overhead<-cpu-fp32",
+      "pred_s": 3.994055492775605,
+      "measured_s": 3.4926227608521003,
+      "ape": 0.14356910730352382
+    },
+    {
+      "model": "openvla-oft",
+      "target": "gpu-fp32",
+      "predictor": "cal_global<-gpu-fp16",
+      "pred_s": 3.6917262446020365,
+      "measured_s": 3.4926227608521003,
+      "ape": 0.05700686772749559
+    },
+    {
+      "model": "openvla-oft",
+      "target": "gpu-fp32",
+      "predictor": "cal_stage<-gpu-fp16",
+      "pred_s": 3.69149156105188,
+      "measured_s": 3.4926227608521003,
+      "ape": 0.05693967365409412
+    },
+    {
+      "model": "openvla-oft",
+      "target": "gpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp16",
+      "pred_s": 3.6914915610518797,
+      "measured_s": 3.4926227608521003,
+      "ape": 0.056939673654094
+    },
+    {
+      "model": "openvla-oft",
+      "target": "gpu-fp16",
+      "predictor": "roofline_ideal",
+      "pred_s": 0.7293177248269931,
+      "measured_s": 0.8948426513525192,
+      "ape": 0.18497657244582802
+    },
+    {
+      "model": "openvla-oft",
+      "target": "gpu-fp16",
+      "predictor": "roofline_default",
+      "pred_s": 1.4560159696539863,
+      "measured_s": 0.8948426513525192,
+      "ape": 0.6271195471665056
+    },
+    {
+      "model": "openvla-oft",
+      "target": "gpu-fp16",
+      "predictor": "cal_global<-cpu-fp32",
+      "pred_s": 0.968089643314854,
+      "measured_s": 0.8948426513525192,
+      "ape": 0.08185460522207445
+    },
+    {
+      "model": "openvla-oft",
+      "target": "gpu-fp16",
+      "predictor": "cal_stage<-cpu-fp32",
+      "pred_s": 0.9682568334485634,
+      "measured_s": 0.8948426513525192,
+      "ape": 0.08204144268836716
+    },
+    {
+      "model": "openvla-oft",
+      "target": "gpu-fp16",
+      "predictor": "cal_overhead<-cpu-fp32",
+      "pred_s": 0.9682568334485635,
+      "measured_s": 0.8948426513525192,
+      "ape": 0.08204144268836729
+    },
+    {
+      "model": "openvla-oft",
+      "target": "gpu-fp16",
+      "predictor": "cal_global<-gpu-fp32",
+      "pred_s": 0.8465816814193269,
+      "measured_s": 0.8948426513525192,
+      "ape": 0.05393235320226159
+    },
+    {
+      "model": "openvla-oft",
+      "target": "gpu-fp16",
+      "predictor": "cal_stage<-gpu-fp32",
+      "pred_s": 0.8465600097766709,
+      "measured_s": 0.8948426513525192,
+      "ape": 0.053956571585932984
+    },
+    {
+      "model": "openvla-oft",
+      "target": "gpu-fp16",
+      "predictor": "cal_overhead<-gpu-fp32",
+      "pred_s": 0.8465600097766709,
+      "measured_s": 0.8948426513525192,
+      "ape": 0.053956571585932984
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "cpu-fp32",
+      "predictor": "roofline_ideal",
+      "pred_s": 0.24121781191194383,
+      "measured_s": 0.556921795126982,
+      "ape": 0.5668730977624166
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "cpu-fp32",
+      "predictor": "roofline_default",
+      "pred_s": 0.4816693038238876,
+      "measured_s": 0.556921795126982,
+      "ape": 0.13512218764204825
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "cpu-fp32",
+      "predictor": "cal_global<-gpu-fp32",
+      "pred_s": 0.36698257076879714,
+      "measured_s": 0.556921795126982,
+      "ape": 0.3410518784147735
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "cpu-fp32",
+      "predictor": "cal_stage<-gpu-fp32",
+      "pred_s": 0.3666267948852102,
+      "measured_s": 0.556921795126982,
+      "ape": 0.341690703985437
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "cpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp32",
+      "pred_s": 0.3666267948852102,
+      "measured_s": 0.556921795126982,
+      "ape": 0.341690703985437
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "cpu-fp32",
+      "predictor": "cal_global<-gpu-fp16",
+      "pred_s": 0.6108111312355662,
+      "measured_s": 0.556921795126982,
+      "ape": 0.09676284279069561
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "cpu-fp32",
+      "predictor": "cal_stage<-gpu-fp16",
+      "pred_s": 0.5804245346465835,
+      "measured_s": 0.556921795126982,
+      "ape": 0.04220114875238934
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "cpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp16",
+      "pred_s": 0.47746233824702167,
+      "measured_s": 0.556921795126982,
+      "ape": 0.1426761487433672
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "gpu-fp32",
+      "predictor": "roofline_ideal",
+      "pred_s": 0.18083428589912584,
+      "measured_s": 0.26973368946346454,
+      "ape": 0.32958212873286685
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "gpu-fp32",
+      "predictor": "roofline_default",
+      "pred_s": 0.35402890701195766,
+      "measured_s": 0.26973368946346454,
+      "ape": 0.31251275180407495
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "gpu-fp32",
+      "predictor": "cal_global<-cpu-fp32",
+      "pred_s": 0.4093397956952488,
+      "measured_s": 0.26973368946346454,
+      "ape": 0.5175701504305191
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "gpu-fp32",
+      "predictor": "cal_stage<-cpu-fp32",
+      "pred_s": 0.40993445633311926,
+      "measured_s": 0.26973368946346454,
+      "ape": 0.519774771733306
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "gpu-fp32",
+      "predictor": "cal_overhead<-cpu-fp32",
+      "pred_s": 0.4404950349280449,
+      "measured_s": 0.26973368946346454,
+      "ape": 0.6330738507460709
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "gpu-fp32",
+      "predictor": "cal_global<-gpu-fp16",
+      "pred_s": 0.44894867799408356,
+      "measured_s": 0.26973368946346454,
+      "ape": 0.6644145523204794
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "gpu-fp32",
+      "predictor": "cal_stage<-gpu-fp16",
+      "pred_s": 0.42710925306432324,
+      "measured_s": 0.26973368946346454,
+      "ape": 0.5834479330850336
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "gpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp16",
+      "pred_s": 0.3600099155239511,
+      "measured_s": 0.26973368946346454,
+      "ape": 0.3346865059387196
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "gpu-fp16",
+      "predictor": "roofline_ideal",
+      "pred_s": 0.0638668703105036,
+      "measured_s": 0.12791393452789634,
+      "ape": 0.5007043560482843
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "gpu-fp16",
+      "predictor": "roofline_default",
+      "pred_s": 0.10086950391489301,
+      "measured_s": 0.12791393452789634,
+      "ape": 0.21142677467328866
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "gpu-fp16",
+      "predictor": "cal_global<-cpu-fp32",
+      "pred_s": 0.11662861790833591,
+      "measured_s": 0.12791393452789634,
+      "ape": 0.08822585796623475
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "gpu-fp16",
+      "predictor": "cal_stage<-cpu-fp32",
+      "pred_s": 0.12412571224138653,
+      "measured_s": 0.12791393452789634,
+      "ape": 0.029615399608270577
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "gpu-fp16",
+      "predictor": "cal_overhead<-cpu-fp32",
+      "pred_s": 0.2105151959224942,
+      "measured_s": 0.12791393452789634,
+      "ape": 0.6457565526340965
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "gpu-fp16",
+      "predictor": "cal_global<-gpu-fp32",
+      "pred_s": 0.07685220869377907,
+      "measured_s": 0.12791393452789634,
+      "ape": 0.3991881417968688
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "gpu-fp16",
+      "predictor": "cal_stage<-gpu-fp32",
+      "pred_s": 0.08010344991531856,
+      "measured_s": 0.12791393452789634,
+      "ape": 0.37377072942862954
+    },
+    {
+      "model": "gr00t-n1.5",
+      "target": "gpu-fp16",
+      "predictor": "cal_overhead<-gpu-fp32",
+      "pred_s": 0.08010344991531856,
+      "measured_s": 0.12791393452789634,
+      "ape": 0.37377072942862954
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "cpu-fp32",
+      "predictor": "roofline_ideal",
+      "pred_s": 0.46230028839718973,
+      "measured_s": 0.9699343321262859,
+      "ape": 0.5233694972073656
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "cpu-fp32",
+      "predictor": "roofline_default",
+      "pred_s": 0.9233283367943794,
+      "measured_s": 0.9699343321262859,
+      "ape": 0.048050670842568276
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "cpu-fp32",
+      "predictor": "cal_global<-gpu-fp32",
+      "pred_s": 0.7235143612204981,
+      "measured_s": 0.9699343321262859,
+      "ape": 0.2540584065785021
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "cpu-fp32",
+      "predictor": "cal_stage<-gpu-fp32",
+      "pred_s": 0.7233543384443497,
+      "measured_s": 0.9699343321262859,
+      "ape": 0.25422338968184016
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "cpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp32",
+      "pred_s": 0.7233543384443497,
+      "measured_s": 0.9699343321262859,
+      "ape": 0.25422338968184016
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "cpu-fp32",
+      "predictor": "cal_global<-gpu-fp16",
+      "pred_s": 1.4435664758348645,
+      "measured_s": 0.9699343321262859,
+      "ape": 0.48831361878930946
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "cpu-fp32",
+      "predictor": "cal_stage<-gpu-fp16",
+      "pred_s": 1.4403946402256134,
+      "measured_s": 0.9699343321262859,
+      "ape": 0.4850434637858281
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "cpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp16",
+      "pred_s": 0.989922977449667,
+      "measured_s": 0.9699343321262859,
+      "ape": 0.020608246003172244
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "gpu-fp32",
+      "predictor": "roofline_ideal",
+      "pred_s": 0.3416778954041681,
+      "measured_s": 0.5312444940354908,
+      "ape": 0.35683494277995914
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "gpu-fp32",
+      "predictor": "roofline_default",
+      "pred_s": 0.6779590308083362,
+      "measured_s": 0.5312444940354908,
+      "ape": 0.27617140209465185
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "gpu-fp32",
+      "predictor": "cal_global<-cpu-fp32",
+      "pred_s": 0.7121797453320297,
+      "measured_s": 0.5312444940354908,
+      "ape": 0.34058753234711386
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "gpu-fp32",
+      "predictor": "cal_stage<-cpu-fp32",
+      "pred_s": 0.7123299390390957,
+      "measured_s": 0.5312444940354908,
+      "ape": 0.3408702528435187
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "gpu-fp32",
+      "predictor": "cal_overhead<-cpu-fp32",
+      "pred_s": 0.7359227456650121,
+      "measured_s": 0.5312444940354908,
+      "ape": 0.3852807020637986
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "gpu-fp32",
+      "predictor": "cal_global<-gpu-fp16",
+      "pred_s": 1.0599468140035617,
+      "measured_s": 0.5312444940354908,
+      "ape": 0.9952146815713632
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "gpu-fp32",
+      "predictor": "cal_stage<-gpu-fp16",
+      "pred_s": 1.0581170972036626,
+      "measured_s": 0.5312444940354908,
+      "ape": 0.9917704730751961
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "gpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp16",
+      "pred_s": 0.7537385260458307,
+      "measured_s": 0.5312444940354908,
+      "ape": 0.4188166362350586
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "gpu-fp16",
+      "predictor": "roofline_ideal",
+      "pred_s": 0.10388185363834544,
+      "measured_s": 0.26296675503544975,
+      "ape": 0.6049620279021907
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "gpu-fp16",
+      "predictor": "roofline_default",
+      "pred_s": 0.16819776617399934,
+      "measured_s": 0.26296675503544975,
+      "ape": 0.3603839156347915
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "gpu-fp16",
+      "predictor": "cal_global<-cpu-fp32",
+      "pred_s": 0.1766877301367194,
+      "measured_s": 0.26296675503544975,
+      "ape": 0.32809860275721675
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "gpu-fp16",
+      "predictor": "cal_stage<-cpu-fp32",
+      "pred_s": 0.1768615635707238,
+      "measured_s": 0.26296675503544975,
+      "ape": 0.3274375555690238
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "gpu-fp16",
+      "predictor": "cal_overhead<-cpu-fp32",
+      "pred_s": 0.24963580052709294,
+      "measured_s": 0.26296675503544975,
+      "ape": 0.050694448074090966
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "gpu-fp16",
+      "predictor": "cal_global<-gpu-fp32",
+      "pred_s": 0.13179872695621206,
+      "measured_s": 0.26296675503544975,
+      "ape": 0.4988008011185875
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "gpu-fp16",
+      "predictor": "cal_stage<-gpu-fp32",
+      "pred_s": 0.13190556762023978,
+      "measured_s": 0.26296675503544975,
+      "ape": 0.498394511494588
+    },
+    {
+      "model": "gr00t-n1.6",
+      "target": "gpu-fp16",
+      "predictor": "cal_overhead<-gpu-fp32",
+      "pred_s": 0.13190556762023978,
+      "measured_s": 0.26296675503544975,
+      "ape": 0.498394511494588
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "cpu-fp32",
+      "predictor": "roofline_ideal",
+      "pred_s": 0.36799135232599534,
+      "measured_s": 0.7208338748896495,
+      "ape": 0.4894921490997768
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "cpu-fp32",
+      "predictor": "roofline_default",
+      "pred_s": 0.7352387046519907,
+      "measured_s": 0.7208338748896495,
+      "ape": 0.019983563847559817
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "cpu-fp32",
+      "predictor": "cal_global<-gpu-fp32",
+      "pred_s": 0.5135471703779462,
+      "measured_s": 0.7208338748896495,
+      "ape": 0.2875651543754603
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "cpu-fp32",
+      "predictor": "cal_stage<-gpu-fp32",
+      "pred_s": 0.5132241493581282,
+      "measured_s": 0.7208338748896495,
+      "ape": 0.2880132756847806
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "cpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp32",
+      "pred_s": 0.5132241493581282,
+      "measured_s": 0.7208338748896495,
+      "ape": 0.2880132756847806
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "cpu-fp32",
+      "predictor": "cal_global<-gpu-fp16",
+      "pred_s": 0.9185992887100574,
+      "measured_s": 0.7208338748896495,
+      "ape": 0.2743564373284806
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "cpu-fp32",
+      "predictor": "cal_stage<-gpu-fp16",
+      "pred_s": 0.9114667908715062,
+      "measured_s": 0.7208338748896495,
+      "ape": 0.2644616500730355
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "cpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp16",
+      "pred_s": 0.6630398516251367,
+      "measured_s": 0.7208338748896495,
+      "ape": 0.0801766194372598
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "gpu-fp32",
+      "predictor": "roofline_ideal",
+      "pred_s": 0.27103201544789884,
+      "measured_s": 0.37641475157579407,
+      "ape": 0.2799644160775553
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "gpu-fp32",
+      "predictor": "roofline_default",
+      "pred_s": 0.5389080308957978,
+      "measured_s": 0.37641475157579407,
+      "ape": 0.4316867993078225
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "gpu-fp32",
+      "predictor": "cal_global<-cpu-fp32",
+      "pred_s": 0.5283497205219079,
+      "measured_s": 0.37641475157579407,
+      "ape": 0.4036371271584464
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "gpu-fp32",
+      "predictor": "cal_stage<-cpu-fp32",
+      "pred_s": 0.5287282171926914,
+      "measured_s": 0.37641475157579407,
+      "ape": 0.4046426580766662
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "gpu-fp32",
+      "predictor": "cal_overhead<-cpu-fp32",
+      "pred_s": 0.5490139086643819,
+      "measured_s": 0.37641475157579407,
+      "ape": 0.45853451908043424
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "gpu-fp32",
+      "predictor": "cal_global<-gpu-fp16",
+      "pred_s": 0.6733058675077968,
+      "measured_s": 0.37641475157579407,
+      "ape": 0.7887340086676208
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "gpu-fp32",
+      "predictor": "cal_stage<-gpu-fp16",
+      "pred_s": 0.6691913884716268,
+      "measured_s": 0.37641475157579407,
+      "ape": 0.7778033025277966
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "gpu-fp32",
+      "predictor": "cal_overhead<-gpu-fp16",
+      "pred_s": 0.501158071965401,
+      "measured_s": 0.37641475157579407,
+      "ape": 0.3313985965411583
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "gpu-fp16",
+      "predictor": "roofline_ideal",
+      "pred_s": 0.0785340937995129,
+      "measured_s": 0.16596961062168702,
+      "ape": 0.5268164243722643
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "gpu-fp16",
+      "predictor": "roofline_default",
+      "pred_s": 0.1328406009288786,
+      "measured_s": 0.16596961062168702,
+      "ape": 0.19960888965584833
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "gpu-fp16",
+      "predictor": "cal_global<-cpu-fp32",
+      "pred_s": 0.13023798190215946,
+      "measured_s": 0.16596961062168702,
+      "ape": 0.21529018828015833
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "gpu-fp16",
+      "predictor": "cal_stage<-cpu-fp32",
+      "pred_s": 0.13067605202724547,
+      "measured_s": 0.16596961062168702,
+      "ape": 0.21265072842094015
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "gpu-fp16",
+      "predictor": "cal_overhead<-cpu-fp32",
+      "pred_s": 0.193361524718251,
+      "measured_s": 0.16596961062168702,
+      "ape": 0.16504174465409455
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "gpu-fp16",
+      "predictor": "cal_global<-gpu-fp32",
+      "pred_s": 0.09278607653091656,
+      "measured_s": 0.16596961062168702,
+      "ape": 0.44094538642731307
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "gpu-fp16",
+      "predictor": "cal_stage<-gpu-fp32",
+      "pred_s": 0.09300174445696385,
+      "measured_s": 0.16596961062168702,
+      "ape": 0.4396459441665314
+    },
+    {
+      "model": "gr00t-n1.7",
+      "target": "gpu-fp16",
+      "predictor": "cal_overhead<-gpu-fp32",
+      "pred_s": 0.09300174445696385,
+      "measured_s": 0.16596961062168702,
+      "ape": 0.4396459441665314
+    }
+  ],
+  "by_predictor_family": {
+    "cal_global": {
+      "mape": 0.31485391418683845,
+      "median_ape": 0.27230380984799984,
+      "n": 48
+    },
+    "cal_overhead": {
+      "mape": 0.262458951867871,
+      "median_ape": 0.210659230493064,
+      "n": 48
+    },
+    "cal_stage": {
+      "mape": 0.2948447085787076,
+      "median_ape": 0.2530618723218514,
+      "n": 48
+    },
+    "roofline_default": {
+      "mape": 0.3176929977775443,
+      "median_ape": 0.3157477751020113,
+      "n": 24
+    },
+    "roofline_ideal": {
+      "mape": 0.365774378066312,
+      "median_ape": 0.3405647233274992,
+      "n": 24
+    }
+  },
+  "by_pair": {
+    "cpu-fp32->gpu-fp32:global": 0.33414893120914935,
+    "cpu-fp32->gpu-fp32:stage": 0.34960647494914204,
+    "cpu-fp32->gpu-fp32:overhead": 0.3921644393807689,
+    "cpu-fp32->gpu-fp16:global": 0.1888756907193431,
+    "cpu-fp32->gpu-fp16:stage": 0.19925034683592846,
+    "cpu-fp32->gpu-fp16:overhead": 0.3027917098569962,
+    "gpu-fp32->cpu-fp32:global": 0.23964086256981026,
+    "gpu-fp32->cpu-fp32:stage": 0.2443973478830691,
+    "gpu-fp32->cpu-fp32:overhead": 0.24477402999548256,
+    "gpu-fp32->gpu-fp16:global": 0.31926476011905935,
+    "gpu-fp32->gpu-fp16:stage": 0.29949094048943764,
+    "gpu-fp32->gpu-fp16:overhead": 0.29652336150776987,
+    "gpu-fp16->cpu-fp32:global": 0.23404507895273666,
+    "gpu-fp16->cpu-fp32:stage": 0.18290441750890052,
+    "gpu-fp16->cpu-fp32:overhead": 0.0907848187487303,
+    "gpu-fp16->gpu-fp32:global": 0.5731481615509321,
+    "gpu-fp16->gpu-fp32:stage": 0.4934187238057678,
+    "gpu-fp16->gpu-fp32:overhead": 0.24771535171747813
+  },
+  "measured": {
+    "smolvla|cpu-fp32": 0.572234925115481,
+    "pi0|cpu-fp32": 2.9150224772456568,
+    "pi05|cpu-fp32": 2.4816283890686464,
+    "openvla|cpu-fp32": 6.130286502128001,
+    "openvla-oft|cpu-fp32": 5.473515855934238,
+    "gr00t-n1.5|cpu-fp32": 0.556921795126982,
+    "gr00t-n1.6|cpu-fp32": 0.9699343321262859,
+    "gr00t-n1.7|cpu-fp32": 0.7208338748896495,
+    "smolvla|gpu-fp32": 0.26661812304519117,
+    "pi0|gpu-fp32": 1.8082964307832299,
+    "pi05|gpu-fp32": 1.5998084674647544,
+    "openvla|gpu-fp32": 3.738589537839289,
+    "openvla-oft|gpu-fp32": 3.4926227608521003,
+    "gr00t-n1.5|gpu-fp32": 0.26973368946346454,
+    "gr00t-n1.6|gpu-fp32": 0.5312444940354908,
+    "gr00t-n1.7|gpu-fp32": 0.37641475157579407,
+    "smolvla|gpu-fp16": 0.1665443317615427,
+    "pi0|gpu-fp16": 0.6194158112921286,
+    "pi05|gpu-fp16": 0.5100645596830873,
+    "openvla|gpu-fp16": 1.4648700661055045,
+    "openvla-oft|gpu-fp16": 0.8948426513525192,
+    "gr00t-n1.5|gpu-fp16": 0.12791393452789634,
+    "gr00t-n1.6|gpu-fp16": 0.26296675503544975,
+    "gr00t-n1.7|gpu-fp16": 0.16596961062168702
+  },
+  "extrapolation_check": {
+    "full_s": 0.1040534800849855,
+    "extrapolated_s": 0.1322377799078822,
+    "ape": 0.2708635962956476
+  }
+}

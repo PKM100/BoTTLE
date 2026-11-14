@@ -1,0 +1,88 @@
+Anchors: {'openvla': ('h100-nvl', 103.8), 'openvla-oft': ('h100-nvl', 42.4), 'pi0': ('h100-nvl', 118.2), 'pi05': ('h100-nvl', 111.6), 'smolvla': ('h100-nvl', 208.3), 'gr00t-n1.6': ('h100-sxm', 77.0)}
+Measured cells: ['gr00t-n1.6|rtx-5090', 'gr00t-n1.6|h100-sxm', 'gr00t-n1.6|rtx-4090', 'gr00t-n1.6|jetson-agx-thor', 'gr00t-n1.6|jetson-agx-orin-64gb', 'openvla|jetson-agx-thor', 'openvla-oft|jetson-agx-thor', 'pi05|jetson-agx-thor', 'smolvla|jetson-agx-thor']
+Latency (ms; * = published measurement, else overhead-calibrated prediction):
+      h100-sxm         a10g           l4           t4     rtx-4090     rtx-5090 jetson-agx-t jetson-agx-o jetson-orin-
+openvla             108          341          554          596          229          164          445*         941         1888 
+openvla-oft          39          163          168          297          125          102          181*         460         1093 
+pi0                 117          186          201          280          147          133          210          460          846 
+pi05                111          171          185          254          135          123          208*         418          755 
+smolvla             208          221          227          281          182          180          308*         493          669 
+gr00t-n1.6           77*         100          123          138           82*          58*         117*         300*         358 
+
+$ per 1k successes (sync, robot scenario, mean over suites):
+openvla           116.58       208.82       317.36       336.92       145.14       112.12       264.01       516.46       983.67
+openvla-oft        24.59        22.90        22.73        27.77        20.76        19.98        23.62        34.32        58.22
+pi0                35.51        30.52        31.07        36.26        27.02        26.26        32.18        48.59        73.06
+pi05               32.77        27.65        28.16        32.38        24.60        23.99        30.09        42.99        63.01
+smolvla            40.45        29.77        29.54        31.57        27.38        27.46        33.40        40.26        46.27
+gr00t-n1.6         26.83        20.34        20.98        21.42        19.08        18.22        21.03        27.94        29.48
+
+Kendall tau(latency, $/success) per device: {'h100-sxm': 0.6, 'a10g': 0.87, 'l4': 0.87, 't4': 0.33, 'rtx-4090': 1.0, 'rtx-5090': 0.87, 'jetson-agx-thor': 1.0, 'jetson-agx-orin-64gb': 0.6, 'jetson-orin-nano-super': 0.73}
+fastest vs cheapest: {'h100-sxm': ('openvla-oft', 'openvla-oft'), 'a10g': ('gr00t-n1.6', 'gr00t-n1.6'), 'l4': ('gr00t-n1.6', 'gr00t-n1.6'), 't4': ('gr00t-n1.6', 'gr00t-n1.6'), 'rtx-4090': ('gr00t-n1.6', 'gr00t-n1.6'), 'rtx-5090': ('gr00t-n1.6', 'gr00t-n1.6'), 'jetson-agx-thor': ('gr00t-n1.6', 'gr00t-n1.6'), 'jetson-agx-orin-64gb': ('gr00t-n1.6', 'gr00t-n1.6'), 'jetson-orin-nano-super': ('gr00t-n1.6', 'gr00t-n1.6')}
+
+Cheapest device:
+  openvla|compute-only|sync                rtx-5090
+  openvla|compute-only|async               rtx-5090
+  openvla|robot|sync                       rtx-5090
+  openvla|robot|async                      h100-sxm
+  openvla|robot+operator|sync              h100-sxm
+  openvla|robot+operator|async             h100-sxm
+  openvla-oft|compute-only|sync            rtx-4090
+  openvla-oft|compute-only|async           rtx-4090
+  openvla-oft|robot|sync                   rtx-5090
+  openvla-oft|robot|async                  rtx-4090
+  openvla-oft|robot+operator|sync          h100-sxm
+  openvla-oft|robot+operator|async         rtx-5090
+  pi0|compute-only|sync                    jetson-orin-nano-super
+  pi0|compute-only|async                   jetson-orin-nano-super
+  pi0|robot|sync                           rtx-5090
+  pi0|robot|async                          rtx-4090
+  pi0|robot+operator|sync                  rtx-5090
+  pi0|robot+operator|async                 rtx-5090
+  pi05|compute-only|sync                   jetson-orin-nano-super
+  pi05|compute-only|async                  jetson-orin-nano-super
+  pi05|robot|sync                          rtx-5090
+  pi05|robot|async                         rtx-4090
+  pi05|robot+operator|sync                 rtx-5090
+  pi05|robot+operator|async                rtx-5090
+  smolvla|compute-only|sync                jetson-orin-nano-super
+  smolvla|compute-only|async               jetson-orin-nano-super
+  smolvla|robot|sync                       rtx-4090
+  smolvla|robot|async                      rtx-4090
+  smolvla|robot+operator|sync              rtx-5090
+  smolvla|robot+operator|async             rtx-4090
+  gr00t-n1.6|compute-only|sync             jetson-orin-nano-super
+  gr00t-n1.6|compute-only|async            jetson-orin-nano-super
+  gr00t-n1.6|robot|sync                    rtx-5090
+  gr00t-n1.6|robot|async                   rtx-4090
+  gr00t-n1.6|robot+operator|sync           rtx-5090
+  gr00t-n1.6|robot+operator|async          rtx-5090
+
+Async real-time feasible:
+  openvla      []
+  openvla-oft  ['h100-sxm', 'a10g', 'l4', 't4', 'rtx-4090', 'rtx-5090', 'jetson-agx-thor']
+  pi0          ['h100-sxm', 'a10g', 'l4', 'rtx-4090', 'rtx-5090', 'jetson-agx-thor']
+  pi05         ['h100-sxm', 'a10g', 'l4', 'rtx-4090', 'rtx-5090', 'jetson-agx-thor']
+  smolvla      ['h100-sxm', 'a10g', 'l4', 't4', 'rtx-4090', 'rtx-5090', 'jetson-agx-thor', 'jetson-agx-orin-64gb']
+  gr00t-n1.6   ['h100-sxm', 'a10g', 'l4', 't4', 'rtx-4090', 'rtx-5090', 'jetson-agx-thor', 'jetson-agx-orin-64gb', 'jetson-orin-nano-super']
+
+Long/Spatial cost ratio on Thor: {'openvla': 4.25, 'openvla-oft': 2.4, 'pi0': 2.77, 'pi05': 2.52, 'smolvla': 3.16, 'gr00t-n1.6': 2.4}
+Success-length sensitivity: {0.4: {'cheapest': 'gr00t-n1.6', 'order': ['gr00t-n1.6', 'openvla-oft', 'pi05', 'pi0', 'smolvla', 'openvla']}, 0.6: {'cheapest': 'gr00t-n1.6', 'order': ['gr00t-n1.6', 'openvla-oft', 'pi05', 'pi0', 'smolvla', 'openvla']}, 0.8: {'cheapest': 'gr00t-n1.6', 'order': ['gr00t-n1.6', 'openvla-oft', 'pi05', 'smolvla', 'pi0', 'openvla']}, 1.0: {'cheapest': 'gr00t-n1.6', 'order': ['gr00t-n1.6', 'openvla-oft', 'pi05', 'smolvla', 'pi0', 'openvla']}}
+
+pi0 JAX-anchor sensitivity: {'h100-sxm': {'pi0_latency_ms': 28.623496094736065, 'fastest': 'pi0', 'cheapest': 'openvla-oft'}, 'a10g': {'pi0_latency_ms': 97.71631829172006, 'fastest': 'pi0', 'cheapest': 'gr00t-n1.6'}, 'l4': {'pi0_latency_ms': 112.79277691066774, 'fastest': 'pi0', 'cheapest': 'gr00t-n1.6'}, 't4': {'pi0_latency_ms': 169.82630407255155, 'fastest': 'gr00t-n1.6', 'cheapest': 'gr00t-n1.6'}, 'rtx-4090': {'pi0_latency_ms': 72.99999999999999, 'fastest': 'pi0', 'cheapest': 'gr00t-n1.6'}, 'rtx-5090': {'pi0_latency_ms': 59.41300173960561, 'fastest': 'gr00t-n1.6', 'cheapest': 'gr00t-n1.6'}, 'jetson-agx-thor': {'pi0_latency_ms': 92.41129724891188, 'fastest': 'pi0', 'cheapest': 'gr00t-n1.6'}, 'jetson-agx-orin-64gb': {'pi0_latency_ms': 263.8002059721131, 'fastest': 'pi0', 'cheapest': 'gr00t-n1.6'}, 'jetson-orin-nano-super': {'pi0_latency_ms': 593.7395935594931, 'fastest': 'gr00t-n1.6', 'cheapest': 'gr00t-n1.6'}}
+
+Monte Carlo P(cheapest model | device):
+  compute-only: h100-sxm: openvla-oft=0.98,gr00t-n1.6=0.02; a10g: gr00t-n1.6=0.77,openvla-oft=0.15,smolvla=0.08,pi05=0.00; l4: gr00t-n1.6=0.64,openvla-oft=0.24,smolvla=0.11,pi05=0.01,pi0=0.00; t4: gr00t-n1.6=0.84,smolvla=0.16,pi05=0.00; rtx-4090: gr00t-n1.6=0.83,openvla-oft=0.14,smolvla=0.03,pi05=0.00; rtx-5090: gr00t-n1.6=0.93,openvla-oft=0.07,smolvla=0.00; jetson-agx-thor: gr00t-n1.6=0.96,openvla-oft=0.03,smolvla=0.02; jetson-agx-orin-64gb: gr00t-n1.6=0.57,smolvla=0.33,openvla-oft=0.09,pi05=0.01,pi0=0.00; jetson-orin-nano-super: gr00t-n1.6=0.68,smolvla=0.32
+  robot: h100-sxm: openvla-oft=0.98,gr00t-n1.6=0.02; a10g: gr00t-n1.6=0.79,openvla-oft=0.15,smolvla=0.05,pi05=0.00; l4: gr00t-n1.6=0.65,openvla-oft=0.24,smolvla=0.10,pi05=0.01,pi0=0.00; t4: gr00t-n1.6=0.85,smolvla=0.14,pi05=0.00; rtx-4090: gr00t-n1.6=0.86,openvla-oft=0.14,pi05=0.00,smolvla=0.00; rtx-5090: gr00t-n1.6=0.92,openvla-oft=0.08; jetson-agx-thor: gr00t-n1.6=0.96,openvla-oft=0.03,smolvla=0.01; jetson-agx-orin-64gb: gr00t-n1.6=0.58,smolvla=0.32,openvla-oft=0.09,pi05=0.01,pi0=0.00; jetson-orin-nano-super: gr00t-n1.6=0.69,smolvla=0.31
+  robot+operator: h100-sxm: openvla-oft=0.98,gr00t-n1.6=0.02; a10g: gr00t-n1.6=0.79,openvla-oft=0.15,smolvla=0.05,pi05=0.00; l4: gr00t-n1.6=0.65,openvla-oft=0.24,smolvla=0.10,pi05=0.01,pi0=0.00; t4: gr00t-n1.6=0.85,smolvla=0.14,pi05=0.00; rtx-4090: gr00t-n1.6=0.86,openvla-oft=0.14,pi05=0.00,smolvla=0.00; rtx-5090: gr00t-n1.6=0.92,openvla-oft=0.08; jetson-agx-thor: gr00t-n1.6=0.96,openvla-oft=0.03,smolvla=0.01; jetson-agx-orin-64gb: gr00t-n1.6=0.58,smolvla=0.32,openvla-oft=0.09,pi05=0.01,pi0=0.00; jetson-orin-nano-super: gr00t-n1.6=0.69,smolvla=0.31
+Monte Carlo P(cheapest device | model):
+  compute-only: openvla: rtx-5090=0.56,rtx-4090=0.44,a10g=0.00,l4=0.00; openvla-oft: rtx-4090=0.87,rtx-5090=0.12,l4=0.00; pi0: jetson-orin-nano-super=1.00; pi05: jetson-orin-nano-super=1.00; smolvla: jetson-orin-nano-super=1.00; gr00t-n1.6: jetson-orin-nano-super=1.00
+  robot: openvla: rtx-5090=0.49,h100-sxm=0.34,rtx-4090=0.16,a10g=0.01; openvla-oft: rtx-5090=0.56,rtx-4090=0.32,l4=0.05,h100-sxm=0.04,a10g=0.03,jetson-agx-thor=0.01; pi0: rtx-5090=0.47,rtx-4090=0.33,a10g=0.07,jetson-agx-thor=0.05,l4=0.04,h100-sxm=0.02,t4=0.01; pi05: rtx-5090=0.50,rtx-4090=0.37,a10g=0.06,l4=0.05,h100-sxm=0.01,t4=0.01,jetson-agx-thor=0.00; smolvla: rtx-4090=0.42,rtx-5090=0.38,l4=0.09,a10g=0.07,t4=0.04,jetson-agx-thor=0.00,h100-sxm=0.00; gr00t-n1.6: rtx-5090=0.92,rtx-4090=0.07,a10g=0.00,l4=0.00
+  robot+operator: openvla: h100-sxm=0.64,rtx-5090=0.28,rtx-4090=0.08,a10g=0.00; openvla-oft: h100-sxm=0.67,rtx-5090=0.22,rtx-4090=0.10,a10g=0.00,l4=0.00; pi0: rtx-5090=0.38,rtx-4090=0.28,h100-sxm=0.20,a10g=0.06,jetson-agx-thor=0.05,l4=0.03,t4=0.00; pi05: rtx-5090=0.43,rtx-4090=0.31,h100-sxm=0.16,a10g=0.06,l4=0.04,jetson-agx-thor=0.00,t4=0.00; smolvla: rtx-5090=0.38,rtx-4090=0.35,a10g=0.10,l4=0.09,h100-sxm=0.04,t4=0.03,jetson-agx-thor=0.00; gr00t-n1.6: rtx-5090=0.93,rtx-4090=0.05,a10g=0.02,l4=0.00
+
+Thor energy/inference: default MAPE 107%, leave-one-out MAPE 39%
+  openvla      meas  20.9 J (47 W)  default  38.3  loo  21.4
+  openvla-oft  meas  14.3 J (79 W)  default  15.6  loo   7.3
+  pi05         meas   9.1 J (44 W)  default  17.9  loo  10.2
+  gr00t-n1.7   meas   6.9 J (46 W)  default  12.8  loo   7.2
+  smolvla      meas   7.3 J (24 W)  default  26.5  loo  16.6

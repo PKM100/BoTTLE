@@ -1,0 +1,41 @@
+{
+  "model": "pi0",
+  "hardware": "m5-gpu",
+  "precision": "fp32",
+  "stages": {
+    "vision": {
+      "time_s": 0.2510697636025725,
+      "pass_s": 0.03719552053371444,
+      "layers_profiled": 4,
+      "layer_scale": 6.75,
+      "repeats": 1
+    },
+    "vlm": {
+      "time_s": 1.3390554401557893,
+      "pass_s": 0.2975678755901754,
+      "layers_profiled": 4,
+      "layer_scale": 4.5,
+      "repeats": 1
+    },
+    "action": {
+      "time_s": 0.21817122702486813,
+      "pass_s": 0.004848249489441514,
+      "layers_profiled": 4,
+      "layer_scale": 4.5,
+      "repeats": 10
+    }
+  },
+  "latency_s": 1.8082964307832299,
+  "host_s": null,
+  "avg_power_w": null,
+  "energy_j_per_call": null,
+  "method": "synthetic shape-faithful stacks",
+  "env": {
+    "torch": "2.15.0",
+    "device": "mps"
+  },
+  "notes": [
+    "host preprocessing not measured (synthetic inputs)",
+    "layers extrapolated linearly"
+  ]
+}

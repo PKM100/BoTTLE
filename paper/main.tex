@@ -1,0 +1,369 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,graphicx,hyperref,xcolor,caption,subcaption}
+\usepackage[numbers]{natbib}
+\captionsetup{font=small}
+\newcommand{\bottle}{\textsc{BoTTLE}}
+
+\title{\bottle: Predicting the Cost per Successful Task of Robot Foundation Models\\on Hardware You Do Not Own}
+\author{Prashanth Kumar Murali}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Vision-language-action (VLA) models are usually compared by task success rate, and occasionally by
+inference latency on one GPU. Neither answers the deployment question: \emph{what does one
+successful task cost on a given device?} Answering it today requires owning every candidate
+device. We present \bottle{} (\textbf{B}enchmark \textbf{o}f \textbf{T}ask-level \textbf{T}otal
+\textbf{L}atency \& \textbf{E}nergy), an open-source framework and CLI that (i) predicts per-call
+VLA latency and energy on unowned hardware from a per-stage roofline model, (ii) calibrates it with
+a single measurement on any available device, and (iii) converts the result into time, energy and
+dollars per \emph{successful} episode, accounting for action chunking, synchronous vs.\ asynchronous
+execution, retries and robot-side costs. Validating against 31 published latencies of eight VLA
+variants on nine devices, we find that published eager-mode latencies are dominated by time a
+roofline cannot explain (geometric mean $2.4\times$ the roofline); a naive single-factor
+calibration therefore \emph{worsens} transfer to Jetson devices (63\% MAPE). Overhead-aware
+calibration, which transfers the unexplained time as an additive residual rather than scaling it
+with accelerator throughput, reduces cross-device error to 28\% MAPE (95\% CI 19--36\%, resampling
+source groups), against a measured software-stack spread of up to $1.95\times$ for the same model
+and device. Applying \bottle{} to LIBERO with Monte Carlo uncertainty propagation, we show that
+(a) a software-stack choice that reorders latency rankings on 6 of 9 devices leaves the cheapest
+model per success unchanged, (b) counting compute only, a \$249 Jetson Orin Nano is the cheapest
+device with probability $>0.99$ for every model that fits, but once robot time is billed desktop
+GPUs win, and (c) the long-horizon suite costs $2.4$--$4.3\times$ more per success than the
+spatial suite. \bottle{} runs on a laptop or free Colab GPU and requires no hardware purchase.
+\end{abstract}
+
+\section{Introduction}
+Robot foundation models are moving from research demos to deployment on embedded computers such as
+NVIDIA Jetson Thor and Orin. Practitioners must choose a \emph{(model, device, precision,
+execution mode)} configuration, but the evidence available is fragmented: model papers report
+success rates on simulated benchmarks such as LIBERO~\citep{liu2023libero} and a latency on one
+desktop or datacenter GPU~\citep{kim2024openvla,kim2025oft,black2024pi0}; recent systems studies
+measure latency breakdowns on edge hardware~\citep{xu2026hwbench,waseem2026where} but do not
+predict unmeasured configurations and do not connect latency to task outcomes.
+
+Two observations motivate this work. First, what a deployer pays for is a \emph{successful
+task}: a policy that is 2$\times$ faster but fails twice as often is not cheaper, and in
+synchronous control the robot idles while the policy thinks, so latency multiplies robot time.
+This is the robotics analogue of cost-aware agent evaluation~\citep{kapoor2024agents}. Second,
+the people making the decision frequently do not own the target device. Analytical roofline
+models~\citep{williams2009roofline,yuan2024llmviewer,sun2026codesign} predict LLM inference
+from datasheets, but, as we show, raw VLA deployments in eager PyTorch run far from the roofline,
+so spec-only prediction is off by $>2\times$ on average.
+
+\paragraph{Contributions.}
+\begin{enumerate}
+\item \bottle, an open-source framework and CLI (installable as \texttt{bottle-bench}) with
+per-stage roofline models of eight VLAs (OpenVLA, OpenVLA-OFT, $\pi_0$, $\pi_{0.5}$, SmolVLA,
+GR00T N1.5, N1.6 and N1.7) and 13 devices, a shape-faithful synthetic profiler for CUDA, MPS and CPU, and a
+task-level cost model (\S\ref{sec:method}).
+\item \emph{Overhead-aware calibration}: carrying the time a roofline cannot explain on the
+reference device to the target as an additive residual (optionally scaled by a host-CPU prior)
+instead of scaling it with accelerator throughput. On 32 published cross-device pairs from 8
+source groups it reduces mean absolute percentage error (MAPE) from 48.8\% for single-factor
+calibration to 28.1\% (\S\ref{sec:e2}).
+\item A cost-per-success study of six VLAs on LIBERO across nine devices and three cost regimes,
+with uncertainty propagated from the predictor's measured error, success-rate sampling, assumed
+horizons and prices, reporting only rankings that survive it (\S\ref{sec:e3}).
+\item A curated dataset of 31 published VLA latency measurements with sources and settings,
+released with the tool.
+\end{enumerate}
+
+\section{Related Work}
+\paragraph{VLA models and efficiency.} OpenVLA~\citep{kim2024openvla} decodes one action token per
+dimension autoregressively; OpenVLA-OFT~\citep{kim2025oft} replaces this with parallel decoding of
+action chunks, reporting $26\times$ higher throughput; $\pi_0$/$\pi_{0.5}$~\citep{black2024pi0,pi2025pi05}
+and GR00T~\citep{nvidia2025gr00t} use flow-matching action experts conditioned on a VLM prefix;
+SmolVLA~\citep{shukor2025smolvla} targets affordable hardware.
+\paragraph{VLA systems measurement.} VLA-HWBench~\citep{xu2026hwbench} profiles 18 VLAs on Jetson
+Thor and attributes time to pipeline stages; \citet{waseem2026where} study bottlenecks and
+optimization interactions across GPUs, including energy on Thor. Both are measurement studies;
+\bottle{} is complementary, using their data for validation and predicting configurations not
+measured.
+\paragraph{Performance and cost modelling.} Roofline models~\citep{williams2009roofline} underlie
+LLM inference analyzers~\citep{yuan2024llmviewer} and hardware co-design~\citep{sun2026codesign}.
+Zeus~\citep{you2023zeus} measures and optimizes GPU energy. \citet{kapoor2024agents} argue for
+cost-accuracy Pareto evaluation of AI agents. To our knowledge, no prior work combines success
+rate, retries, control-loop timing, energy and dollars into a per-successful-task metric for
+robot policies, or predicts it for unowned hardware.
+
+\section{Method}\label{sec:method}
+\subsection{Per-stage roofline model}
+A VLA call is a sequence of stages (vision encoder(s), VLM prefill, action head), each a stack of
+$L$ transformer layers of width $d$, MLP width $d_\text{ff}$ and KV width $d_\text{kv}$, processing
+$T$ tokens and repeated $R$ times (e.g.\ 7 autoregressive token steps for OpenVLA, 10 denoising
+steps for $\pi_0$, 4 for GR00T). Action stages attend to a cached prefix of $S$ tokens. Per layer we
+count parameters $P = 2d^2 + 2dd_\text{kv} + c\,d\,d_\text{ff}$ ($c{=}3$ gated, $2$ GELU) and
+\begin{align}
+F &= 2PT + 4TSd, &
+B &= P\,w_b + T(8d + 3d_\text{ff})\,a_b + 2Sd_\text{kv}a_b,
+\end{align}
+with $w_b,a_b$ the weight and activation bytes of the precision. Stage time is
+\begin{equation}
+t = R\left[\max\!\left(\frac{LF}{\eta_c\,\Pi_p},\ \frac{LB}{\eta_m\,\beta}\right) + 12L\,\tau_\text{launch}\right],
+\end{equation}
+where $\Pi_p$ is the device peak at precision $p$, $\beta$ the memory bandwidth, $\eta_c{=}0.5$,
+$\eta_m{=}0.75$ default efficiencies and $\tau_\text{launch}$ the per-kernel launch overhead. Call
+latency is $\ell = \sum_s t_s + h/\sigma$, a host term $h$ scaled by relative host-CPU speed
+$\sigma$. Power is $P_\text{idle} + u(P_\text{TDP}-P_\text{idle})$ with utilization $u$; memory
+footprint is $1.1\times$ weights $+$ KV $+$ 0.5\,GB.
+
+\subsection{Calibration from one measurement}
+Given a measured latency $m$ on a reference device $r$ and roofline predictions $\hat\ell_r$,
+$\hat\ell_t$ on reference and target, \emph{global} calibration predicts
+$\ell_t = \hat\ell_t\, m/\hat\ell_r$ (and \emph{stage} calibration does the same per stage when
+stage times are available). This assumes the gap to the roofline is a fixed fraction of compute
+time. Our measurements contradict this: eager VLA stacks spend most of their time in Python
+dispatch, small-kernel launches, synchronizations and pre/post-processing, which scale with the
+\emph{host CPU}, not with accelerator FLOPs or bandwidth. \emph{Overhead-aware} calibration
+therefore splits the measurement into an accelerator part and an unexplained residual, which is
+added to the target rather than scaled:
+\begin{equation}
+\ell_t = \min\!\left(\tfrac{m}{\hat\ell_r},1\right)\hat\ell_t + \max(m-\hat\ell_r,0)\,\frac{\sigma_r}{\sigma_t}.
+\end{equation}
+Host-speed priors $\sigma$ are set from CPU class (1.0 for modern x86 server cores, 0.75 for Thor's
+Neoverse-V3AE, 0.45 for Orin's Cortex-A78AE, 0.35 for Orin Nano, 0.8 for T4 cloud hosts, 1.2
+for desktop CPUs), not fitted to the validation data. With $\sigma_r{=}\sigma_t$ the method reduces
+to a constant additive residual, which we report as an ablation (\S\ref{sec:e2}). We interpret the
+residual as host and framework overhead, but our validation tests only that it transfers
+additively, not its cause. When the residual instead reflects accelerator inefficiency on a
+slow reference (e.g.\ an A10G calibrating an H100), it is carried to the target unscaled and the
+method overpredicts.
+
+\subsection{Task-level cost}
+A task attempt needs $N$ control steps at rate $f$; the model emits chunks of $H_\text{chunk}$
+actions of which $H \le H_\text{chunk}$ are executed per call, so there are $C=\lceil N/H\rceil$
+calls. Attempt duration is
+\begin{equation}
+D_\text{sync} = \frac{N}{f} + C\ell, \qquad D_\text{async} = \max\!\left(\frac{N}{f},\,C\ell\right) + \ell,
+\end{equation}
+and asynchronous execution is real-time iff $\ell \le H/f$. Energy per attempt is
+$C\ell P + (D - C\ell)P_\text{idle} + D\,P_\text{robot}$; dollars are energy $\times$ electricity price
+plus $D\times$(device rate $+$ robot/operator rate), with the device rate being purchase price
+amortized over lifetime $\times$ duty cycle (or a cloud hourly price). With per-attempt success
+probability $p$, the expected number of attempts is $1/p$, so every per-success quantity is the
+per-attempt quantity divided by $p$. \bottle{} reports these per configuration together with the
+cost--success Pareto front over configurations that are real-time and fit in memory.
+
+\subsection{Implementation}
+\bottle{} is a dependency-free Python package with optional PyTorch (profiling) and NVML (energy)
+extras. The CLI provides \texttt{hw}, \texttt{models}, \texttt{estimate}, \texttt{profile},
+\texttt{probe} (microbenchmarks peak FLOPs, bandwidth and launch overhead of the local device),
+\texttt{task}, \texttt{sweep} and \texttt{validate}. Devices and models are extensible via JSON.
+The profiler builds synthetic, shape-faithful transformer blocks (GQA, SDPA, cached prefix, gated
+or GELU MLP) for each stage, so a profile needs no model weights, checkpoints or licenses. A Colab
+notebook profiles on a free T4 and runs a calibrated sweep.
+
+\section{Experiments}
+\subsection{E1: Local cross-device transfer}\label{sec:e1}
+\input{e1.tex}
+
+\subsection{E2: Validation against published measurements}\label{sec:e2}
+We collected 31 published batch-1 latencies (Appendix~\ref{app:data}) for eight VLA variants on
+nine devices from model papers, the Isaac-GR00T repository~\citep{isaacgr00t} and two systems
+studies~\citep{waseem2026where,xu2026hwbench}. Measurements are grouped by source and setting;
+calibration transfers only within a group, from a non-Jetson reference to every other device
+(32 ordered pairs, 18 with Jetson targets). Pairs within a group share measurements and are not
+independent, and two GR00T groups contribute 18 of the 32; we therefore report 95\% confidence
+intervals from a bootstrap over the 8 groups, a group-averaged MAPE, and per-group results
+(Appendix Table~\ref{tab:groups}). No parameter is fitted to these data, so there is no
+train/test split to leak, but the method was designed after seeing them; the results should be
+read as a retrospective validation.
+
+\paragraph{The roofline gap.} Spec-only predictions underpredict with a geometric-mean ratio of
+0.41 and are within $2\times$ for only 13 of 31 cases (42\%); the worst is $14\times$ too fast. The gap is not uniform: the JAX-compiled $\pi_0$
+on an RTX~4090 is predicted within 2\% (71.8 vs.\ 73\,ms), whereas the eager GR00T~N1.6 backbone
+on H100 measures 23\,ms against a 3.2\,ms roofline, and SmolVLA (0.45B) takes 208\,ms on an H100
+NVL against a 15\,ms roofline. A slower Jetson Thor runs SmolVLA in only 1.5$\times$ the H100 time
+despite $3.2\times$ less compute and $14\times$ less bandwidth---the signature of host-bound
+execution.
+
+\begin{table}[t]\centering\small
+\input{tables/transfer.tex}
+\caption{Cross-device latency transfer on 32 published (reference$\to$target) pairs from 8 source
+groups. MAPE in \%; CI: 95\% bootstrap over source groups; Group MAPE: mean of per-group MAPEs;
+Jetson: MAPE on the 18 Jetson targets; $\le$25\%: share of pairs with APE $\le 25\%$;
+$\le2\times$: share with $0.5 \le$ pred/meas $\le 2$. Additive residual is our method with all
+host priors equal.}\label{tab:transfer}
+\end{table}
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{figs/transfer.pdf}
+\caption{Predicted vs.\ measured latency for the 32 transfer pairs. Dotted: $\pm25\%$. Global
+calibration scales host overhead by accelerator throughput and overpredicts Jetson latency;
+overhead-aware calibration does not.}\label{fig:transfer}
+\end{figure}
+
+\paragraph{Transfer.} Table~\ref{tab:transfer} and Figure~\ref{fig:transfer} compare five
+predictors. Single-factor calibration helps desktop-to-desktop transfer but \emph{hurts} on
+Jetson targets (63.3\% vs.\ 54.0\% spec-only): it multiplies tens of milliseconds of host overhead
+by the $4$--$20\times$ accelerator slowdown. Overhead-aware calibration reduces MAPE to 28.1\%
+overall (95\% CI 19--36\%) and 27.7\% on Jetson, with median 22.7\% and 56\% of predictions
+within 25\%. Its improvement over global calibration is $-20.7$ points (95\% CI $-48$ to $-3$),
+and it beats global calibration in 6 of 8 groups. It loses in the two OpenVLA-OFT groups
+(34.1\% vs.\ 19.8\% on a single pair; 39.5\% vs.\ 30.7\% with fused attention), the latter driven
+by the A10G$\to$H100 pair (100\% APE), the accelerator-inefficiency failure mode described in
+\S\ref{sec:method}.
+
+\paragraph{Most of the gain is the additive form, not the host prior.} With all host priors
+equal (a constant additive residual) MAPE is 32.8\% (33.4\% Jetson). The registry priors improve
+this by 4.7 points (95\% CI 2.4--8.6). Perturbing the Jetson priors gives 31.4\% ($\times0.75$),
+28.5\% ($\times1.25$) and 30.3\% (halfway to 1). All variants stay well below global calibration;
+the host prior is a secondary refinement.
+
+\paragraph{Noise floor.} The same model on the same device differs across sources by up to
+$1.95\times$ ($\pi_{0.5}$ on Thor: 208 vs.\ 405\,ms), $1.38\times$ (OpenVLA-OFT on Thor) and
+$1.40\times$ (GR00T N1.7 on Thor). Any predictor that ignores the software stack is bounded by
+this spread. A 28\% transfer error is of the same order, which suggests that further gains
+require calibrating on the \emph{same software stack} that will be deployed, as \bottle{}
+recommends, rather than a better device model.
+
+\paragraph{Energy.} \citet{waseem2026where} report energy per inference on Thor for five VLAs,
+implying average module power of 24--79\,W. The default utilization prior ($u{=}0.6$, 86\,W)
+overpredicts energy by 107\% MAPE; calibrating $u$ from the other four models (leave-one-out)
+reduces this to 39\% (per model: 2\% OpenVLA, 4\% GR00T N1.7, 13\% $\pi_{0.5}$, 49\% OFT, 126\%
+SmolVLA). Host-bound inference draws far below TDP, so energy, like latency, needs one calibration
+point; E3 therefore samples $u\in[0.2,1]$ rather than relying on the default.
+
+\subsection{E3: Cost per successful LIBERO task}\label{sec:e3}
+\paragraph{Setup.} We combine published LIBERO success rates per suite (Appendix
+Table~\ref{tab:success}; averages OpenVLA 76.5\%, OpenVLA-OFT 97.1\%, $\pi_0$ 94.2\%, $\pi_{0.5}$
+96.9\%, SmolVLA 87.2\%, GR00T N1.6 97.0\%) with per-call latencies. Where the source used to anchor a
+model also reports the target device, we use that measurement (9 of 54 cells, marked * in
+Table~\ref{tab:latency}); otherwise we use overhead-calibrated predictions anchored on one
+published \emph{eager PyTorch} measurement per model on a non-Jetson GPU. $\pi_0$ has no published
+eager measurement; we anchor it on the eager $\pi_{0.5}$ H100 NVL measurement scaled by the
+roofline ratio of the two models, which share backbone and action expert. LIBERO runs at 20\,Hz
+with maximum episode lengths of 220/280/300/520 steps (spatial/object/goal/long) plus 10 settle
+steps; failed attempts run to the limit. Execution horizons follow the published evaluation code
+($H{=}1$ OpenVLA, 8 OFT and GR00T, 5 $\pi_0$/$\pi_{0.5}$); SmolVLA's is not documented and is
+swept. Point estimates use 60\% of the step limit for successful episodes, 3-year amortization at
+50\% duty, \$0.15/kWh, and three regimes: \emph{compute only}; \emph{+robot} (\$5/h amortized
+robot, 150\,W); \emph{+robot+operator} (\$35/h).
+
+\paragraph{Uncertainty.} Point estimates hide that many cost differences are smaller than the
+predictor's error. We therefore run 2{,}000 Monte Carlo draws that jointly sample: latency
+multipliers from the 32 empirical E2 log-residuals of overhead-aware calibration (or
+$\pm15\%$ lognormal for measured cells); per-suite success rates from Beta posteriors given the
+published trial counts; SmolVLA's horizon from $\{5,10,25,50\}$; the successful-episode fraction
+from $[0.4,0.8]$; power utilization $u\in[0.2,1]$; electricity \$0.08--0.30/kWh; lifetime 2--5
+years and duty 25--75\%; robot \$2.5--10/h and operator \$20--50/h; and a 0--30\,ms network round
+trip for server-class GPUs (H100, A10G, L4, T4). We call a configuration the \emph{robust} winner
+only if it is cheapest in $\ge80\%$ of draws.
+
+\begin{table}[t]\centering\small\setlength{\tabcolsep}{3pt}
+\input{tables/cost.tex}
+\caption{Dollars per 1{,}000 successful LIBERO episodes (point estimates; synchronous execution,
+mean over four suites). SR: average success rate (\%). \textbf{Bold}: cheapest model on that device
+in $\ge$80\% of Monte Carlo draws; \underline{underline}: cheapest device for that model in
+$\ge$80\% of draws; unmarked columns/rows have no robust winner. --: does not fit in device
+memory.}\label{tab:cost}
+\end{table}
+
+\begin{table}[t]\centering\small\setlength{\tabcolsep}{3.5pt}
+\input{tables/latency.tex}
+\caption{Per-call latency (ms, bf16, eager PyTorch). *: published measurement; others: overhead-
+calibrated prediction. $^\dagger$: not real-time in asynchronous mode at 20\,Hz ($\ell > H/f$),
+so the robot stalls between chunks.}\label{tab:latency}
+\end{table}
+
+\paragraph{The software stack reorders latency, not cost per success.} With all models on eager
+PyTorch, the fastest model is also the cheapest per success on every device (Kendall's $\tau$
+between latency and cost 0.33--1.0). Anchoring $\pi_0$ instead on its published JAX-compiled
+4090 measurement makes it the fastest model on 6 of 9 devices, yet the cheapest model per success
+is unchanged on all nine: GR00T N1.6 or OpenVLA-OFT, which execute 8 actions per call (vs.\ 5)
+and fail less often. The robust winners (Table~\ref{tab:cost}, bold) are OpenVLA-OFT on H100
+($P{=}0.98$) and GR00T N1.6 on the RTX 5090, RTX 4090, T4 and Thor ($P{=}0.83$--$0.96$). On the
+A10G, L4, AGX Orin and Orin Nano no model wins robustly; on the two Orins GR00T N1.6 and SmolVLA
+are not separated ($P{=}0.57$--$0.69$ vs.\ $0.31$--$0.33$), because SmolVLA's undocumented horizon
+dominates its cost.
+
+\paragraph{The optimal device depends on who pays for what.} Counting compute only, the \$249
+Orin Nano is the cheapest device for every model that fits in its 8\,GB ($P{>}0.99$), by
+$2.4$--$4.1\times$ in the point estimate, despite being the slowest. Once robot time is billed,
+synchronous execution makes latency expensive (Figure~\ref{fig:scen}) and a tethered desktop GPU
+wins: the RTX 4090 or 5090 is cheapest in 80--99\% of draws for every model except OpenVLA, but
+which of the two is only resolved for GR00T N1.6 (5090, $P{=}0.92$). With an operator in the loop
+the H100 becomes the most likely winner for OpenVLA and OpenVLA-OFT ($P{=}0.64$, $0.67$), not a
+robust one. These are statements about the cost model under stated price ranges; they are not
+validated against a measured deployment bill.
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{figs/scenarios.pdf}
+\caption{Latency vs.\ cost per 1{,}000 successes for every (model, device) that fits in memory
+(synchronous, mean over LIBERO suites, point estimates). Counting compute only, cheap slow devices
+win; once robot time is billed, cost increases with latency within each model.}\label{fig:scen}
+\end{figure}
+
+\paragraph{Embedded feasibility.} OpenVLA is never real-time at 20\,Hz (single-action
+decoding). On AGX Orin only SmolVLA and GR00T N1.6 are real-time; on Orin Nano only GR00T N1.6
+(358\,ms predicted against a 400\,ms budget, inside the predictor's error).
+Jetson Thor makes OpenVLA-OFT, $\pi_0$ and $\pi_{0.5}$ real-time.
+
+\paragraph{Long horizons dominate.} On Thor, LIBERO-Long costs $2.4$--$4.3\times$ more per
+success than LIBERO-Spatial (OpenVLA highest), from longer episodes compounded by lower success.
+This ratio depends only on episode lengths and success rates, not on the latency predictor.
+
+\section{Discussion and Limitations}
+\textbf{Prediction is bounded by the software stack.} The dominant term in published VLA latency
+is not accelerator throughput, and identical model/device pairs vary by up to $1.95\times$ across
+stacks. \bottle{} therefore treats calibration on the deployed stack as first-class. Its
+transfer error (median 23\%, worst case 100\%) is sufficient for ranking configurations that
+differ by $2\times$ or more, but many cost comparisons in Table~\ref{tab:cost} are closer than
+that, which is why we report only Monte Carlo-robust winners.
+\textbf{Success is treated as independent of latency and device.} In closed-loop control, stalls
+can change success; precision changes (e.g.\ INT4) can too. \bottle{} accepts per-configuration
+success rates when available, but our LIBERO study uses published simulator success, in which the
+environment waits for the policy, so E3 cannot capture latency-induced failures. Success rates
+also come from different codebases and evaluation scripts (Table~\ref{tab:success}) and are only
+approximately comparable. A closed-loop LIBERO evaluation that delays each action chunk by the
+predicted latency of a target device, which needs no target hardware, is the natural validation
+of this assumption. We release one (\texttt{notebooks/bottle\_libero\_sim.ipynb}): it holds the
+robot still for $\lceil \ell f\rceil$ simulator steps per chunk, where $\ell$ is either the latency
+measured on a free T4 or a \bottle{} prediction for a target device, and charges the holds against
+the episode's step budget. Running the full study is future work.
+\textbf{No measured bill.} Cost per success is computed, not measured end to end on a deployment.
+\textbf{Approximations.} Several device peaks (A10G, Thor, Orin) and some GR00T N1.6/N1.7 and
+SmolVLA dimensions are approximate; embedding tables are excluded from parameter counts; the
+synthetic profiler omits tokenization and image preprocessing; host-speed priors are coarse and
+the host-overhead interpretation of the residual is untested;
+Apple-silicon profiles have no energy readings. Hardware prices are list prices.
+\textbf{Off-board compute.} Desktop GPUs are treated as tethered; server-class GPUs receive a
+0--30\,ms network round trip in the Monte Carlo only. Memory-fit predictions are not validated
+against deployments.
+
+\section{Conclusion}
+Cost per successful task is the quantity robot deployers optimize, and it can be estimated without
+owning the hardware---provided the estimate accounts for the host overhead that dominates today's
+eager VLA stacks. \bottle{} makes this estimate one CLI command. Our study shows that the
+optimal device depends on what the deployer pays for, that cost-per-success model rankings are more
+stable than latency rankings across software stacks, and that many apparent differences do not
+survive the uncertainty of predicting unowned hardware. Code, data and
+the Colab notebook are released at \url{https://github.com/PKM100/BoTTLE}.
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\appendix
+\section{Published latency dataset}\label{app:data}
+\input{tables/dataset.tex}
+
+\section{Per-group transfer error}
+\begin{table}[h]\centering\small
+\input{tables/groups.tex}
+\caption{E2 MAPE (\%) per source group. Same: reference latency reused; Spec: spec-only roofline;
+Global: single-factor calibration; Additive: constant residual; Ours: overhead-aware.}\label{tab:groups}
+\end{table}
+
+\section{LIBERO success rates and execution horizons}
+\begin{table}[h]\centering
+\input{tables/success.tex}
+\caption{Per-suite LIBERO success rates (\%) and execution horizon $H$ used in E3. Trials: episodes per
+suite in the source evaluation. $^\ddagger$: not documented; swept over $\{5,10,25,50\}$ in the Monte
+Carlo.}\label{tab:success}
+\end{table}
+
+\end{document}

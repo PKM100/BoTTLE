@@ -1,0 +1,40 @@
+{
+  "model": "smolvla",
+  "hardware": "m5-gpu",
+  "precision": "fp16",
+  "stages": {
+    "vision": {
+      "time_s": 0.04466764599783346,
+      "pass_s": 0.04466764599783346,
+      "layers_profiled": 12,
+      "layer_scale": 1.0,
+      "repeats": 1
+    },
+    "vlm": {
+      "time_s": 0.0099843954667449,
+      "pass_s": 0.0099843954667449,
+      "layers_profiled": 16,
+      "layer_scale": 1.0,
+      "repeats": 1
+    },
+    "action": {
+      "time_s": 0.11189229029696435,
+      "pass_s": 0.011189229029696435,
+      "layers_profiled": 16,
+      "layer_scale": 1.0,
+      "repeats": 10
+    }
+  },
+  "latency_s": 0.1665443317615427,
+  "host_s": null,
+  "avg_power_w": null,
+  "energy_j_per_call": null,
+  "method": "synthetic shape-faithful stacks",
+  "env": {
+    "torch": "2.15.0",
+    "device": "mps"
+  },
+  "notes": [
+    "host preprocessing not measured (synthetic inputs)"
+  ]
+}

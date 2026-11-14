@@ -1,0 +1,11 @@
+\begin{tabular}{lrrrrrr}
+\toprule
+Predictor & MAPE [95\% CI] & Group MAPE & Median & Jetson & $\le$25\% & $\le$2$\times$ \\
+\midrule
+Same latency as reference & 59.9 [38, 94] & 57.6 & 48.0 & 50.8 & 25\% & 59\% \\
+Spec-only roofline & 51.8 [35, 68] & 55.1 & 55.7 & 54.0 & 6\% & 44\% \\
+Global calibration & 48.8 [37, 73] & 60.0 & 36.3 & 63.3 & 34\% & 88\% \\
+Additive residual (no host prior) & 32.8 [27, 40] & 31.0 & 31.2 & 33.4 & 41\% & 84\% \\
+Overhead-aware (\textbf{ours}) & 28.1 [19, 36] & 23.5 & 22.7 & 27.7 & 56\% & 100\% \\
+\bottomrule
+\end{tabular}

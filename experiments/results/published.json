@@ -1,0 +1,1308 @@
+{
+  "spec_only": {
+    "all": {
+      "n": 31,
+      "mape": 0.5386454427017255,
+      "median_ape": 0.5793095994739215,
+      "max_ape": 0.9285317523551007,
+      "within_25pct": 0.0967741935483871,
+      "within_2x": 0.41935483870967744
+    },
+    "edge": {
+      "n": 13,
+      "mape": 0.5788453243253282,
+      "median_ape": 0.5828986334225998,
+      "max_ape": 0.8837087626024769,
+      "within_25pct": 0.0,
+      "within_2x": 0.3076923076923077
+    },
+    "min_ratio": 0.07146824764489933,
+    "max_ratio": 1.2717646932543114,
+    "geo_mean_ratio": 0.40639572169587757,
+    "rows": [
+      {
+        "id": "pi0_4090_paper",
+        "model": "pi0",
+        "hw": "rtx-4090",
+        "edge": false,
+        "measured_ms": 73,
+        "spec_ms": 71.80364910953996,
+        "ideal_ms": 45.73142455476998,
+        "spec_ape": 0.016388368362466273,
+        "spec_ratio": 0.9836116316375337,
+        "stages": {
+          "vision": {
+            "measured_ms": 14,
+            "spec_ms": 9.236259244939468
+          },
+          "vlm": {
+            "measured_ms": 32,
+            "spec_ms": 41.20898986460048
+          },
+          "action": {
+            "measured_ms": 27,
+            "spec_ms": 16.3584
+          }
+        }
+      },
+      {
+        "id": "openvla_4090_paper",
+        "model": "openvla",
+        "hw": "rtx-4090",
+        "edge": false,
+        "measured_ms": 167,
+        "spec_ms": 193.4946528396592,
+        "ideal_ms": 137.15562893834814,
+        "spec_ape": 0.15865061580634257,
+        "spec_ratio": 1.1586506158063425
+      },
+      {
+        "id": "openvla_a100_oft",
+        "model": "openvla",
+        "hw": "a100-40gb",
+        "edge": false,
+        "measured_ms": 239.6,
+        "spec_ms": 126.88407679748833,
+        "ideal_ms": 93.47273097023003,
+        "spec_ape": 0.4704337362375278,
+        "spec_ratio": 0.5295662637624722
+      },
+      {
+        "id": "oft_a100_oft",
+        "model": "openvla-oft",
+        "hw": "a100-40gb",
+        "edge": false,
+        "measured_ms": 112.0,
+        "spec_ms": 65.31243061825641,
+        "ideal_ms": 37.1482153091282,
+        "spec_ape": 0.4168532980512821,
+        "spec_ratio": 0.5831467019487179
+      },
+      {
+        "id": "n15_h100_repo",
+        "model": "gr00t-n1.5",
+        "hw": "h100-sxm",
+        "edge": false,
+        "measured_ms": 47.88,
+        "spec_ms": 15.460934533731344,
+        "ideal_ms": 14.83170090029851,
+        "spec_ape": 0.6770899220189778,
+        "spec_ratio": 0.32291007798102217,
+        "stages": {
+          "backbone": {
+            "measured_ms": 23.18,
+            "spec_ms": 2.847527813731343
+          },
+          "action": {
+            "measured_ms": 24.7,
+            "spec_ms": 4.61340672
+          }
+        }
+      },
+      {
+        "id": "n16_5090",
+        "model": "gr00t-n1.6",
+        "hw": "rtx-5090",
+        "edge": false,
+        "measured_ms": 58,
+        "spec_ms": 24.40004323051256,
+        "ideal_ms": 21.36530235695511,
+        "spec_ape": 0.5793095994739215,
+        "spec_ratio": 0.4206904005260786,
+        "stages": {
+          "backbone": {
+            "measured_ms": 18,
+            "spec_ms": 5.6074611352744625
+          },
+          "action": {
+            "measured_ms": 38,
+            "spec_ms": 12.12591542857143
+          }
+        }
+      },
+      {
+        "id": "n16_h100",
+        "model": "gr00t-n1.6",
+        "hw": "h100-sxm",
+        "edge": false,
+        "measured_ms": 77,
+        "spec_ms": 20.554699653731344,
+        "ideal_ms": 19.468024740298507,
+        "spec_ape": 0.7330558486528397,
+        "spec_ratio": 0.2669441513471603,
+        "stages": {
+          "backbone": {
+            "measured_ms": 23,
+            "spec_ms": 3.210821311044776
+          },
+          "action": {
+            "measured_ms": 49,
+            "spec_ms": 9.343878342686567
+          }
+        }
+      },
+      {
+        "id": "n16_4090",
+        "model": "gr00t-n1.6",
+        "hw": "rtx-4090",
+        "edge": false,
+        "measured_ms": 82,
+        "spec_ms": 30.433052002281407,
+        "ideal_ms": 25.881767397966104,
+        "spec_ape": 0.6288652194843731,
+        "spec_ratio": 0.37113478051562687,
+        "stages": {
+          "backbone": {
+            "measured_ms": 25,
+            "spec_ms": 6.987869018154425
+          },
+          "action": {
+            "measured_ms": 55,
+            "spec_ms": 16.778516317460316
+          }
+        }
+      },
+      {
+        "id": "n16_thor",
+        "model": "gr00t-n1.6",
+        "hw": "jetson-agx-thor",
+        "edge": true,
+        "measured_ms": 117,
+        "spec_ms": 76.3172887912088,
+        "ideal_ms": 62.982633260073264,
+        "spec_ape": 0.34771548041701894,
+        "spec_ratio": 0.6522845195829811,
+        "stages": {
+          "backbone": {
+            "measured_ms": 38,
+            "spec_ms": 17.168715721611722
+          },
+          "action": {
+            "measured_ms": 74,
+            "spec_ms": 48.481906402930406
+          }
+        }
+      },
+      {
+        "id": "n16_orin",
+        "model": "gr00t-n1.6",
+        "hw": "jetson-agx-orin-64gb",
+        "edge": true,
+        "measured_ms": 300,
+        "spec_ms": 108.03130269749543,
+        "ideal_ms": 87.51937777777778,
+        "spec_ape": 0.6398956576750152,
+        "spec_ratio": 0.3601043423249848,
+        "stages": {
+          "backbone": {
+            "measured_ms": 93,
+            "spec_ms": 25.623764919717644
+          },
+          "action": {
+            "measured_ms": 202,
+            "spec_ms": 64.62976
+          }
+        }
+      },
+      {
+        "id": "n17_h100",
+        "model": "gr00t-n1.7",
+        "hw": "h100-sxm",
+        "edge": false,
+        "measured_ms": 101.5,
+        "spec_ms": 15.579550379480555,
+        "ideal_ms": 14.741665394626867,
+        "spec_ape": 0.8465068928129995,
+        "spec_ratio": 0.15349310718700054
+      },
+      {
+        "id": "n17_l40",
+        "model": "gr00t-n1.7",
+        "hw": "l40",
+        "edge": false,
+        "measured_ms": 123.7,
+        "spec_ms": 24.642369066221406,
+        "ideal_ms": 20.768283470104357,
+        "spec_ape": 0.800789255729819,
+        "spec_ratio": 0.19921074427018112
+      },
+      {
+        "id": "n17_thor",
+        "model": "gr00t-n1.7",
+        "hw": "jetson-agx-thor",
+        "edge": true,
+        "measured_ms": 106.8,
+        "spec_ms": 49.63506262271062,
+        "ideal_ms": 41.692963633699634,
+        "spec_ape": 0.5352522226337957,
+        "spec_ratio": 0.4647477773662043
+      },
+      {
+        "id": "n17_orin",
+        "model": "gr00t-n1.7",
+        "hw": "jetson-agx-orin-64gb",
+        "edge": true,
+        "measured_ms": 357.9,
+        "spec_ms": 77.56491017570718,
+        "ideal_ms": 61.06529182954248,
+        "spec_ape": 0.7832777027781301,
+        "spec_ratio": 0.21672229722186975
+      },
+      {
+        "id": "openvla_h100nvl_where",
+        "model": "openvla",
+        "hw": "h100-nvl",
+        "edge": false,
+        "measured_ms": 103.8,
+        "spec_ms": 61.784133800140594,
+        "ideal_ms": 48.82979705624566,
+        "spec_ape": 0.40477713101984014,
+        "spec_ratio": 0.5952228689801599
+      },
+      {
+        "id": "openvla_thor_where",
+        "model": "openvla",
+        "hw": "jetson-agx-thor",
+        "edge": true,
+        "measured_ms": 445,
+        "spec_ms": 565.9352884981686,
+        "ideal_ms": 431.64413304029307,
+        "spec_ape": 0.2717646932543113,
+        "spec_ratio": 1.2717646932543114
+      },
+      {
+        "id": "oft_h100nvl_where",
+        "model": "openvla-oft",
+        "hw": "h100-nvl",
+        "edge": false,
+        "measured_ms": 42.4,
+        "spec_ms": 30.031269883707782,
+        "ideal_ms": 19.50763494185389,
+        "spec_ape": 0.2917153329314202,
+        "spec_ratio": 0.7082846670685798
+      },
+      {
+        "id": "oft_thor_where",
+        "model": "openvla-oft",
+        "hw": "jetson-agx-thor",
+        "edge": true,
+        "measured_ms": 181,
+        "spec_ms": 102.8596923076923,
+        "ideal_ms": 80.3054358974359,
+        "spec_ape": 0.4317144071398215,
+        "spec_ratio": 0.5682855928601785
+      },
+      {
+        "id": "pi05_h100nvl_where",
+        "model": "pi05",
+        "hw": "h100-nvl",
+        "edge": false,
+        "measured_ms": 111.6,
+        "spec_ms": 26.77492743433551,
+        "ideal_ms": 22.28473387101391,
+        "spec_ape": 0.7600812953912589,
+        "spec_ratio": 0.23991870460874115
+      },
+      {
+        "id": "pi05_thor_where",
+        "model": "pi05",
+        "hw": "jetson-agx-thor",
+        "edge": true,
+        "measured_ms": 208,
+        "spec_ms": 87.55656791208791,
+        "ideal_ms": 71.71742593406594,
+        "spec_ape": 0.5790549619611158,
+        "spec_ratio": 0.42094503803888417
+      },
+      {
+        "id": "n17_h100nvl_where",
+        "model": "gr00t-n1.7",
+        "hw": "h100-nvl",
+        "edge": false,
+        "measured_ms": 74.9,
+        "spec_ms": 15.39956850459082,
+        "ideal_ms": 14.556788625628743,
+        "spec_ape": 0.7943982843178796,
+        "spec_ratio": 0.2056017156821204
+      },
+      {
+        "id": "n17_thor_where",
+        "model": "gr00t-n1.7",
+        "hw": "jetson-agx-thor",
+        "edge": true,
+        "measured_ms": 149,
+        "spec_ms": 49.63506262271062,
+        "ideal_ms": 41.692963633699634,
+        "spec_ape": 0.666878774344224,
+        "spec_ratio": 0.333121225655776
+      },
+      {
+        "id": "smolvla_h100nvl_where",
+        "model": "smolvla",
+        "hw": "h100-nvl",
+        "edge": false,
+        "measured_ms": 208.3,
+        "spec_ms": 14.88683598443253,
+        "ideal_ms": 14.166515154609428,
+        "spec_ape": 0.9285317523551007,
+        "spec_ratio": 0.07146824764489933
+      },
+      {
+        "id": "smolvla_thor_where",
+        "model": "smolvla",
+        "hw": "jetson-agx-thor",
+        "edge": true,
+        "measured_ms": 308,
+        "spec_ms": 35.81770111843712,
+        "ideal_ms": 31.580609172161175,
+        "spec_ape": 0.8837087626024769,
+        "spec_ratio": 0.11629123739752312
+      },
+      {
+        "id": "oft_h100nvl_fused",
+        "model": "openvla-oft",
+        "hw": "h100-nvl",
+        "edge": false,
+        "measured_ms": 41.8,
+        "spec_ms": 30.031269883707782,
+        "ideal_ms": 19.50763494185389,
+        "spec_ape": 0.28154856737541184,
+        "spec_ratio": 0.7184514326245882
+      },
+      {
+        "id": "oft_a10g_fused",
+        "model": "openvla-oft",
+        "hw": "a10g",
+        "edge": false,
+        "measured_ms": 204.1,
+        "spec_ms": 150.57576282316802,
+        "ideal_ms": 80.27788141158402,
+        "spec_ape": 0.2622451601020676,
+        "spec_ratio": 0.7377548398979324
+      },
+      {
+        "id": "oft_4090_fused",
+        "model": "openvla-oft",
+        "hw": "rtx-4090",
+        "edge": false,
+        "measured_ms": 102.1,
+        "spec_ms": 114.53365911761097,
+        "ideal_ms": 61.34216289213882,
+        "spec_ape": 0.12177922740069516,
+        "spec_ratio": 1.1217792274006952
+      },
+      {
+        "id": "oft_thor_fused",
+        "model": "openvla-oft",
+        "hw": "jetson-agx-thor",
+        "edge": true,
+        "measured_ms": 180.6,
+        "spec_ms": 102.8596923076923,
+        "ideal_ms": 80.3054358974359,
+        "spec_ape": 0.43045574580458296,
+        "spec_ratio": 0.569544254195417
+      },
+      {
+        "id": "n17_thor_hwb",
+        "model": "gr00t-n1.7",
+        "hw": "jetson-agx-thor",
+        "edge": true,
+        "measured_ms": 119,
+        "spec_ms": 49.63506262271062,
+        "ideal_ms": 41.692963633699634,
+        "spec_ape": 0.5828986334225998,
+        "spec_ratio": 0.4171013665774002
+      },
+      {
+        "id": "oft_thor_hwb",
+        "model": "openvla-oft",
+        "hw": "jetson-agx-thor",
+        "edge": true,
+        "measured_ms": 250,
+        "spec_ms": 102.8596923076923,
+        "ideal_ms": 80.3054358974359,
+        "spec_ape": 0.5885612307692307,
+        "spec_ratio": 0.4114387692307692
+      },
+      {
+        "id": "pi05_thor_hwb",
+        "model": "pi05",
+        "hw": "jetson-agx-thor",
+        "edge": true,
+        "measured_ms": 405,
+        "spec_ms": 87.55656791208791,
+        "ideal_ms": 71.71742593406594,
+        "spec_ape": 0.7838109434269436,
+        "spec_ratio": 0.21618905657305654
+      }
+    ]
+  },
+  "transfer": {
+    "naive_same": {
+      "all": {
+        "n": 32,
+        "mape": 0.5989295663993901,
+        "median_ape": 0.4803884873515746,
+        "max_ape": 3.8827751196172255,
+        "within_25pct": 0.25,
+        "within_2x": 0.59375,
+        "ci95": {
+          "lo": 0.3803234815117914,
+          "hi": 0.9405594533909482,
+          "p_le_0": null
+        }
+      },
+      "edge": {
+        "n": 18,
+        "mape": 0.5083835542131501,
+        "median_ape": 0.5007944702575575,
+        "max_ape": 0.8066666666666666,
+        "within_25pct": 0.16666666666666666,
+        "within_2x": 0.5
+      }
+    },
+    "spec": {
+      "all": {
+        "n": 32,
+        "mape": 0.518290171729284,
+        "median_ape": 0.5571535922974558,
+        "max_ape": 0.8837087626024769,
+        "within_25pct": 0.0625,
+        "within_2x": 0.4375,
+        "ci95": {
+          "lo": 0.3540522142382396,
+          "hi": 0.6790780653462178,
+          "p_le_0": null
+        }
+      },
+      "edge": {
+        "n": 18,
+        "mape": 0.5402434501008696,
+        "median_ape": 0.5352522226337957,
+        "max_ape": 0.8837087626024769,
+        "within_25pct": 0.0,
+        "within_2x": 0.4444444444444444
+      }
+    },
+    "global": {
+      "all": {
+        "n": 32,
+        "mape": 0.4883311553463251,
+        "median_ape": 0.36250234106764667,
+        "max_ape": 2.0278087784098506,
+        "within_25pct": 0.34375,
+        "within_2x": 0.875,
+        "ci95": {
+          "lo": 0.37190431968258747,
+          "hi": 0.7326853004237429,
+          "p_le_0": null
+        }
+      },
+      "edge": {
+        "n": 18,
+        "mape": 0.6332584638543571,
+        "median_ape": 0.5213972670526381,
+        "max_ape": 2.0278087784098506,
+        "within_25pct": 0.3333333333333333,
+        "within_2x": 0.7777777777777778
+      }
+    },
+    "additive": {
+      "all": {
+        "n": 32,
+        "mape": 0.3276579925335377,
+        "median_ape": 0.31189225093601003,
+        "max_ape": 0.9989355756109997,
+        "within_25pct": 0.40625,
+        "within_2x": 0.84375,
+        "ci95": {
+          "lo": 0.270813490338211,
+          "hi": 0.3968187910324757,
+          "p_le_0": null
+        }
+      },
+      "edge": {
+        "n": 18,
+        "mape": 0.3343930911332171,
+        "median_ape": 0.36486097386399474,
+        "max_ape": 0.5705292483418584,
+        "within_25pct": 0.3333333333333333,
+        "within_2x": 0.7222222222222222
+      }
+    },
+    "overhead": {
+      "all": {
+        "n": 32,
+        "mape": 0.28140784253785356,
+        "median_ape": 0.22673420846655218,
+        "max_ape": 0.9989355756109997,
+        "within_25pct": 0.5625,
+        "within_2x": 1.0,
+        "ci95": {
+          "lo": 0.19406356325766444,
+          "hi": 0.3595698115191513,
+          "p_le_0": null
+        }
+      },
+      "edge": {
+        "n": 18,
+        "mape": 0.27731864396551875,
+        "median_ape": 0.2726641829441951,
+        "max_ape": 0.7014223208590705,
+        "within_25pct": 0.5,
+        "within_2x": 1.0
+      }
+    }
+  },
+  "n_groups": 8,
+  "diff_ci95": {
+    "overhead-global": {
+      "lo": -0.4843740631924507,
+      "hi": -0.02746752640557476,
+      "p_le_0": 0.9884
+    },
+    "overhead-naive_same": {
+      "lo": -0.592430028591523,
+      "hi": -0.11745254298352192,
+      "p_le_0": 1.0
+    },
+    "overhead-spec": {
+      "lo": -0.43591727160635596,
+      "hi": -0.0013443172575351436,
+      "p_le_0": 0.9758
+    },
+    "overhead-additive": {
+      "lo": -0.08558393114774474,
+      "hi": -0.024390405880109656,
+      "p_le_0": 1.0
+    }
+  },
+  "per_group": {
+    "gr00t-n1.6-repo": {
+      "n": 12,
+      "naive_same": 0.40239099754869306,
+      "spec": 0.5704412291248642,
+      "global": 0.428172861040916,
+      "additive": 0.2696666118935213,
+      "overhead": 0.21709379839619458
+    },
+    "gr00t-n1.7-repo": {
+      "n": 6,
+      "naive_same": 0.32947079844330307,
+      "spec": 0.7140593332277784,
+      "global": 0.7313226332923632,
+      "additive": 0.325257831863262,
+      "overhead": 0.31541379709654316
+    },
+    "where-openvla": {
+      "n": 1,
+      "naive_same": 0.7667415730337078,
+      "spec": 0.2717646932543114,
+      "global": 1.136619339632097,
+      "additive": 0.36243705175586816,
+      "overhead": 0.3976549290591334
+    },
+    "where-oft": {
+      "n": 1,
+      "naive_same": 0.7657458563535912,
+      "spec": 0.43171440713982157,
+      "global": 0.1976593320702872,
+      "additive": 0.3725869847661997,
+      "overhead": 0.3406003731339856
+    },
+    "where-pi05": {
+      "n": 1,
+      "naive_same": 0.4634615384615385,
+      "spec": 0.5790549619611158,
+      "global": 0.754531972508606,
+      "additive": 0.18085749770311346,
+      "overhead": 0.035304496796599895
+    },
+    "where-n17": {
+      "n": 1,
+      "naive_same": 0.4973154362416107,
+      "spec": 0.666878774344224,
+      "global": 0.6202259040037038,
+      "additive": 0.2854441110640729,
+      "overhead": 0.13443643434056227
+    },
+    "where-smolvla": {
+      "n": 1,
+      "naive_same": 0.32370129870129866,
+      "spec": 0.8837087626024769,
+      "global": 0.6271734823460835,
+      "additive": 0.2600729486991192,
+      "overhead": 0.046422338292660764
+    },
+    "where-oft-fused": {
+      "n": 9,
+      "naive_same": 1.0603626289716224,
+      "spec": 0.2913903496855665,
+      "global": 0.30715297869738367,
+      "additive": 0.4262345370203339,
+      "overhead": 0.3947804473616419
+    }
+  },
+  "group_macro_mape": {
+    "naive_same": 0.5761487659694207,
+    "spec": 0.5511265639175198,
+    "global": 0.60035731294893,
+    "additive": 0.31031969684568633,
+    "overhead": 0.2352133268096652
+  },
+  "host_prior_sensitivity": {
+    "registry": {
+      "all": 0.28140784253785356,
+      "edge": 0.27731864396551875
+    },
+    "all_equal": {
+      "all": 0.3276579925335377,
+      "edge": 0.3343930911332171
+    },
+    "edge_halved_gap": {
+      "all": 0.3034247666702843,
+      "edge": 0.31645984242317343
+    },
+    "edge_x0.75": {
+      "all": 0.31401404778622827,
+      "edge": 0.33528523107374053
+    },
+    "edge_x1.25": {
+      "all": 0.285326553249443,
+      "edge": 0.2842852407861222
+    }
+  },
+  "host_priors": {
+    "t4": 0.8,
+    "l4": 1.0,
+    "rtx-4090": 1.2,
+    "rtx-5090": 1.2,
+    "a10g": 1.0,
+    "l40": 1.0,
+    "a100-40gb": 1.0,
+    "h100-sxm": 1.0,
+    "h100-nvl": 1.0,
+    "jetson-orin-nano-super": 0.35,
+    "jetson-agx-orin-64gb": 0.45,
+    "jetson-agx-thor": 0.75,
+    "cpu-generic": 1.0
+  },
+  "transfer_rows": [
+    {
+      "group": "gr00t-n1.6-repo",
+      "model": "gr00t-n1.6",
+      "ref": "rtx-5090",
+      "target": "h100-sxm",
+      "edge_target": false,
+      "measured_ms": 77,
+      "naive_same_ms": 58,
+      "spec_ms": 20.554699653731344,
+      "global_ms": 48.85944539744057,
+      "overhead_ms": 60.87464777711628,
+      "additive_ms": 52.821323089885446,
+      "naive_same_ape": 0.24675324675324675,
+      "spec_ape": 0.7330558486528397,
+      "global_ape": 0.36546174808518744,
+      "additive_ape": 0.31400879104044876,
+      "overhead_ape": 0.2094201587387496
+    },
+    {
+      "group": "gr00t-n1.6-repo",
+      "model": "gr00t-n1.6",
+      "ref": "rtx-5090",
+      "target": "rtx-4090",
+      "edge_target": false,
+      "measured_ms": 82,
+      "naive_same_ms": 58,
+      "spec_ms": 30.433052002281407,
+      "global_ms": 72.3407331477602,
+      "overhead_ms": 64.03300877176885,
+      "additive_ms": 64.03300877176886,
+      "naive_same_ape": 0.2926829268292683,
+      "spec_ape": 0.6288652194843731,
+      "global_ape": 0.11779593722243653,
+      "additive_ape": 0.21910964912476996,
+      "overhead_ape": 0.21910964912477013
+    },
+    {
+      "group": "gr00t-n1.6-repo",
+      "model": "gr00t-n1.6",
+      "ref": "rtx-5090",
+      "target": "jetson-agx-thor",
+      "edge_target": true,
+      "measured_ms": 117,
+      "naive_same_ms": 58,
+      "spec_ms": 76.3172887912088,
+      "global_ms": 181.40962735487446,
+      "overhead_ms": 130.0772196223887,
+      "additive_ms": 105.91724556069624,
+      "naive_same_ape": 0.5042735042735043,
+      "spec_ape": 0.34771548041701883,
+      "global_ape": 0.5505096355117475,
+      "additive_ape": 0.09472439691712611,
+      "overhead_ape": 0.11177110788366407
+    },
+    {
+      "group": "gr00t-n1.6-repo",
+      "model": "gr00t-n1.6",
+      "ref": "rtx-5090",
+      "target": "jetson-agx-orin-64gb",
+      "edge_target": true,
+      "measured_ms": 300,
+      "naive_same_ms": 58,
+      "spec_ms": 108.03130269749543,
+      "global_ms": 256.79526455179615,
+      "overhead_ms": 197.6311874161286,
+      "additive_ms": 130.52014835587175,
+      "naive_same_ape": 0.8066666666666666,
+      "spec_ape": 0.6398956576750152,
+      "global_ape": 0.14401578482734617,
+      "additive_ape": 0.5649328388137608,
+      "overhead_ape": 0.34122937527957137
+    },
+    {
+      "group": "gr00t-n1.6-repo",
+      "model": "gr00t-n1.6",
+      "ref": "h100-sxm",
+      "target": "rtx-5090",
+      "edge_target": false,
+      "measured_ms": 58,
+      "naive_same_ms": 77,
+      "spec_ms": 24.40004323051256,
+      "global_ms": 91.40504898637153,
+      "overhead_ms": 71.43779351906977,
+      "additive_ms": 82.17867691011455,
+      "naive_same_ape": 0.3275862068965517,
+      "spec_ape": 0.5793095994739214,
+      "global_ape": 0.5759491204546815,
+      "additive_ape": 0.41687373982956116,
+      "overhead_ape": 0.23168609515637537
+    },
+    {
+      "group": "gr00t-n1.6-repo",
+      "model": "gr00t-n1.6",
+      "ref": "h100-sxm",
+      "target": "rtx-4090",
+      "edge_target": false,
+      "measured_ms": 82,
+      "naive_same_ms": 77,
+      "spec_ms": 30.433052002281407,
+      "global_ms": 114.00531477725949,
+      "overhead_ms": 77.47080229083862,
+      "additive_ms": 88.2116856818834,
+      "naive_same_ape": 0.06097560975609756,
+      "spec_ape": 0.6288652194843731,
+      "global_ape": 0.3903087167958474,
+      "additive_ape": 0.07575226441321213,
+      "overhead_ape": 0.055234118404407076
+    },
+    {
+      "group": "gr00t-n1.6-repo",
+      "model": "gr00t-n1.6",
+      "ref": "h100-sxm",
+      "target": "jetson-agx-thor",
+      "edge_target": true,
+      "measured_ms": 117,
+      "naive_same_ms": 77,
+      "spec_ms": 76.3172887912088,
+      "global_ms": 285.89234267192586,
+      "overhead_ms": 151.5776892529003,
+      "additive_ms": 130.0959224708108,
+      "naive_same_ape": 0.3418803418803419,
+      "spec_ape": 0.34771548041701883,
+      "global_ape": 1.4435242963412467,
+      "additive_ape": 0.11193096128898113,
+      "overhead_ape": 0.29553580558034453
+    },
+    {
+      "group": "gr00t-n1.6-repo",
+      "model": "gr00t-n1.6",
+      "ref": "h100-sxm",
+      "target": "jetson-agx-orin-64gb",
+      "edge_target": true,
+      "measured_ms": 300,
+      "naive_same_ms": 77,
+      "spec_ms": 108.03130269749543,
+      "global_ms": 404.69627130733033,
+      "overhead_ms": 233.4653034669813,
+      "additive_ms": 154.6988252659863,
+      "naive_same_ape": 0.7433333333333333,
+      "spec_ape": 0.6398956576750152,
+      "global_ape": 0.34898757102443445,
+      "additive_ape": 0.484337249113379,
+      "overhead_ape": 0.22178232177672896
+    },
+    {
+      "group": "gr00t-n1.6-repo",
+      "model": "gr00t-n1.6",
+      "ref": "rtx-4090",
+      "target": "rtx-5090",
+      "edge_target": false,
+      "measured_ms": 58,
+      "naive_same_ms": 82,
+      "spec_ms": 24.40004323051256,
+      "global_ms": 65.74442631491709,
+      "overhead_ms": 75.96699122823115,
+      "additive_ms": 75.96699122823114,
+      "naive_same_ape": 0.41379310344827586,
+      "spec_ape": 0.5793095994739214,
+      "global_ape": 0.1335245916365016,
+      "additive_ape": 0.30977571083157135,
+      "overhead_ape": 0.30977571083157157
+    },
+    {
+      "group": "gr00t-n1.6-repo",
+      "model": "gr00t-n1.6",
+      "ref": "rtx-4090",
+      "target": "h100-sxm",
+      "edge_target": false,
+      "measured_ms": 77,
+      "naive_same_ms": 82,
+      "spec_ms": 20.554699653731344,
+      "global_ms": 55.38338289171977,
+      "overhead_ms": 82.43503725099366,
+      "additive_ms": 70.7883143181166,
+      "naive_same_ape": 0.06493506493506493,
+      "spec_ape": 0.7330558486528397,
+      "global_ape": 0.2807352871205225,
+      "additive_ape": 0.08067124262186227,
+      "overhead_ape": 0.07058489936355401
+    },
+    {
+      "group": "gr00t-n1.6-repo",
+      "model": "gr00t-n1.6",
+      "ref": "rtx-4090",
+      "target": "jetson-agx-thor",
+      "edge_target": true,
+      "measured_ms": 117,
+      "naive_same_ms": 82,
+      "spec_ms": 76.3172887912088,
+      "global_ms": 205.63227376636397,
+      "overhead_ms": 158.82440558755857,
+      "additive_ms": 123.8842367889274,
+      "naive_same_ape": 0.29914529914529914,
+      "spec_ape": 0.34771548041701883,
+      "global_ape": 0.7575408014219143,
+      "additive_ape": 0.05883963067459313,
+      "overhead_ape": 0.35747355203041514
+    },
+    {
+      "group": "gr00t-n1.6-repo",
+      "model": "gr00t-n1.6",
+      "ref": "rtx-4090",
+      "target": "jetson-agx-orin-64gb",
+      "edge_target": true,
+      "measured_ms": 300,
+      "naive_same_ms": 82,
+      "spec_ms": 108.03130269749543,
+      "global_ms": 291.0837473852621,
+      "overhead_ms": 245.54316402474504,
+      "additive_ms": 148.48713958410292,
+      "naive_same_ape": 0.7266666666666667,
+      "spec_ape": 0.6398956576750152,
+      "global_ape": 0.02972084204912638,
+      "additive_ape": 0.5050428680529903,
+      "overhead_ape": 0.1815227865841832
+    },
+    {
+      "group": "gr00t-n1.7-repo",
+      "model": "gr00t-n1.7",
+      "ref": "h100-sxm",
+      "target": "l40",
+      "edge_target": false,
+      "measured_ms": 123.7,
+      "naive_same_ms": 101.5,
+      "spec_ms": 24.642369066221406,
+      "global_ms": 160.54381540533691,
+      "overhead_ms": 110.56281868674087,
+      "additive_ms": 110.56281868674087,
+      "naive_same_ape": 0.17946645109135007,
+      "spec_ape": 0.8007892557298188,
+      "global_ape": 0.29784814393966785,
+      "additive_ape": 0.10620195079433414,
+      "overhead_ape": 0.10620195079433414
+    },
+    {
+      "group": "gr00t-n1.7-repo",
+      "model": "gr00t-n1.7",
+      "ref": "h100-sxm",
+      "target": "jetson-agx-thor",
+      "edge_target": true,
+      "measured_ms": 106.8,
+      "naive_same_ms": 101.5,
+      "spec_ms": 49.63506262271062,
+      "global_ms": 323.36997753417205,
+      "overhead_ms": 164.19566211673657,
+      "additive_ms": 132.88884557656343,
+      "naive_same_ape": 0.04962546816479398,
+      "spec_ape": 0.5352522226337957,
+      "global_ape": 2.0278087784098506,
+      "additive_ape": 0.24427758030490102,
+      "overhead_ape": 0.5374125666361103
+    },
+    {
+      "group": "gr00t-n1.7-repo",
+      "model": "gr00t-n1.7",
+      "ref": "h100-sxm",
+      "target": "jetson-agx-orin-64gb",
+      "edge_target": true,
+      "measured_ms": 357.9,
+      "naive_same_ms": 101.5,
+      "spec_ms": 77.56491017570718,
+      "global_ms": 505.33155264887506,
+      "overhead_ms": 268.49924266575044,
+      "additive_ms": 153.70758201844887,
+      "naive_same_ape": 0.7164012293936853,
+      "spec_ape": 0.7832777027781304,
+      "global_ape": 0.41193504512119333,
+      "additive_ape": 0.5705292483418584,
+      "overhead_ape": 0.24979256030804564
+    },
+    {
+      "group": "gr00t-n1.7-repo",
+      "model": "gr00t-n1.7",
+      "ref": "l40",
+      "target": "h100-sxm",
+      "edge_target": false,
+      "measured_ms": 101.5,
+      "naive_same_ms": 123.7,
+      "spec_ms": 15.579550379480555,
+      "global_ms": 78.20637604942968,
+      "overhead_ms": 114.63718131325916,
+      "additive_ms": 114.63718131325916,
+      "naive_same_ape": 0.21871921182266013,
+      "spec_ape": 0.8465068928129995,
+      "global_ape": 0.22949383202532336,
+      "additive_ape": 0.12943035776610012,
+      "overhead_ape": 0.12943035776610012
+    },
+    {
+      "group": "gr00t-n1.7-repo",
+      "model": "gr00t-n1.7",
+      "ref": "l40",
+      "target": "jetson-agx-thor",
+      "edge_target": true,
+      "measured_ms": 106.8,
+      "naive_same_ms": 123.7,
+      "spec_ms": 49.63506262271062,
+      "global_ms": 249.1585622279122,
+      "overhead_ms": 181.71190386774873,
+      "additive_ms": 146.02602688982256,
+      "naive_same_ape": 0.1582397003745319,
+      "spec_ape": 0.5352522226337957,
+      "global_ape": 1.3329453392126613,
+      "additive_ape": 0.3672848959721214,
+      "overhead_ape": 0.7014223208590705
+    },
+    {
+      "group": "gr00t-n1.7-repo",
+      "model": "gr00t-n1.7",
+      "ref": "l40",
+      "target": "jetson-agx-orin-64gb",
+      "edge_target": true,
+      "measured_ms": 357.9,
+      "naive_same_ms": 123.7,
+      "spec_ms": 77.56491017570718,
+      "global_ms": 389.3610781881784,
+      "overhead_ms": 297.6929789174374,
+      "additive_ms": 166.844763331708,
+      "naive_same_ape": 0.6543727298127969,
+      "spec_ape": 0.7832777027781304,
+      "global_ape": 0.08790466104548315,
+      "additive_ape": 0.533822958000257,
+      "overhead_ape": 0.16822302621559812
+    },
+    {
+      "group": "where-openvla",
+      "model": "openvla",
+      "ref": "h100-nvl",
+      "target": "jetson-agx-thor",
+      "edge_target": true,
+      "measured_ms": 445,
+      "naive_same_ms": 103.8,
+      "spec_ms": 565.9352884981686,
+      "global_ms": 950.7956061362831,
+      "overhead_ms": 621.9564434313144,
+      "additive_ms": 606.2844880313613,
+      "naive_same_ape": 0.7667415730337078,
+      "spec_ape": 0.2717646932543114,
+      "global_ape": 1.136619339632097,
+      "additive_ape": 0.36243705175586816,
+      "overhead_ape": 0.3976549290591334
+    },
+    {
+      "group": "where-oft",
+      "model": "openvla-oft",
+      "ref": "h100-nvl",
+      "target": "jetson-agx-thor",
+      "edge_target": true,
+      "measured_ms": 181,
+      "naive_same_ms": 42.4,
+      "spec_ms": 102.8596923076923,
+      "global_ms": 145.22366089527802,
+      "overhead_ms": 119.3513324627486,
+      "additive_ms": 113.56175575731785,
+      "naive_same_ape": 0.7657458563535912,
+      "spec_ape": 0.43171440713982157,
+      "global_ape": 0.1976593320702872,
+      "additive_ape": 0.3725869847661997,
+      "overhead_ape": 0.3406003731339856
+    },
+    {
+      "group": "where-pi05",
+      "model": "pi05",
+      "ref": "h100-nvl",
+      "target": "jetson-agx-thor",
+      "edge_target": true,
+      "measured_ms": 208,
+      "naive_same_ms": 111.6,
+      "spec_ms": 87.55656791208791,
+      "global_ms": 364.94265028179007,
+      "overhead_ms": 200.65666466630722,
+      "additive_ms": 170.3816404777524,
+      "naive_same_ape": 0.4634615384615385,
+      "spec_ape": 0.5790549619611158,
+      "global_ape": 0.754531972508606,
+      "additive_ape": 0.18085749770311346,
+      "overhead_ape": 0.035304496796599895
+    },
+    {
+      "group": "where-n17",
+      "model": "gr00t-n1.7",
+      "ref": "h100-nvl",
+      "target": "jetson-agx-thor",
+      "edge_target": true,
+      "measured_ms": 149,
+      "naive_same_ms": 74.9,
+      "spec_ms": 49.63506262271062,
+      "global_ms": 241.41365969655186,
+      "overhead_ms": 128.96897128325622,
+      "additive_ms": 106.46882745145314,
+      "naive_same_ape": 0.4973154362416107,
+      "spec_ape": 0.666878774344224,
+      "global_ape": 0.6202259040037038,
+      "additive_ape": 0.2854441110640729,
+      "overhead_ape": 0.13443643434056227
+    },
+    {
+      "group": "where-smolvla",
+      "model": "smolvla",
+      "ref": "h100-nvl",
+      "target": "jetson-agx-thor",
+      "edge_target": true,
+      "measured_ms": 308,
+      "naive_same_ms": 208.3,
+      "spec_ms": 35.81770111843712,
+      "global_ms": 501.1694325625937,
+      "overhead_ms": 293.7019198058605,
+      "additive_ms": 227.8975318006713,
+      "naive_same_ape": 0.32370129870129866,
+      "spec_ape": 0.8837087626024769,
+      "global_ape": 0.6271734823460835,
+      "additive_ape": 0.2600729486991192,
+      "overhead_ape": 0.046422338292660764
+    },
+    {
+      "group": "where-oft-fused",
+      "model": "openvla-oft",
+      "ref": "h100-nvl",
+      "target": "a10g",
+      "edge_target": false,
+      "measured_ms": 204.1,
+      "naive_same_ms": 41.8,
+      "spec_ms": 150.57576282316802,
+      "global_ms": 209.58377419207991,
+      "overhead_ms": 162.34449293946022,
+      "additive_ms": 162.34449293946022,
+      "naive_same_ape": 0.7951984321411074,
+      "spec_ape": 0.2622451601020675,
+      "global_ape": 0.026868075414404315,
+      "additive_ape": 0.20458357207515812,
+      "overhead_ape": 0.20458357207515812
+    },
+    {
+      "group": "where-oft-fused",
+      "model": "openvla-oft",
+      "ref": "h100-nvl",
+      "target": "rtx-4090",
+      "edge_target": false,
+      "measured_ms": 102.1,
+      "naive_same_ms": 41.8,
+      "spec_ms": 114.53365911761097,
+      "global_ms": 159.41739958566993,
+      "overhead_ms": 124.34093421452116,
+      "additive_ms": 127.13572256723651,
+      "naive_same_ape": 0.5905974534769833,
+      "spec_ape": 0.12177922740069513,
+      "global_ape": 0.5613849126902051,
+      "additive_ape": 0.24520786059977004,
+      "overhead_ape": 0.2178348111118625
+    },
+    {
+      "group": "where-oft-fused",
+      "model": "openvla-oft",
+      "ref": "h100-nvl",
+      "target": "jetson-agx-thor",
+      "edge_target": true,
+      "measured_ms": 180.6,
+      "naive_same_ms": 41.8,
+      "spec_ms": 102.8596923076923,
+      "global_ms": 143.16860909015617,
+      "overhead_ms": 118.55133246274859,
+      "additive_ms": 112.96175575731787,
+      "naive_same_ape": 0.7685492801771873,
+      "spec_ape": 0.43045574580458307,
+      "global_ape": 0.20726130071895807,
+      "additive_ape": 0.3745196248210527,
+      "overhead_ape": 0.34356958769242196
+    },
+    {
+      "group": "where-oft-fused",
+      "model": "openvla-oft",
+      "ref": "a10g",
+      "target": "h100-nvl",
+      "edge_target": false,
+      "measured_ms": 41.8,
+      "naive_same_ms": 204.1,
+      "spec_ms": 30.031269883707782,
+      "global_ms": 40.70630006014271,
+      "overhead_ms": 83.55550706053978,
+      "additive_ms": 83.55550706053978,
+      "naive_same_ape": 3.8827751196172255,
+      "spec_ape": 0.28154856737541184,
+      "global_ape": 0.02616507033151407,
+      "additive_ape": 0.9989355756109997,
+      "overhead_ape": 0.9989355756109997
+    },
+    {
+      "group": "where-oft-fused",
+      "model": "openvla-oft",
+      "ref": "a10g",
+      "target": "rtx-4090",
+      "edge_target": false,
+      "measured_ms": 102.1,
+      "naive_same_ms": 204.1,
+      "spec_ms": 114.53365911761097,
+      "global_ms": 155.2462321134438,
+      "overhead_ms": 159.1371900983043,
+      "additive_ms": 168.89122962777628,
+      "naive_same_ape": 0.9990205680705192,
+      "spec_ape": 0.12177922740069513,
+      "global_ape": 0.5205311666351009,
+      "additive_ape": 0.6541746290673486,
+      "overhead_ape": 0.5586404515015113
+    },
+    {
+      "group": "where-oft-fused",
+      "model": "openvla-oft",
+      "ref": "a10g",
+      "target": "jetson-agx-thor",
+      "edge_target": true,
+      "measured_ms": 180.6,
+      "naive_same_ms": 204.1,
+      "spec_ms": 102.8596923076923,
+      "global_ms": 139.42259236404715,
+      "overhead_ms": 174.22534187680162,
+      "additive_ms": 154.71726281785763,
+      "naive_same_ape": 0.1301218161683278,
+      "spec_ape": 0.43045574580458307,
+      "global_ape": 0.22800336454015974,
+      "additive_ape": 0.14331526678927112,
+      "overhead_ape": 0.03529711031671303
+    },
+    {
+      "group": "where-oft-fused",
+      "model": "openvla-oft",
+      "ref": "rtx-4090",
+      "target": "h100-nvl",
+      "edge_target": false,
+      "measured_ms": 41.8,
+      "naive_same_ms": 102.1,
+      "spec_ms": 30.031269883707782,
+      "global_ms": 26.77110535670557,
+      "overhead_ms": 26.77110535670557,
+      "additive_ms": 26.577728949901797,
+      "naive_same_ape": 1.4425837320574162,
+      "spec_ape": 0.28154856737541184,
+      "global_ape": 0.35954293405010596,
+      "additive_ape": 0.3641691638779474,
+      "overhead_ape": 0.35954293405010596
+    },
+    {
+      "group": "where-oft-fused",
+      "model": "openvla-oft",
+      "ref": "rtx-4090",
+      "target": "a10g",
+      "edge_target": false,
+      "measured_ms": 204.1,
+      "naive_same_ms": 102.1,
+      "spec_ms": 150.57576282316802,
+      "global_ms": 134.2294090897646,
+      "overhead_ms": 134.22940908976463,
+      "additive_ms": 133.25982638216564,
+      "naive_same_ape": 0.4997550220480157,
+      "spec_ape": 0.2622451601020675,
+      "global_ape": 0.3423350853024762,
+      "additive_ape": 0.34708561302221635,
+      "overhead_ape": 0.3423350853024761
+    },
+    {
+      "group": "where-oft-fused",
+      "model": "openvla-oft",
+      "ref": "rtx-4090",
+      "target": "jetson-agx-thor",
+      "edge_target": true,
+      "measured_ms": 180.6,
+      "naive_same_ms": 102.1,
+      "spec_ms": 102.8596923076923,
+      "global_ms": 91.69334731400872,
+      "overhead_ms": 91.69334731400872,
+      "additive_ms": 89.556013366145,
+      "naive_same_ape": 0.4346622369878184,
+      "spec_ape": 0.43045574580458307,
+      "global_ape": 0.4922848985935287,
+      "additive_ape": 0.5041195273192415,
+      "overhead_ape": 0.4922848985935287
+    }
+  ],
+  "stack_spread": [
+    {
+      "model": "gr00t-n1.7",
+      "hw": "jetson-agx-thor",
+      "values_ms": [
+        106.8,
+        149,
+        119
+      ],
+      "max_over_min": 1.395131086142322
+    },
+    {
+      "model": "openvla-oft",
+      "hw": "h100-nvl",
+      "values_ms": [
+        42.4,
+        41.8
+      ],
+      "max_over_min": 1.014354066985646
+    },
+    {
+      "model": "openvla-oft",
+      "hw": "jetson-agx-thor",
+      "values_ms": [
+        181,
+        180.6,
+        250
+      ],
+      "max_over_min": 1.3842746400885937
+    },
+    {
+      "model": "pi05",
+      "hw": "jetson-agx-thor",
+      "values_ms": [
+        208,
+        405
+      ],
+      "max_over_min": 1.9471153846153846
+    }
+  ]
+}

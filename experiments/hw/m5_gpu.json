@@ -1,0 +1,15 @@
+{
+  "name": "m5-gpu",
+  "peak_tflops": {
+    "fp16": 12.092,
+    "fp32": 2.927
+  },
+  "mem_bw_gbs": 121.4,
+  "mem_gb": 16.0,
+  "tdp_w": 0.0,
+  "idle_w": 0.0,
+  "kernel_launch_us": 2.63,
+  "kind": "gpu",
+  "source": "bottle probe on mps (achieved, torch 2.15.0)",
+  "price_usd": 0.0
+}

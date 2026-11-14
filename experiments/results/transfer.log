@@ -1,0 +1,71 @@
+profiling smolvla on gpu-fp32 (max_layers=None)
+profiling pi0 on gpu-fp32 (max_layers=4)
+profiling pi05 on gpu-fp32 (max_layers=4)
+profiling openvla on gpu-fp32 (max_layers=4)
+profiling openvla-oft on gpu-fp32 (max_layers=4)
+profiling gr00t-n1.5 on gpu-fp32 (max_layers=4)
+profiling gr00t-n1.6 on gpu-fp32 (max_layers=4)
+profiling gr00t-n1.7 on gpu-fp32 (max_layers=4)
+profiling smolvla on gpu-fp16 (max_layers=None)
+profiling pi0 on gpu-fp16 (max_layers=4)
+profiling pi05 on gpu-fp16 (max_layers=4)
+profiling openvla on gpu-fp16 (max_layers=4)
+profiling openvla-oft on gpu-fp16 (max_layers=4)
+profiling gr00t-n1.5 on gpu-fp16 (max_layers=4)
+profiling gr00t-n1.6 on gpu-fp16 (max_layers=4)
+profiling gr00t-n1.7 on gpu-fp16 (max_layers=4)
+
+MAPE by predictor family:
+  cal_global              31.5%  (median 27.2%, n=48)
+  cal_overhead            26.2%  (median 21.1%, n=48)
+  cal_stage               29.5%  (median 25.3%, n=48)
+  roofline_default        31.8%  (median 31.6%, n=24)
+  roofline_ideal          36.6%  (median 34.1%, n=24)
+
+MAPE by transfer pair:
+  cpu-fp32->gpu-fp32:global           33.4%
+  cpu-fp32->gpu-fp32:stage            35.0%
+  cpu-fp32->gpu-fp32:overhead         39.2%
+  cpu-fp32->gpu-fp16:global           18.9%
+  cpu-fp32->gpu-fp16:stage            19.9%
+  cpu-fp32->gpu-fp16:overhead         30.3%
+  gpu-fp32->cpu-fp32:global           24.0%
+  gpu-fp32->cpu-fp32:stage            24.4%
+  gpu-fp32->cpu-fp32:overhead         24.5%
+  gpu-fp32->gpu-fp16:global           31.9%
+  gpu-fp32->gpu-fp16:stage            29.9%
+  gpu-fp32->gpu-fp16:overhead         29.7%
+  gpu-fp16->cpu-fp32:global           23.4%
+  gpu-fp16->cpu-fp32:stage            18.3%
+  gpu-fp16->cpu-fp32:overhead          9.1%
+  gpu-fp16->gpu-fp32:global           57.3%
+  gpu-fp16->gpu-fp32:stage            49.3%
+  gpu-fp16->gpu-fp32:overhead         24.8%
+
+measured latency (s):
+  smolvla|cpu-fp32                 572.2 ms
+  pi0|cpu-fp32                    2915.0 ms
+  pi05|cpu-fp32                   2481.6 ms
+  openvla|cpu-fp32                6130.3 ms
+  openvla-oft|cpu-fp32            5473.5 ms
+  gr00t-n1.5|cpu-fp32              556.9 ms
+  gr00t-n1.6|cpu-fp32              969.9 ms
+  gr00t-n1.7|cpu-fp32              720.8 ms
+  smolvla|gpu-fp32                 266.6 ms
+  pi0|gpu-fp32                    1808.3 ms
+  pi05|gpu-fp32                   1599.8 ms
+  openvla|gpu-fp32                3738.6 ms
+  openvla-oft|gpu-fp32            3492.6 ms
+  gr00t-n1.5|gpu-fp32              269.7 ms
+  gr00t-n1.6|gpu-fp32              531.2 ms
+  gr00t-n1.7|gpu-fp32              376.4 ms
+  smolvla|gpu-fp16                 166.5 ms
+  pi0|gpu-fp16                     619.4 ms
+  pi05|gpu-fp16                    510.1 ms
+  openvla|gpu-fp16                1464.9 ms
+  openvla-oft|gpu-fp16             894.8 ms
+  gr00t-n1.5|gpu-fp16              127.9 ms
+  gr00t-n1.6|gpu-fp16              263.0 ms
+  gr00t-n1.7|gpu-fp16              166.0 ms
+
+layer-extrapolation check: {'full_s': 0.1040534800849855, 'extrapolated_s': 0.1322377799078822, 'ape': 0.2708635962956476}

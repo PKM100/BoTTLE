@@ -1,0 +1,48 @@
+{
+  "_about": "Published end-to-end inference latencies (batch 1, eager PyTorch unless noted). ms. 'group' = same source + same settings; calibration only transfers within a group. 'stages_ms' optional (backbone = vision+vlm).",
+  "cases": [
+    {"id": "pi0_4090_paper", "group": "pi0-paper", "model": "pi0", "hw": "rtx-4090", "precision": "bf16", "total_ms": 73,
+     "stages_ms": {"vision": 14, "vlm": 32, "action": 27},
+     "source": "pi0 paper arXiv 2410.24164, Table I (on-board, 3 cameras, JAX)"},
+    {"id": "openvla_4090_paper", "group": "openvla-paper", "model": "openvla", "hw": "rtx-4090", "precision": "bf16", "total_ms": 167,
+     "source": "OpenVLA arXiv 2406.09246 Sec 3.5 (~6 Hz, bf16, no compile)"},
+    {"id": "openvla_a100_oft", "group": "oft-paper", "model": "openvla", "hw": "a100-40gb", "precision": "bf16", "total_ms": 239.6,
+     "source": "OpenVLA-OFT arXiv 2502.19645 Table II"},
+    {"id": "oft_a100_oft", "group": "oft-paper", "model": "openvla-oft", "hw": "a100-40gb", "precision": "bf16", "total_ms": 112.0,
+     "source": "OpenVLA-OFT arXiv 2502.19645 Table II (wrist + proprio)"},
+    {"id": "n15_h100_repo", "group": "gr00t-n1.5-repo", "model": "gr00t-n1.5", "hw": "h100-sxm", "precision": "bf16", "total_ms": 47.88,
+     "stages_ms": {"backbone": 23.18, "action": 24.7},
+     "source": "Isaac-GR00T n1d5 README FAQ"},
+
+    {"id": "n16_5090", "group": "gr00t-n1.6-repo", "model": "gr00t-n1.6", "hw": "rtx-5090", "precision": "bf16", "total_ms": 58, "stages_ms": {"backbone": 18, "action": 38}, "source": "Isaac-GR00T n1d6 scripts/deployment/README.md (eager)"},
+    {"id": "n16_h100", "group": "gr00t-n1.6-repo", "model": "gr00t-n1.6", "hw": "h100-sxm", "precision": "bf16", "total_ms": 77, "stages_ms": {"backbone": 23, "action": 49}, "source": "Isaac-GR00T n1d6 scripts/deployment/README.md (eager)"},
+    {"id": "n16_4090", "group": "gr00t-n1.6-repo", "model": "gr00t-n1.6", "hw": "rtx-4090", "precision": "bf16", "total_ms": 82, "stages_ms": {"backbone": 25, "action": 55}, "source": "Isaac-GR00T n1d6 scripts/deployment/README.md (eager)"},
+    {"id": "n16_thor", "group": "gr00t-n1.6-repo", "model": "gr00t-n1.6", "hw": "jetson-agx-thor", "precision": "bf16", "total_ms": 117, "stages_ms": {"backbone": 38, "action": 74}, "source": "Isaac-GR00T n1d6 scripts/deployment/README.md (eager)"},
+    {"id": "n16_orin", "group": "gr00t-n1.6-repo", "model": "gr00t-n1.6", "hw": "jetson-agx-orin-64gb", "precision": "bf16", "total_ms": 300, "stages_ms": {"backbone": 93, "action": 202}, "source": "Isaac-GR00T n1d6 scripts/deployment/README.md (eager)"},
+
+    {"id": "n17_h100", "group": "gr00t-n1.7-repo", "model": "gr00t-n1.7", "hw": "h100-sxm", "precision": "bf16", "total_ms": 101.5, "source": "Isaac-GR00T main scripts/deployment/README.md (eager, incl. pre/post)"},
+    {"id": "n17_l40", "group": "gr00t-n1.7-repo", "model": "gr00t-n1.7", "hw": "l40", "precision": "bf16", "total_ms": 123.7, "source": "Isaac-GR00T main scripts/deployment/README.md (eager, incl. pre/post)"},
+    {"id": "n17_thor", "group": "gr00t-n1.7-repo", "model": "gr00t-n1.7", "hw": "jetson-agx-thor", "precision": "bf16", "total_ms": 106.8, "source": "Isaac-GR00T main scripts/deployment/README.md (eager, incl. pre/post)"},
+    {"id": "n17_orin", "group": "gr00t-n1.7-repo", "model": "gr00t-n1.7", "hw": "jetson-agx-orin-64gb", "precision": "bf16", "total_ms": 357.9, "source": "Isaac-GR00T main scripts/deployment/README.md (eager, incl. pre/post)"},
+
+    {"id": "openvla_h100nvl_where", "group": "where-openvla", "model": "openvla", "hw": "h100-nvl", "precision": "bf16", "total_ms": 103.8, "source": "arXiv 2611.06710 Table 1 (eager)"},
+    {"id": "openvla_thor_where", "group": "where-openvla", "model": "openvla", "hw": "jetson-agx-thor", "precision": "bf16", "total_ms": 445, "source": "arXiv 2611.06710 Table 11 (eager, MAXN)"},
+    {"id": "oft_h100nvl_where", "group": "where-oft", "model": "openvla-oft", "hw": "h100-nvl", "precision": "bf16", "total_ms": 42.4, "source": "arXiv 2611.06710 Table 1 (eager)"},
+    {"id": "oft_thor_where", "group": "where-oft", "model": "openvla-oft", "hw": "jetson-agx-thor", "precision": "bf16", "total_ms": 181, "source": "arXiv 2611.06710 Table 11 (eager, MAXN)"},
+    {"id": "pi05_h100nvl_where", "group": "where-pi05", "model": "pi05", "hw": "h100-nvl", "precision": "bf16", "total_ms": 111.6, "source": "arXiv 2611.06710 Table 1 (eager)"},
+    {"id": "pi05_thor_where", "group": "where-pi05", "model": "pi05", "hw": "jetson-agx-thor", "precision": "bf16", "total_ms": 208, "source": "arXiv 2611.06710 Table 11 (eager, MAXN)"},
+    {"id": "n17_h100nvl_where", "group": "where-n17", "model": "gr00t-n1.7", "hw": "h100-nvl", "precision": "bf16", "total_ms": 74.9, "source": "arXiv 2611.06710 Table 1 (eager)"},
+    {"id": "n17_thor_where", "group": "where-n17", "model": "gr00t-n1.7", "hw": "jetson-agx-thor", "precision": "bf16", "total_ms": 149, "source": "arXiv 2611.06710 Table 11 (eager, MAXN)"},
+    {"id": "smolvla_h100nvl_where", "group": "where-smolvla", "model": "smolvla", "hw": "h100-nvl", "precision": "bf16", "total_ms": 208.3, "source": "arXiv 2611.06710 Table 1 (eager)"},
+    {"id": "smolvla_thor_where", "group": "where-smolvla", "model": "smolvla", "hw": "jetson-agx-thor", "precision": "bf16", "total_ms": 308, "source": "arXiv 2611.06710 Table 11 (eager, MAXN)"},
+
+    {"id": "oft_h100nvl_fused", "group": "where-oft-fused", "model": "openvla-oft", "hw": "h100-nvl", "precision": "bf16", "total_ms": 41.8, "source": "arXiv 2611.06710 Table 5 (fused attention)"},
+    {"id": "oft_a10g_fused", "group": "where-oft-fused", "model": "openvla-oft", "hw": "a10g", "precision": "bf16", "total_ms": 204.1, "source": "arXiv 2611.06710 Table 5 (fused attention)"},
+    {"id": "oft_4090_fused", "group": "where-oft-fused", "model": "openvla-oft", "hw": "rtx-4090", "precision": "bf16", "total_ms": 102.1, "source": "arXiv 2611.06710 Table 5 (fused attention)"},
+    {"id": "oft_thor_fused", "group": "where-oft-fused", "model": "openvla-oft", "hw": "jetson-agx-thor", "precision": "bf16", "total_ms": 180.6, "source": "arXiv 2611.06710 Table 5 (fused attention)"},
+
+    {"id": "n17_thor_hwb", "group": "hwbench", "model": "gr00t-n1.7", "hw": "jetson-agx-thor", "precision": "bf16", "total_ms": 119, "source": "VLA-HWBench arXiv 2610.34717 Table 7 (eager reference)"},
+    {"id": "oft_thor_hwb", "group": "hwbench", "model": "openvla-oft", "hw": "jetson-agx-thor", "precision": "bf16", "total_ms": 250, "source": "VLA-HWBench arXiv 2610.34717 Table 7 (eager reference)"},
+    {"id": "pi05_thor_hwb", "group": "hwbench", "model": "pi05", "hw": "jetson-agx-thor", "precision": "bf16", "total_ms": 405, "source": "VLA-HWBench arXiv 2610.34717 Table 7 (eager reference, LeRobot)"}
+  ]
+}

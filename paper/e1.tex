@@ -1,0 +1,25 @@
+To test the predictor end to end with measurements we control, we use the only hardware available
+to us: an Apple M5 laptop (16\,GB unified memory). \texttt{bottle probe} measures its peaks
+(GPU via Metal/MPS: 12.1 fp16 / 2.9 fp32 TFLOPS, 121\,GB/s; CPU: 2.1 fp32 TFLOPS, 127\,GB/s),
+which define three ``devices'': CPU fp32, GPU fp32 and GPU fp16. We profile all eight VLA presets
+on each with the synthetic profiler (models above 1B parameters are profiled on 4 layers per stage
+on the GPU and 2 on the CPU, then extrapolated per layer), and predict every device from every
+other (48 predictions per calibrated predictor), including cross-precision transfer.
+
+\begin{table}[h]\centering\small
+\input{tables/local.tex}
+\caption{E1: latency prediction across the three local Apple M5 configurations (8 VLAs).}\label{tab:local}
+\end{table}
+
+Table~\ref{tab:local} shows that with probed specs the roofline alone is already within 32\% MAPE
+(19.5\% on CPU, 29.2\% GPU fp16, 46.6\% GPU fp32), because the synthetic profiler runs pure
+transformer stacks with little host overhead. Calibration helps modestly, and overhead-aware
+calibration is best (26.2\%). The largest difference appears in cross-precision transfer: from
+GPU fp16 to GPU fp32, global calibration errs by 57.3\% and overhead-aware by 24.8\%, because
+the fp16 run's fixed overheads do not slow down with fp32 arithmetic. Two caveats bound this
+experiment. First, layer extrapolation itself costs accuracy: SmolVLA on GPU fp16 extrapolated
+from 2 layers is 27\% off its full-depth measurement. Second, the laptop is a shared, unmanaged
+machine: the same full-depth SmolVLA fp16 configuration measured 104\,ms and 167\,ms in two runs
+under different memory pressure, a run-to-run spread comparable to the prediction error.
+E1 therefore shows that the pipeline works on a no-cost device and that overhead-aware
+calibration is not worse than the alternatives when overhead is small; the decisive test is E2.
