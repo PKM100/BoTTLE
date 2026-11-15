@@ -26,7 +26,8 @@
       ],
       "stock_same_tasks": 0.8,
       "paired": null,
-      "infer_ms_median": 623.55
+      "infer_ms_median": 623.55,
+      "max_actions_in_budget": 280
     },
     {
       "name": "t4-measured",
@@ -62,7 +63,8 @@
         ],
         "p": 0.1875
       },
-      "infer_ms_median": 632.0999999999999
+      "infer_ms_median": 632.0999999999999,
+      "max_actions_in_budget": 130
     },
     {
       "name": "pred-rtx-4090",
@@ -78,14 +80,14 @@
         5,
         6
       ],
-      "n": 70,
-      "k": 54,
-      "success": 0.7714285714285715,
+      "n": 100,
+      "k": 77,
+      "success": 0.77,
       "ci": [
-        0.6604944698154658,
-        0.8541205981137232
+        0.6784543514317231,
+        0.841568452531236
       ],
-      "stock_same_tasks": 0.7714285714285715,
+      "stock_same_tasks": 0.8,
       "paired": {
         "n_tasks": 7,
         "mean": 3.96508223080413e-18,
@@ -95,27 +97,102 @@
         ],
         "p": 1.0
       },
-      "infer_ms_median": 624.4
+      "infer_ms_median": 624.4,
+      "max_actions_in_budget": 200
+    },
+    {
+      "name": "pred-jetson-agx-thor",
+      "mode": "emulate",
+      "latency_ms": 308,
+      "hold_steps": 7,
+      "tasks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "n": 50,
+      "k": 38,
+      "success": 0.76,
+      "ci": [
+        0.6258705062480763,
+        0.8570274759812779
+      ],
+      "stock_same_tasks": 0.8,
+      "paired": {
+        "n_tasks": 10,
+        "mean": -0.04,
+        "ci": [
+          -0.15000000000000002,
+          0.09
+        ],
+        "p": 0.65625
+      },
+      "infer_ms_median": 622.8,
+      "max_actions_in_budget": 170
+    },
+    {
+      "name": "sweep-1500ms",
+      "mode": "emulate",
+      "latency_ms": 1500,
+      "hold_steps": 30,
+      "tasks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "n": 50,
+      "k": 0,
+      "success": 0.0,
+      "ci": [
+        0.0,
+        0.07135003417431873
+      ],
+      "stock_same_tasks": 0.8,
+      "paired": {
+        "n_tasks": 10,
+        "mean": -0.8,
+        "ci": [
+          -0.9400000000000001,
+          -0.6
+        ],
+        "p": 0.00390625
+      },
+      "infer_ms_median": 624.8499999999999,
+      "max_actions_in_budget": 70
     }
   ],
   "t4": {
-    "measured_ms": 624.4,
+    "measured_ms": 624.3,
     "measured_range": [
       605.1,
       687.3
     ],
-    "n_task_medians": 27,
+    "n_task_medians": 47,
     "pred_fp16_ms": 281.4205728339414,
     "pred_fp32_ms": 399.01420290686673,
-    "ratio_fp16": 2.218743262840423,
-    "ratio_fp32": 1.564856577663578
+    "ratio_fp16": 2.218387922791922,
+    "ratio_fp32": 1.5646059600182123
   },
   "devices": {
     "rtx-4090": {
       "label": "RTX 4090",
       "pred_ms": 182.01662275778864,
       "measured": false,
-      "pred_ms_x_t4ratio": 403.8481554688104
+      "pred_ms_x_t4ratio": 403.7834776732516
     },
     "jetson-agx-thor": {
       "label": "Thor",
@@ -127,13 +204,13 @@
       "label": "AGX Orin",
       "pred_ms": 492.8330813979199,
       "measured": false,
-      "pred_ms_x_t4ratio": 1093.4700790565207
+      "pred_ms_x_t4ratio": 1093.2949557254738
     },
     "jetson-orin-nano-super": {
       "label": "Orin Nano",
       "pred_ms": 669.4722552703834,
       "measured": false,
-      "pred_ms_x_t4ratio": 1485.387056039747
+      "pred_ms_x_t4ratio": 1485.1491657360891
     }
   }
 }

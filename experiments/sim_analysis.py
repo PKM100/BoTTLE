@@ -66,15 +66,19 @@ def main() -> dict:
             continue
         n = r["n_per_task"] * len(tasks)
         k = round(sum(r["success"][i] for i in tasks) * r["n_per_task"])
+        if "aggregate" in r:
+            k, n = r["aggregate"]["k"], r["aggregate"]["n"]
         inf = [r["infer_ms"][i] for i in tasks]
         lat = statistics.median(inf) if r["mode"] == "measured" else r["latency_ms"]
-        stock_same = round(sum(stock["success"][i] for i in tasks) * stock["n_per_task"])
+        stock_tasks = range(10) if "aggregate" in r else tasks
+        stock_same = round(sum(stock["success"][i] for i in stock_tasks) * stock["n_per_task"])
         rows.append({
             "name": r["name"], "mode": r["mode"], "latency_ms": lat, "hold_steps": math.ceil(lat * FPS / 1e3 - 1e-9),
             "tasks": tasks, "n": n, "k": k, "success": k / n, "ci": wilson(k, n),
-            "stock_same_tasks": stock_same / (stock["n_per_task"] * len(tasks)),
+            "stock_same_tasks": stock_same / (stock["n_per_task"] * len(stock_tasks)),
             "paired": None if r is stock else paired(stock["success"], r["success"]),
             "infer_ms_median": statistics.median(inf),
+            "max_actions_in_budget": H * math.ceil(280 / (H + math.ceil(lat * FPS / 1e3 - 1e-9))),
         })
     all_inf = [x for r in runs for x in r["infer_ms"] if x is not None]
     t4_meas = statistics.median(all_inf)
@@ -112,14 +116,14 @@ def main() -> dict:
 
 LABEL = {"stock": "Stock (physics paused)", "t4-measured": "T4, measured per call",
          "pred-rtx-4090": "RTX 4090 (predicted)", "pred-jetson-agx-thor": "Thor (published)",
-         "sweep-1500ms": "Sweep"}
+         "sweep-1500ms": "Stress setting"}
 
 
 def write_table(rows: list[dict]) -> None:
-    lines = [r"\begin{tabular}{lrrrcc}", r"\toprule",
-             r"Setting & Latency & Holds & $n$ & Success [95\% CI] & $\Delta$ vs.\ stock, same tasks [95\% CI] \\",
+    lines = [r"\begin{tabular}{lrrrrcc}", r"\toprule",
+             r"Setting & Latency & Holds & Max actions & $n$ & Success [95\% CI] & $\Delta$ vs.\ stock, same tasks [95\% CI] \\",
              r"\midrule"]
-    for r in rows:
+    for r in sorted(rows, key=lambda r: r["latency_ms"]):
         pr = r["paired"]
         if pr is None:
             delta = "--"
@@ -127,7 +131,7 @@ def write_table(rows: list[dict]) -> None:
             delta = f"${100 * pr['mean']:+.0f}$ [${100 * pr['ci'][0]:+.0f}$, ${100 * pr['ci'][1]:+.0f}$]"
             if pr["n_tasks"] != 10:
                 delta += f" ({pr['n_tasks']} tasks)"
-        lines.append(f"{LABEL.get(r['name'], r['name'])} & {r['latency_ms']:.0f}\\,ms & {r['hold_steps']} & {r['n']} & "
+        lines.append(f"{LABEL.get(r['name'], r['name'])} & {r['latency_ms']:.0f}\\,ms & {r['hold_steps']} & {r['max_actions_in_budget']} & {r['n']} & "
                      f"{100 * r['success']:.0f} [{100 * r['ci'][0]:.0f}, {100 * r['ci'][1]:.0f}] & {delta} \\\\")
     lines += [r"\bottomrule", r"\end{tabular}"]
     (ROOT / "paper" / "tables" / "sim.tex").write_text("\n".join(lines) + "\n")

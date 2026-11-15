@@ -1,20 +1,160 @@
 {
-  "_about": "Closed-loop LIBERO-Spatial runs of lerobot/smolvla_libero (rev a24f1f38) on a Colab T4 with notebooks/bottle_libero_sim.ipynb (H=10, 20 Hz, seed 1000). Per-task success fraction and median per-chunk inference time, transcribed from the notebook's per-task log lines. null = not yet run. Episodes per task in n_per_task.",
-  "settings": [
-    {"name": "stock", "mode": "none", "latency_ms": 0, "n_per_task": 10,
-     "success": [1.0, 0.9, 0.9, 1.0, 0.6, 0.0, 1.0, 0.9, 0.8, 0.9],
-     "infer_ms": [624.1, 620.1, 620.1, 625.0, 625.1, 625.7, 619.7, 616.7, 626.8, 623.0]},
-    {"name": "t4-measured", "mode": "measured", "latency_ms": null, "n_per_task": 10,
-     "success": [1.0, 0.8, 0.9, 0.8, 0.0, 0.2, 1.0, 0.8, 0.8, 0.4],
-     "infer_ms": [635.8, 623.7, 644.3, 641.3, 640.9, 619.6, 618.2, 687.3, 616.2, 628.4]},
-    {"name": "pred-rtx-4090", "mode": "emulate", "latency_ms": 182, "n_per_task": 10,
-     "success": [1.0, 0.9, 1.0, 0.8, 0.6, 0.1, 1.0, null, null, null],
-     "infer_ms": [605.1, 624.4, 633.5, 626.3, 617.3, 623.0, 628.4, null, null, null]},
-    {"name": "pred-jetson-agx-thor", "mode": "emulate", "latency_ms": 308, "n_per_task": 5,
-     "success": [null, null, null, null, null, null, null, null, null, null],
-     "infer_ms": [null, null, null, null, null, null, null, null, null, null]},
-    {"name": "sweep-1500ms", "mode": "emulate", "latency_ms": 1500, "n_per_task": 5,
-     "success": [null, null, null, null, null, null, null, null, null, null],
-     "infer_ms": [null, null, null, null, null, null, null, null, null, null]}
-  ]
+ "_about": "Closed-loop LIBERO-Spatial runs of lerobot/smolvla_libero (rev a24f1f38) on a Colab T4 with notebooks/bottle_libero_sim.ipynb (H=10, 20 Hz, seed 1000). Per-task success fraction and median per-chunk inference time, transcribed from the notebook's per-task log lines. null = not yet run. Episodes per task in n_per_task.",
+ "settings": [
+  {
+   "name": "stock",
+   "mode": "none",
+   "latency_ms": 0,
+   "n_per_task": 10,
+   "success": [
+    1.0,
+    0.9,
+    0.9,
+    1.0,
+    0.6,
+    0.0,
+    1.0,
+    0.9,
+    0.8,
+    0.9
+   ],
+   "infer_ms": [
+    624.1,
+    620.1,
+    620.1,
+    625.0,
+    625.1,
+    625.7,
+    619.7,
+    616.7,
+    626.8,
+    623.0
+   ]
+  },
+  {
+   "name": "t4-measured",
+   "mode": "measured",
+   "latency_ms": null,
+   "n_per_task": 10,
+   "success": [
+    1.0,
+    0.8,
+    0.9,
+    0.8,
+    0.0,
+    0.2,
+    1.0,
+    0.8,
+    0.8,
+    0.4
+   ],
+   "infer_ms": [
+    635.8,
+    623.7,
+    644.3,
+    641.3,
+    640.9,
+    619.6,
+    618.2,
+    687.3,
+    616.2,
+    628.4
+   ]
+  },
+  {
+   "name": "pred-rtx-4090",
+   "mode": "emulate",
+   "latency_ms": 182,
+   "n_per_task": 10,
+   "success": [
+    1.0,
+    0.9,
+    1.0,
+    0.8,
+    0.6,
+    0.1,
+    1.0,
+    null,
+    null,
+    null
+   ],
+   "infer_ms": [
+    605.1,
+    624.4,
+    633.5,
+    626.3,
+    617.3,
+    623.0,
+    628.4,
+    null,
+    null,
+    null
+   ],
+   "aggregate": {
+    "k": 77,
+    "n": 100,
+    "_note": "tasks 7-9 total 23/30 from the notebook summary table; per-task values not transcribed"
+   }
+  },
+  {
+   "name": "pred-jetson-agx-thor",
+   "mode": "emulate",
+   "latency_ms": 308,
+   "n_per_task": 5,
+   "success": [
+    1.0,
+    0.8,
+    1.0,
+    0.8,
+    0.4,
+    0.4,
+    1.0,
+    1.0,
+    0.6,
+    0.6
+   ],
+   "infer_ms": [
+    630.7,
+    628.3,
+    631.8,
+    639.3,
+    616.5,
+    618.8,
+    622.0,
+    619.6,
+    618.0,
+    623.6
+   ]
+  },
+  {
+   "name": "sweep-1500ms",
+   "mode": "emulate",
+   "latency_ms": 1500,
+   "n_per_task": 5,
+   "success": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "infer_ms": [
+    631.7,
+    633.3,
+    624.3,
+    628.7,
+    625.4,
+    620.5,
+    617.4,
+    613.9,
+    621.8,
+    629.2
+   ]
+  }
+ ]
 }

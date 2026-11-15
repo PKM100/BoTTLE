@@ -35,8 +35,9 @@ model per success unchanged, (b) counting compute only, a \$249 Jetson Orin Nano
 device with probability $>0.99$ for every model that fits, but once robot time is billed desktop
 GPUs win, and (c) the long-horizon suite costs $2.4$--$4.3\times$ more per success than the
 spatial suite. A closed-loop simulation with emulated device latency shows that
-E3's latency-independent success holds at desktop-GPU latency, but success drops by about 13
-points (not yet significant) at ${\sim}630$\,ms per chunk. \bottle{} runs on a laptop or free Colab GPU and requires no hardware purchase.
+E3's latency-independent success holds up to Thor's 308\,ms per chunk, but success falls by about
+13 points at ${\sim}630$\,ms and to zero at 1{,}500\,ms, where stalls exhaust the episode's time
+budget. \bottle{} runs on a laptop or free Colab GPU and requires no hardware purchase.
 \end{abstract}
 
 \section{Introduction}
@@ -74,8 +75,9 @@ horizons and prices, reporting only rankings that survive it (\S\ref{sec:e3}).
 \item A curated dataset of 31 published VLA latency measurements with sources and settings,
 released with the tool.
 \item A closed-loop LIBERO study that emulates target-device latency in simulation with no target
-hardware: SmolVLA's success is unchanged at a predicted RTX 4090 latency and drops by
-${\sim}13$ points at ${\sim}630$\,ms per chunk (\S\ref{sec:e4}).
+hardware: SmolVLA's success is unchanged up to Thor's 308\,ms per chunk, drops by ${\sim}13$
+points at ${\sim}630$\,ms and reaches zero at 1{,}500\,ms, mainly by exhausting the task's time
+budget (\S\ref{sec:e4}).
 \end{enumerate}
 
 \section{Related Work}
@@ -334,8 +336,10 @@ differences against stock with a task-level bootstrap and an exact sign-flip tes
 \begin{table}[t]\centering\small
 \caption{Closed-loop LIBERO-Spatial success of SmolVLA ($H{=}10$, synchronous) with each chunk's
 inference latency emulated as robot holds. Success CIs are Wilson intervals; $\Delta$ is the mean
-per-task paired difference from stock on the same tasks (task bootstrap CI).
-\pend{Thor and 1{,}500\,ms rows pending.}}\label{tab:sim}
+per-task paired difference from stock on the same tasks (task bootstrap CI; the RTX 4090's
+total is over all 10 tasks, its paired difference over the 7 with per-task logs). \emph{Max
+actions} is the most policy actions that fit in LeRobot's 280-step episode budget once holds are
+charged against it.}\label{tab:sim}
 \resizebox{\linewidth}{!}{\input{tables/sim.tex}}
 \end{table}
 
@@ -345,15 +349,24 @@ per-task paired difference from stock on the same tasks (task bootstrap CI).
 mark E3's latencies for SmolVLA on edge and desktop devices.}\label{fig:sim}
 \end{figure}
 
-\paragraph{Results.} At the RTX 4090's predicted latency (4 hold steps per chunk) success is
-unchanged on every task run so far ($\Delta{=}0$; Table~\ref{tab:sim}). At the T4's measured
-${\sim}630$\,ms (13 holds per chunk) success falls from 80\% to 67\%; the per-task paired
-difference is $-13$ points (95\% CI $-28$ to $+1$, sign-flip $p{=}0.19$), concentrated in
-tasks~4 and~9, where it falls by 50--60 points. Thor at 308\,ms gives \pend{[pending]} and the
-1{,}500\,ms stress setting \pend{[pending]}. So E3's assumption holds for a tethered desktop
-GPU, but sub-real-time devices (Orin Nano, and AGX Orin if its latency is underpredicted) may
-also pay in success. In E3's cost model that loss multiplies robot time per success by
-$s_0/s_\ell$, about $1.2\times$ at the T4's latency, on top of the stalls already counted.
+\paragraph{Results.} Success degrades monotonically with latency (Table~\ref{tab:sim},
+Figure~\ref{fig:sim}). At the RTX 4090's predicted 182\,ms it is unchanged (77\% vs.\ 80\%;
+paired $\Delta{=}0$ on the 7 tasks with per-task logs), and at Thor's published 308\,ms it is
+within noise (76\%, $\Delta{=}{-}4$ points, 95\% CI $-15$ to $+9$). At the T4's measured
+${\sim}630$\,ms success falls to 67\% ($\Delta{=}{-}13$, CI $-28$ to $+1$, sign-flip $p{=}0.19$),
+concentrated in tasks~4 and~9, and at 1{,}500\,ms no episode succeeds (0/50, $p{=}0.004$).
+The last result is mostly a \emph{time-budget} effect, not a control failure: with holds charged,
+the 280-step budget leaves room for only 70 actions, fewer than a typical successful stock episode
+uses. The same mechanism shrinks the budget to 130--200 actions in the other settings, so our
+setup cannot yet separate ``stalls run out the clock'' from ``stalls destabilize control''; a
+rerun with the budget extended by the holds would. Either way it is the deployer's question,
+since real deployments also have task time limits. Combining success with time, the robot's time
+per success grows from 8.8\,s (stock) to 11.4\,s (RTX 4090), 13.1\,s (Thor) and 18.4\,s (T4).
+Folding the measured success loss into E3 multiplies its synchronous robot cost per success by
+$s_0/s_\ell$: $1.04$ for the RTX 4090, $1.05$ for Thor, and $1.19$ at the T4's latency. This
+leaves E3's desktop-GPU and Thor conclusions intact and widens the gap to devices near or beyond
+${\sim}600$\,ms per chunk (Orin Nano at its predicted 669\,ms, and AGX Orin if it is
+underpredicted as the T4 was).
 
 \paragraph{A prospective latency check.} The same runs give an unplanned out-of-sample test of
 the predictor. \bottle{} predicted 281\,ms for SmolVLA on a T4 in E3, which assumes half
@@ -375,11 +388,11 @@ can change success; precision changes (e.g.\ INT4) can too. \bottle{} accepts pe
 success rates when available, but our LIBERO study uses published simulator success, in which the
 environment waits for the policy, so E3 cannot capture latency-induced failures. Success rates
 also come from different codebases and evaluation scripts (Table~\ref{tab:success}) and are only
-approximately comparable. E4 tests the latency assumption in closed loop: it holds for
-the 4090's predicted latency, while ${\sim}630$\,ms per chunk costs about 13 points of success,
-not yet significant. E4 covers one model, one suite and synchronous execution only, with 5--10
+approximately comparable. E4 tests the latency assumption in closed loop: it holds up to
+Thor's 308\,ms, while ${\sim}630$\,ms per chunk costs about 13 points (not significant) and
+1{,}500\,ms leaves too few actions in the episode budget to succeed. E4 covers one model, one suite and synchronous execution only, with 5--10
 episodes per task and pure holds rather than the sensor staleness of asynchronous execution.
-E3 does not yet fold the measured success loss into its rankings.
+E3's Monte Carlo rankings do not yet include the measured $s_0/s_\ell$ correction.
 \textbf{No measured bill.} Cost per success is computed, not measured end to end on a deployment.
 \textbf{Approximations.} Several device peaks (A10G, Thor, Orin) and some GR00T N1.6/N1.7 and
 SmolVLA dimensions are approximate; embedding tables are excluded from parameter counts; the
@@ -397,8 +410,8 @@ eager VLA stacks. \bottle{} makes this estimate one CLI command. Our study shows
 optimal device depends on what the deployer pays for, that cost-per-success model rankings are more
 stable than latency rankings across software stacks, and that many apparent differences do not
 survive the uncertainty of predicting unowned hardware. Closed-loop simulation shows the
-remaining assumption, that success does not depend on latency, holds at desktop-GPU speed but
-starts to fail on slow devices. Code, data and
+remaining assumption, that success does not depend on latency, holds at desktop-GPU and Thor speed but
+fails on slow devices, which pay twice: once in stalls and again in lost successes. Code, data and
 the Colab notebook are released at \url{https://github.com/PKM100/BoTTLE}.
 
 \bibliographystyle{plainnat}
