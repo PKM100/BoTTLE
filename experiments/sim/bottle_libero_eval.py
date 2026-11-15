@@ -168,6 +168,9 @@ def _output_dir(argv: list[str]) -> Path:
 def main() -> None:
     sys.argv = [sys.argv[0]] + parse_own_args(sys.argv[1:])
     os.environ.setdefault("MUJOCO_GL", "egl")
+    # LIBERO's first import asks via input() whether to use a custom dataset path; answer "no".
+    import builtins
+    builtins.input = lambda *a, **k: "n"
     import lerobot.scripts.lerobot_eval as E
     from lerobot.sim.integrations import libero as L
 
