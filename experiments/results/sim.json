@@ -1,0 +1,139 @@
+{
+  "rows": [
+    {
+      "name": "stock",
+      "mode": "none",
+      "latency_ms": 0,
+      "hold_steps": 0,
+      "tasks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "n": 100,
+      "k": 80,
+      "success": 0.8,
+      "ci": [
+        0.7111690380734977,
+        0.8666340774409013
+      ],
+      "stock_same_tasks": 0.8,
+      "paired": null,
+      "infer_ms_median": 623.55
+    },
+    {
+      "name": "t4-measured",
+      "mode": "measured",
+      "latency_ms": 632.0999999999999,
+      "hold_steps": 13,
+      "tasks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "n": 100,
+      "k": 67,
+      "success": 0.67,
+      "ci": [
+        0.5730516033971139,
+        0.7543701620610456
+      ],
+      "stock_same_tasks": 0.8,
+      "paired": {
+        "n_tasks": 10,
+        "mean": -0.12999999999999998,
+        "ci": [
+          -0.27999999999999997,
+          0.010000000000000004
+        ],
+        "p": 0.1875
+      },
+      "infer_ms_median": 632.0999999999999
+    },
+    {
+      "name": "pred-rtx-4090",
+      "mode": "emulate",
+      "latency_ms": 182,
+      "hold_steps": 4,
+      "tasks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "n": 70,
+      "k": 54,
+      "success": 0.7714285714285715,
+      "ci": [
+        0.6604944698154658,
+        0.8541205981137232
+      ],
+      "stock_same_tasks": 0.7714285714285715,
+      "paired": {
+        "n_tasks": 7,
+        "mean": 3.96508223080413e-18,
+        "ci": [
+          -0.07142857142857141,
+          0.05714285714285714
+        ],
+        "p": 1.0
+      },
+      "infer_ms_median": 624.4
+    }
+  ],
+  "t4": {
+    "measured_ms": 624.4,
+    "measured_range": [
+      605.1,
+      687.3
+    ],
+    "n_task_medians": 27,
+    "pred_fp16_ms": 281.4205728339414,
+    "pred_fp32_ms": 399.01420290686673,
+    "ratio_fp16": 2.218743262840423,
+    "ratio_fp32": 1.564856577663578
+  },
+  "devices": {
+    "rtx-4090": {
+      "label": "RTX 4090",
+      "pred_ms": 182.01662275778864,
+      "measured": false,
+      "pred_ms_x_t4ratio": 403.8481554688104
+    },
+    "jetson-agx-thor": {
+      "label": "Thor",
+      "pred_ms": 308.0,
+      "measured": true,
+      "pred_ms_x_t4ratio": 308.0
+    },
+    "jetson-agx-orin-64gb": {
+      "label": "AGX Orin",
+      "pred_ms": 492.8330813979199,
+      "measured": false,
+      "pred_ms_x_t4ratio": 1093.4700790565207
+    },
+    "jetson-orin-nano-super": {
+      "label": "Orin Nano",
+      "pred_ms": 669.4722552703834,
+      "measured": false,
+      "pred_ms_x_t4ratio": 1485.387056039747
+    }
+  }
+}

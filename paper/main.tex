@@ -2,6 +2,7 @@
 \usepackage[margin=0.9in]{geometry}
 \usepackage{amsmath,amssymb,booktabs,graphicx,hyperref,xcolor,caption,subcaption}
 \usepackage[numbers]{natbib}
+\newcommand{\pend}[1]{\textcolor{red}{#1}}
 \captionsetup{font=small}
 \newcommand{\bottle}{\textsc{BoTTLE}}
 
@@ -33,7 +34,9 @@ and device. Applying \bottle{} to LIBERO with Monte Carlo uncertainty propagatio
 model per success unchanged, (b) counting compute only, a \$249 Jetson Orin Nano is the cheapest
 device with probability $>0.99$ for every model that fits, but once robot time is billed desktop
 GPUs win, and (c) the long-horizon suite costs $2.4$--$4.3\times$ more per success than the
-spatial suite. \bottle{} runs on a laptop or free Colab GPU and requires no hardware purchase.
+spatial suite. A closed-loop simulation with emulated device latency shows that
+E3's latency-independent success holds at desktop-GPU latency, but success drops by about 13
+points (not yet significant) at ${\sim}630$\,ms per chunk. \bottle{} runs on a laptop or free Colab GPU and requires no hardware purchase.
 \end{abstract}
 
 \section{Introduction}
@@ -70,6 +73,9 @@ with uncertainty propagated from the predictor's measured error, success-rate sa
 horizons and prices, reporting only rankings that survive it (\S\ref{sec:e3}).
 \item A curated dataset of 31 published VLA latency measurements with sources and settings,
 released with the tool.
+\item A closed-loop LIBERO study that emulates target-device latency in simulation with no target
+hardware: SmolVLA's success is unchanged at a predicted RTX 4090 latency and drops by
+${\sim}13$ points at ${\sim}630$\,ms per chunk (\S\ref{sec:e4}).
 \end{enumerate}
 
 \section{Related Work}
@@ -307,6 +313,56 @@ Jetson Thor makes OpenVLA-OFT, $\pi_0$ and $\pi_{0.5}$ real-time.
 success than LIBERO-Spatial (OpenVLA highest), from longer episodes compounded by lower success.
 This ratio depends only on episode lengths and success rates, not on the latency predictor.
 
+\subsection{E4: Does latency change success? Closed-loop simulation}\label{sec:e4}
+E3, like every published LIBERO number, assumes the simulator waits for the policy. On a real
+robot it does not, so we test that assumption directly, without target hardware, by emulating
+each device's latency inside the simulator.
+
+\paragraph{Setup.} We run the released \texttt{lerobot/smolvla\_libero} checkpoint (fp32, as
+shipped) on all 10 LIBERO-Spatial tasks via LeRobot on a Colab T4, executing $H{=}10$ actions per
+chunk at 20\,Hz (E3's synchronous setting). A thin wrapper around \texttt{lerobot-eval}
+(\texttt{experiments/sim/bottle\_libero\_eval.py}) emulates a target device with latency $\ell$:
+each time the policy produces a new chunk, the robot holds still (zero end-effector delta, last
+gripper command) for $\lceil \ell f\rceil$ physics steps while the scene keeps evolving, and the
+holds count against the episode's step budget. We compare \emph{stock} evaluation (physics paused,
+$\ell{=}0$) with $\ell$ set to the T4's own per-call time measured online, to \bottle's prediction
+for an RTX 4090 (182\,ms), to the published Jetson Thor measurement (308\,ms~\cite{waseem2026where}),
+and to a 1{,}500\,ms stress setting. Episodes use LeRobot's seeds, identical across settings
+(10 per task for the first three settings, 5 for the last two). We test per-task paired
+differences against stock with a task-level bootstrap and an exact sign-flip test.
+
+\begin{table}[t]\centering\small
+\caption{Closed-loop LIBERO-Spatial success of SmolVLA ($H{=}10$, synchronous) with each chunk's
+inference latency emulated as robot holds. Success CIs are Wilson intervals; $\Delta$ is the mean
+per-task paired difference from stock on the same tasks (task bootstrap CI).
+\pend{Thor and 1{,}500\,ms rows pending.}}\label{tab:sim}
+\resizebox{\linewidth}{!}{\input{tables/sim.tex}}
+\end{table}
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.75\linewidth]{figs/sim.pdf}
+\caption{Closed-loop success vs.\ emulated per-chunk latency (95\% Wilson intervals). Dotted lines
+mark E3's latencies for SmolVLA on edge and desktop devices.}\label{fig:sim}
+\end{figure}
+
+\paragraph{Results.} At the RTX 4090's predicted latency (4 hold steps per chunk) success is
+unchanged on every task run so far ($\Delta{=}0$; Table~\ref{tab:sim}). At the T4's measured
+${\sim}630$\,ms (13 holds per chunk) success falls from 80\% to 67\%; the per-task paired
+difference is $-13$ points (95\% CI $-28$ to $+1$, sign-flip $p{=}0.19$), concentrated in
+tasks~4 and~9, where it falls by 50--60 points. Thor at 308\,ms gives \pend{[pending]} and the
+1{,}500\,ms stress setting \pend{[pending]}. So E3's assumption holds for a tethered desktop
+GPU, but sub-real-time devices (Orin Nano, and AGX Orin if its latency is underpredicted) may
+also pay in success. In E3's cost model that loss multiplies robot time per success by
+$s_0/s_\ell$, about $1.2\times$ at the T4's latency, on top of the stalls already counted.
+
+\paragraph{A prospective latency check.} The same runs give an unplanned out-of-sample test of
+the predictor. \bottle{} predicted 281\,ms for SmolVLA on a T4 in E3, which assumes half
+precision; the checkpoint runs in fp32, for which it predicts 399\,ms. The measured median is
+624\,ms (task medians 605--687\,ms), $1.56\times$ the fp32 prediction ($-36\%$), outside E2's
+typical 28\% error but within its worst case. Part of the gap is likely Colab's two-vCPU host,
+whose prior is optimistic; precision is the larger lesson: a cost prediction is only as good as
+its assumption about how the model is actually deployed.
+
 \section{Discussion and Limitations}
 \textbf{Prediction is bounded by the software stack.} The dominant term in published VLA latency
 is not accelerator throughput, and identical model/device pairs vary by up to $1.95\times$ across
@@ -319,12 +375,11 @@ can change success; precision changes (e.g.\ INT4) can too. \bottle{} accepts pe
 success rates when available, but our LIBERO study uses published simulator success, in which the
 environment waits for the policy, so E3 cannot capture latency-induced failures. Success rates
 also come from different codebases and evaluation scripts (Table~\ref{tab:success}) and are only
-approximately comparable. A closed-loop LIBERO evaluation that delays each action chunk by the
-predicted latency of a target device, which needs no target hardware, is the natural validation
-of this assumption. We release one (\texttt{notebooks/bottle\_libero\_sim.ipynb}): it holds the
-robot still for $\lceil \ell f\rceil$ simulator steps per chunk, where $\ell$ is either the latency
-measured on a free T4 or a \bottle{} prediction for a target device, and charges the holds against
-the episode's step budget. Running the full study is future work.
+approximately comparable. E4 tests the latency assumption in closed loop: it holds for
+the 4090's predicted latency, while ${\sim}630$\,ms per chunk costs about 13 points of success,
+not yet significant. E4 covers one model, one suite and synchronous execution only, with 5--10
+episodes per task and pure holds rather than the sensor staleness of asynchronous execution.
+E3 does not yet fold the measured success loss into its rankings.
 \textbf{No measured bill.} Cost per success is computed, not measured end to end on a deployment.
 \textbf{Approximations.} Several device peaks (A10G, Thor, Orin) and some GR00T N1.6/N1.7 and
 SmolVLA dimensions are approximate; embedding tables are excluded from parameter counts; the
@@ -341,7 +396,9 @@ owning the hardware---provided the estimate accounts for the host overhead that 
 eager VLA stacks. \bottle{} makes this estimate one CLI command. Our study shows that the
 optimal device depends on what the deployer pays for, that cost-per-success model rankings are more
 stable than latency rankings across software stacks, and that many apparent differences do not
-survive the uncertainty of predicting unowned hardware. Code, data and
+survive the uncertainty of predicting unowned hardware. Closed-loop simulation shows the
+remaining assumption, that success does not depend on latency, holds at desktop-GPU speed but
+starts to fail on slow devices. Code, data and
 the Colab notebook are released at \url{https://github.com/PKM100/BoTTLE}.
 
 \bibliographystyle{plainnat}
