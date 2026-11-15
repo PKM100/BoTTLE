@@ -177,15 +177,19 @@ def main() -> None:
     patch_env(L.LiberoEnv)
     orig_make_policy = E.make_policy
     E.make_policy = lambda *a, **k: wrap_policy(orig_make_policy(*a, **k))
+    ok = False
     try:
         E.main()
+        ok = True
     finally:
         res = summary()
         out = _output_dir(sys.argv[1:])
         out.mkdir(parents=True, exist_ok=True)
-        (out / "bottle_timing.json").write_text(json.dumps(res, indent=2))
+        # only a completed run gets bottle_timing.json, so resumable sweeps retry failed runs
+        name = "bottle_timing.json" if ok else "bottle_timing.failed.json"
+        (out / name).write_text(json.dumps(res, indent=2))
         print(f"[bottle] mode={res['mode']} latency={res['latency_ms']}ms success={res['success_rate']} "
-              f"episodes={res['n_episodes']} infer_median={res['infer_ms_median']}ms -> {out / 'bottle_timing.json'}")
+              f"episodes={res['n_episodes']} infer_median={res['infer_ms_median']}ms -> {out / name}")
 
 
 if __name__ == "__main__":
