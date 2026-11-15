@@ -3,8 +3,11 @@
 Stock LIBERO pauses physics while the policy computes, so success never depends on latency.
 This wrapper around ``lerobot-eval`` makes it matter, emulating a *synchronous* robot: every time
 the policy computes a new action chunk, the robot holds still (zero end-effector delta, last
-gripper command) for ceil(latency * fps) physics steps before executing it. Hold steps consume the
-episode's step budget, like wall-clock time would on a real robot.
+gripper command) for ceil(latency * fps) physics steps before executing it. By default hold steps
+consume the episode's step budget, like wall-clock time would on a real robot
+(``--bottle.budget=steps``); ``--bottle.budget=actions`` gives every setting stock's budget of
+policy actions instead, isolating the effect of stalls on control from running out of time. (In
+LIBERO the underlying robosuite env still ends episodes at 1000 physics steps.)
 
     --bottle.mode=none        stock behaviour (physics paused); only records timing
     --bottle.mode=measured    hold for the latency measured on *this* GPU, call by call
@@ -33,7 +36,7 @@ from pathlib import Path
 
 import numpy as np
 
-STATE = {"mode": "none", "latency_ms": 0.0, "fps": 20, "pending_hold": 0, "calls_this_episode": 0,
+STATE = {"mode": "none", "latency_ms": 0.0, "budget": "steps", "fps": 20, "pending_hold": 0, "calls_this_episode": 0,
          "infer_s": [], "episodes": [], "hold_steps": 0}
 
 
@@ -49,6 +52,10 @@ def parse_own_args(argv: list[str]) -> list[str]:
                 STATE["mode"] = v
             elif k == "latency_ms":
                 STATE["latency_ms"] = float(v)
+            elif k == "budget":
+                if v not in ("steps", "actions"):
+                    raise SystemExit("--bottle.budget must be steps|actions")
+                STATE["budget"] = v
             else:
                 raise SystemExit(f"unknown option --bottle.{k}")
         else:
@@ -107,31 +114,33 @@ def patch_env(env_cls) -> None:
     orig_step, orig_reset = env_cls.step, env_cls.reset
 
     def reset(self, *args, **kwargs):
-        self._bottle_t, self._bottle_grip = 0, -1.0
+        self._bottle_t, self._bottle_a, self._bottle_grip = 0, 0, -1.0
         STATE["pending_hold"], STATE["calls_this_episode"] = 0, 0
         return orig_reset(self, *args, **kwargs)
 
     def finish(self, info, truncated):
-        STATE["episodes"].append({"task_id": getattr(self, "task_id", None), "steps": self._bottle_t,
+        STATE["episodes"].append({"task_id": getattr(self, "task_id", None), "steps": self._bottle_t, "actions": self._bottle_a,
                                   "success": bool(info.get("is_success", False)), "truncated": truncated,
                                   "calls": STATE["calls_this_episode"]})
 
     def step(self, action):
         limit = self._max_episode_steps
+        holds_count = STATE["budget"] == "steps"
         n_hold, STATE["pending_hold"] = STATE["pending_hold"], 0
         hold = np.array([0, 0, 0, 0, 0, 0, self._bottle_grip], dtype=np.float64)
         for _ in range(n_hold):
             obs, rew, term, _, info = orig_step(self, hold)
             self._bottle_t += 1
             STATE["hold_steps"] += 1
-            if term or self._bottle_t >= limit:
+            if term or (holds_count and self._bottle_t >= limit):
                 trunc = not term
                 finish(self, info, trunc)
                 return obs, rew, term, trunc, info
         obs, rew, term, _, info = orig_step(self, action)
         self._bottle_t += 1
+        self._bottle_a += 1
         self._bottle_grip = float(np.asarray(action).reshape(-1)[-1])
-        trunc = (not term) and self._bottle_t >= limit
+        trunc = (not term) and (self._bottle_t if holds_count else self._bottle_a) >= limit
         if term or trunc:
             finish(self, info, trunc)
         return obs, rew, term, trunc, info
@@ -144,7 +153,7 @@ def summary() -> dict:
     steady = t[1:] or t  # first call includes warm-up
     succ = [e for e in eps if e["success"]]
     return {
-        "mode": STATE["mode"], "latency_ms": STATE["latency_ms"], "fps": STATE["fps"],
+        "mode": STATE["mode"], "latency_ms": STATE["latency_ms"], "budget": STATE["budget"], "fps": STATE["fps"],
         "n_calls": len(t),
         "infer_ms_median": statistics.median(steady) * 1e3 if t else None,
         "infer_ms_p90": sorted(steady)[int(0.9 * (len(steady) - 1))] * 1e3 if t else None,
@@ -153,6 +162,7 @@ def summary() -> dict:
         "n_episodes": len(eps),
         "success_rate": sum(e["success"] for e in eps) / len(eps) if eps else None,
         "mean_steps_success": statistics.mean(e["steps"] for e in succ) if succ else None,
+        "mean_actions_success": statistics.mean(e["actions"] for e in succ) if succ else None,
         "mean_steps_all": statistics.mean(e["steps"] for e in eps) if eps else None,
         "episodes": eps,
     }

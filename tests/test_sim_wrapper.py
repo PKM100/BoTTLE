@@ -35,8 +35,8 @@ class FakePolicy:
         return self._action_queue.popleft()
 
 
-def setup(mode, lat_ms=0.0):
-    ble.STATE.update(mode=mode, latency_ms=lat_ms, fps=20, pending_hold=0, calls_this_episode=0,
+def setup(mode, lat_ms=0.0, budget="steps"):
+    ble.STATE.update(mode=mode, latency_ms=lat_ms, budget=budget, fps=20, pending_hold=0, calls_this_episode=0,
                      infer_s=[], episodes=[], hold_steps=0)
     cls = type("E", (FakeEnv,), {})
     ble.patch_env(cls)
@@ -84,3 +84,11 @@ def test_none_mode_matches_stock():
     s = ble.summary()
     assert s["hold_steps"] == 0 and s["episodes"][0]["steps"] == 7 and s["n_calls"] == 2
     assert s["success_rate"] == 1.0
+
+
+def test_action_budget_excludes_holds():
+    cls = setup("emulate", 1000.0, budget="actions")  # same setting that never acts under a step budget
+    env, pol = cls(success_at=None, limit=20), ble.wrap_policy(FakePolicy(h=5))
+    assert run(env, pol) is False
+    ep = ble.STATE["episodes"][-1]
+    assert ep["actions"] == 20 and ep["steps"] == 20 + 4 * 20 and ep["truncated"]
