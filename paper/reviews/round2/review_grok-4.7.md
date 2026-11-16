@@ -1,0 +1,54 @@
+1. SUMMARY
+
+BoTTLE predicts per-call VLA latency and energy on hardware the user does not own, calibrates the roofline gap from one measurement as an additive residual, and turns that prediction into time, energy, and dollars per successful episode. The latency-transfer result (28.1% MAPE vs 48.8% for single-factor calibration, group-bootstrap CI) and the uncertainty-aware LIBERO cost rankings are the actual contribution. The new closed-loop study is meant to test whether success is independent of latency; as run, it does not identify that effect.
+
+2. VERDICT
+
+VERDICT: Major Revision — 6/10
+
+3. STRENGTHS
+
+- The deployment question is the right one, and the tool is concrete: per-stage roofline, one-point calibration, chunking, sync vs async, and three billing regimes, released as a CLI.
+- Round-1 statistical repairs in E2 landed. Table tab:transfer reports a group bootstrap (28.1% [19, 36]), group-averaged MAPE, an additive-residual ablation (32.8%), and host-prior sensitivity. The text correctly calls the validation retrospective and does not claim the residual's cause is proven (Sec. E2, Sec. Method).
+- E3 no longer treats point estimates as rankings. Measured cells are marked, pi0 is anchored on eager pi0.5 rather than the JAX 4090 run, and bold/underline winners require P>=0.8 over 2,000 draws (Table tab:cost). The software-stack reordering result is now a negative result about cost, not a "fastest != cheapest" artifact.
+- The prospective T4 check is reported against the authors, not buried: 281 ms (fp16 assumption) / 399 ms (fp32) vs measured median 624 ms, 1.56x the fp32 prediction (Sec. E4). That is the first measurement this group controls, and it is not spun as a win.
+- Limitations name the remaining holes: stack spread up to 1.95x, no measured bill, E4's narrow scope, and that E3's Monte Carlo does not include s0/s_l.
+
+4. WEAKNESSES / THREATS TO VALIDITY
+
+- **Blocking confound: E4 does not vary latency alone.** Holds are charged against LeRobot's fixed 280-step budget (`experiments/sim/bottle_libero_eval.py`, `budget="steps"`), so higher latency also cuts the number of policy actions (Table tab:sim: 280, 200, 170, 130, 70). The 0/50 result at 1,500 ms is, as the body says, mostly deadline exhaustion. The same mechanism is active at 630 ms (budget cut to ~120–130 actions) and at 308 ms (~161–170). Sec. E4 admits the design "cannot yet separate" clock exhaustion from control failure. The abstract, contribution 5, and conclusion nevertheless say latency-independent success "holds" up to 308 ms and "fails" on slow devices, which "pay twice." Those sentences are not identified by this experiment.
+- **"Pay twice" double-counts one mechanism.** E3's sync duration is D = N/f + C*ell with N fixed: latency adds time and does not delete actions. E4's success drop, if it is real, comes from holds displacing actions inside a fixed step cap. Multiplying E3's already latency-inflated cost by s0/s_l (1.04 / 1.05 / 1.19) treats a timeout artifact as an independent retry factor. If the deployment has a wall-clock deadline, E3's duration model is the wrong estimand. If it does not, E4's success drop is the wrong estimand. The paper applies the correction as if both were true at once (Sec. E4, last results paragraph).
+- **The 13-point drop is not a result yet.** T4 vs stock is -13 points, task-bootstrap CI [-28, +1], sign-flip p=0.19 (Table tab:sim; `experiments/results/sim.json`). The abstract states the point estimate as a finding. Limitations later say "not significant." A CI that includes zero, on a confounded design, concentrated in tasks 4 and 9, does not support "success falls."
+- **"Holds up to 308 ms" is an underpowered null, not a finding.** Thor's paired CI is [-15, +9] on n=50 vs stock n=100. RTX 4090's paired delta of 0 is only the 7 tasks with per-task logs; the reported total is 77/100 vs 80/100, and tasks 7–9 (23/30) exist only as an aggregate note in `libero_sim_runs.json`, not as per-task outcomes. No equivalence margin is defined. Failure to reject a noisy null is not evidence the assumption holds (abstract, contribution 5, Sec. E4, conclusion).
+- **Table tab:sim "Max actions" is wrong where the last chunk does not fit.** The wrapper aborts inside the hold once `_bottle_t >= 280` and never executes that chunk's actions. With H=10, 13 holds give 12 full cycles and a 4-step remainder that is eaten by the next hold: 120 actions, not 130. Seven holds give 161, not 170. The ceil formula in `sim_analysis.py` (`H * ceil(280/(H+holds))`) counts a chunk that the env will not run. The prose "130–200 actions" inherits the error. The 70-action figure for 1,500 ms is the one case that divides evenly and is fine.
+- **Two E4 numbers are not in the released analysis.** "Fewer than a typical successful stock episode uses" and "robot time per success grows from 8.8 s to 11.4 / 13.1 / 18.4 s" are not computed by `sim_analysis.py` and are not in `libero_sim_runs.json` (no per-episode step or action counts; the notebook has no saved outputs). I cannot check them. They should not be in the paper until the episode logs are released and the calculation is in the script.
+- **The s0/s_l factor is not on E3's protocol.** E3 uses published SmolVLA spatial success of 90% and a 220+10 step horizon (`libero_cost.py`, Table tab:success). E4's stock baseline is 80/100 under LeRobot's 280-step cap, fp32, H=10. The 10-point gap from the number E3 actually uses is never discussed. Scaling E3 by 80/67 therefore mixes checkpoints, horizons, and codebases. E3 rankings still assume latency-independent published success; the claim that the correction "leaves desktop-GPU and Thor conclusions intact" is a point-ratio remark, not a re-run of the P>=0.8 procedure.
+- **Scope.** One model, one suite, synchronous hard-stops, 5–10 episodes per task, pure holds rather than observation staleness. "Fails on slow devices" in the conclusion is broader than the sample. The sign-flip test on ten task-rate differences, with Thor rates in steps of 0.2, is an exploratory summary, not a precise test; that is acceptable only if the claims stay exploratory.
+- The T4 miss (1.56x fp32) is inside E2's worst pair and outside its 28% MAPE. Attributing "part of the gap" to Colab's two-vCPU host is a hypothesis. The timed region is `select_action` after CUDA sync, which includes preprocessing the roofline omits (Limitations). Do not explain the residual until those terms are measured.
+
+5. ARE THE NEW-THIS-REVISION CHANGES ADEQUATELY APPLIED?
+
+- **E4 closed-loop simulation:** Partially. The intervention is the right question, the wrapper is readable, seeds are shared, and the body is more honest than the headlines. The design confounds latency with action budget, the headline claims ignore that, and the action-budget control the authors already coded (`--bottle.budget=actions`) is not in the paper. This does not close the round-1 hole.
+- **Paired tests and CIs:** Partially applied. Task bootstrap and sign-flip match `sim.json` (T4 p=0.1875, 1,500 ms p=0.0039, Thor CI as printed). Wilson intervals on pooled episodes ignore task clustering. "Unchanged" / "holds" / "degrades monotonically" go beyond what those intervals support. The 4090 row mixes a 10-task total with a 7-task contrast; the caption says so, the abstract does not.
+- **1,500 ms interpretation:** Disclosed in Sec. E4, not carried into the abstract or the "pay twice" conclusion.
+- **Prospective latency check:** Adequately and honestly applied. Precision (281 vs 399) is separated from the remaining 1.56x fp32 error. This is the cleanest new result, and it is a miss.
+- **s0/s_l and E3:** Not adequately applied. Ratios are reported and explicitly not folded into the Monte Carlo. Using them to reassure the reader that E3's conclusions survive is not a substitute for either folding a clearly identified effect into the draws or declining to make that claim.
+- **Abstract, contributions, limitations, conclusion:** Limitations match the evidence. Abstract, contribution 5, and conclusion do not. They assert a latency-success finding the experiment does not identify.
+- **In-progress action-budget rerun:** Absent. Until it is in the paper, E4 can support only a statement about success under a shrinking physics-step deadline.
+
+6. REQUIRED FIXES for acceptance
+
+1. **NEW-EXPERIMENT — blocking:** Report the action-budget rerun (`budget=actions`) for at least stock, ~630 ms, and 1,500 ms, same seeds, with per-episode action and physics-step counts, and state how often robosuite's 1,000-step cap binds. Keep the current fixed-step-budget runs as a separate estimand (deadline success). Do not interpret either table as "latency changes success" until they are shown side by side.
+2. **writing-only — blocking if fix 1 is omitted:** Strip "holds," "unchanged," "falls by about 13 points," "fails on slow devices," and "pay twice" from the abstract, contribution 5, and conclusion. Replace them with: under a 280-step cap that holds consume, point estimates are 80/77/76/67/0, the 630 ms contrast is -13 [-28, +1], and 0/50 at 1,500 ms is deadline exhaustion. Do not multiply E3 costs by s0/s_l.
+3. **writing-only:** Fix Max actions to the wrapper's termination rule (120 and 161, not 130 and 170) and correct the "130–200" sentence. Drop 8.8/11.4/13.1/18.4 s and "typical successful stock episode" unless episode logs and the formula are in the repo.
+4. **writing-only:** State the stock 80% vs published spatial 90%, and E3's 220+10 vs LeRobot's 280, before any comparison to E3. Recover per-task logs for RTX 4090 tasks 7–9 or stop quoting a 10-task 77% next to a 7-task delta.
+5. **NEW-EXPERIMENT (re-analysis, only after fix 1 identifies an effect):** If the action-budget runs show a success change, put that uncertainty into E3's Monte Carlo for the latency range actually tested, and recompute robust-winner probabilities. If they do not, say the latency-independent assumption survived the control and leave E3's rankings as they are.
+
+7. QUESTIONS FOR THE AUTHORS
+
+- In the action-budget runs, what are success, mean actions on success, and the fraction of episodes that hit 1,000 physics steps, at 630 ms and at 1,500 ms?
+- What is the distribution of policy actions on successful stock episodes? Is 70 (and 120) actually below that distribution, or only below the training-demo maximum of 193?
+- Can tasks 7–9 of the RTX 4090 condition be recovered as per-task rates, and were those 30 episodes the same seeds as stock?
+- Why is LeRobot stock success 80/100 rather than the 90% E3 imports from the SmolVLA paper? fp32, camera rename, horizon, or eval stack?
+- Which operations inside `select_action` are absent from the roofline (preprocess, tokenizer, postprocess), and what fraction of the 624 vs 399 ms gap do they explain on this T4?
+- If you refuse to claim a latency effect until the control lands, which sentences in the abstract do you still need E4 for?

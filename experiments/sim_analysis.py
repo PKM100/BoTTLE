@@ -51,6 +51,12 @@ def paired(a: list, b: list, n_boot: int = 10000, seed: int = 0) -> dict | None:
     return {"n_tasks": len(d), "mean": mean, "ci": (boots[int(0.025 * n_boot)], boots[int(0.975 * n_boot)]), "p": p}
 
 
+def max_actions(hold: int, budget: int = 280) -> int:
+    """Policy actions executed before the wrapper truncates: each chunk is `hold` steps then H actions."""
+    full, rem = divmod(budget, hold + H)
+    return full * H + min(max(rem - hold, 0), H)
+
+
 def predict_ms(device: str, precision: str = "bf16") -> float:
     est = calibrated_estimate(get_model("smolvla"), get_hardware(device), ANCHOR, precision=precision, mode="overhead")
     return est.latency_s * 1e3
@@ -78,7 +84,7 @@ def main() -> dict:
             "stock_same_tasks": stock_same / (stock["n_per_task"] * len(stock_tasks)),
             "paired": None if r is stock else paired(stock["success"], r["success"]),
             "infer_ms_median": statistics.median(inf),
-            "max_actions_in_budget": H * math.ceil(280 / (H + math.ceil(lat * FPS / 1e3 - 1e-9))),
+            "max_actions_in_budget": max_actions(math.ceil(lat * FPS / 1e3 - 1e-9)),
         })
     all_inf = [x for r in runs for x in r["infer_ms"] if x is not None]
     t4_meas = statistics.median(all_inf)

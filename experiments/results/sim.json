@@ -64,7 +64,7 @@
         "p": 0.1875
       },
       "infer_ms_median": 632.0999999999999,
-      "max_actions_in_budget": 130
+      "max_actions_in_budget": 120
     },
     {
       "name": "pred-rtx-4090",
@@ -135,7 +135,7 @@
         "p": 0.65625
       },
       "infer_ms_median": 622.8,
-      "max_actions_in_budget": 170
+      "max_actions_in_budget": 161
     },
     {
       "name": "sweep-1500ms",

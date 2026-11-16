@@ -34,10 +34,9 @@ and device. Applying \bottle{} to LIBERO with Monte Carlo uncertainty propagatio
 model per success unchanged, (b) counting compute only, a \$249 Jetson Orin Nano is the cheapest
 device with probability $>0.99$ for every model that fits, but once robot time is billed desktop
 GPUs win, and (c) the long-horizon suite costs $2.4$--$4.3\times$ more per success than the
-spatial suite. A closed-loop simulation with emulated device latency shows that
-E3's latency-independent success holds up to Thor's 308\,ms per chunk, but success falls by about
-13 points at ${\sim}630$\,ms and to zero at 1{,}500\,ms, where stalls exhaust the episode's time
-budget. \bottle{} runs on a laptop or free Colab GPU and requires no hardware purchase.
+spatial suite. A closed-loop simulation that emulates device latency, under a 14\,s task
+deadline, finds no detectable success loss for SmolVLA up to 630\,ms per chunk (point estimates
+80\% to 67\%) and none succeed at 1{,}500\,ms, where stalls exhaust the deadline. \bottle{} runs on a laptop or free Colab GPU and requires no hardware purchase.
 \end{abstract}
 
 \section{Introduction}
@@ -75,9 +74,9 @@ horizons and prices, reporting only rankings that survive it (\S\ref{sec:e3}).
 \item A curated dataset of 31 published VLA latency measurements with sources and settings,
 released with the tool.
 \item A closed-loop LIBERO study that emulates target-device latency in simulation with no target
-hardware: SmolVLA's success is unchanged up to Thor's 308\,ms per chunk, drops by ${\sim}13$
-points at ${\sim}630$\,ms and reaches zero at 1{,}500\,ms, mainly by exhausting the task's time
-budget (\S\ref{sec:e4}).
+hardware, separating deadline success from control degradation; for SmolVLA under a 14\,s
+deadline, success point estimates fall from 80\% to 67\% at ${\sim}630$\,ms per chunk (not
+significant) and to zero at 1{,}500\,ms (\S\ref{sec:e4}).
 \end{enumerate}
 
 \section{Related Work}
@@ -325,21 +324,34 @@ shipped) on all 10 LIBERO-Spatial tasks via LeRobot on a Colab T4, executing $H{
 chunk at 20\,Hz (E3's synchronous setting). A thin wrapper around \texttt{lerobot-eval}
 (\texttt{experiments/sim/bottle\_libero\_eval.py}) emulates a target device with latency $\ell$:
 each time the policy produces a new chunk, the robot holds still (zero end-effector delta, last
-gripper command) for $\lceil \ell f\rceil$ physics steps while the scene keeps evolving, and the
-holds count against the episode's step budget. We compare \emph{stock} evaluation (physics paused,
+gripper command) for $\lceil \ell f\rceil$ physics steps while the scene keeps evolving. Two
+estimands differ in how holds are budgeted. Under a \emph{deadline} budget (our main runs) holds
+count against LeRobot's 280-step (14\,s) episode limit, as wall-clock time would on a robot with a
+task timeout; this measures deadline success but confounds latency with fewer opportunities to
+act. Under an \emph{action} budget every setting gets stock's 280 policy actions and holds only
+add time (robosuite still ends episodes at 1{,}000 physics steps), which isolates the effect of
+stalls on control and matches E3's synchronous model, where latency adds $C\ell$ to the episode
+but success is unchanged. We compare \emph{stock} evaluation (physics paused,
 $\ell{=}0$) with $\ell$ set to the T4's own per-call time measured online, to \bottle's prediction
 for an RTX 4090 (182\,ms), to the published Jetson Thor measurement (308\,ms~\cite{waseem2026where}),
 and to a 1{,}500\,ms stress setting. Episodes use LeRobot's seeds, identical across settings
-(10 per task for the first three settings, 5 for the last two). We test per-task paired
-differences against stock with a task-level bootstrap and an exact sign-flip test.
+(10 per task for the first three settings, 5 for the others). We test per-task paired
+differences against stock with a task-level bootstrap and an exact sign-flip test; with 10 tasks
+the latter cannot go below $p{\approx}0.002$ and has little power. Stock success (80\%) is below
+the 90\% published for this model that E3 uses (Table~\ref{tab:success}); our harness differs in
+step budget (LeRobot's 280 vs.\ E3's 220+10), in executing $H{=}10$ of the checkpoint's 50-action
+chunks, and in seeds, and one task (5) fails almost always.
 
 \begin{table}[t]\centering\small
 \caption{Closed-loop LIBERO-Spatial success of SmolVLA ($H{=}10$, synchronous) with each chunk's
-inference latency emulated as robot holds. Success CIs are Wilson intervals; $\Delta$ is the mean
+inference latency emulated as robot holds, under the deadline budget. Success CIs are Wilson
+intervals, which treat episodes as independent; $\Delta$ is the mean
 per-task paired difference from stock on the same tasks (task bootstrap CI; the RTX 4090's
 total is over all 10 tasks, its paired difference over the 7 with per-task logs). \emph{Max
-actions} is the most policy actions that fit in LeRobot's 280-step episode budget once holds are
-charged against it.}\label{tab:sim}
+actions} is the most policy actions executed before the 280-step deadline once holds are charged
+against it. Latency is the setting's emulated value; for the T4 it is the median of the 10
+task medians of the measured run (the text's 624\,ms pools all runs).
+\pend{Action-budget rows (630\,ms, 1{,}500\,ms) pending.}}\label{tab:sim}
 \resizebox{\linewidth}{!}{\input{tables/sim.tex}}
 \end{table}
 
@@ -349,31 +361,34 @@ charged against it.}\label{tab:sim}
 mark E3's latencies for SmolVLA on edge and desktop devices.}\label{fig:sim}
 \end{figure}
 
-\paragraph{Results.} Success degrades monotonically with latency (Table~\ref{tab:sim},
-Figure~\ref{fig:sim}). At the RTX 4090's predicted 182\,ms it is unchanged (77\% vs.\ 80\%;
-paired $\Delta{=}0$ on the 7 tasks with per-task logs), and at Thor's published 308\,ms it is
-within noise (76\%, $\Delta{=}{-}4$ points, 95\% CI $-15$ to $+9$). At the T4's measured
-${\sim}630$\,ms success falls to 67\% ($\Delta{=}{-}13$, CI $-28$ to $+1$, sign-flip $p{=}0.19$),
-concentrated in tasks~4 and~9, and at 1{,}500\,ms no episode succeeds (0/50, $p{=}0.004$).
-The last result is mostly a \emph{time-budget} effect, not a control failure: with holds charged,
-the 280-step budget leaves room for only 70 actions, fewer than a typical successful stock episode
-uses. The same mechanism shrinks the budget to 130--200 actions in the other settings, so our
-setup cannot yet separate ``stalls run out the clock'' from ``stalls destabilize control''; a
-rerun with the budget extended by the holds would. Either way it is the deployer's question,
-since real deployments also have task time limits. Combining success with time, the robot's time
-per success grows from 8.8\,s (stock) to 11.4\,s (RTX 4090), 13.1\,s (Thor) and 18.4\,s (T4).
-Folding the measured success loss into E3 multiplies its synchronous robot cost per success by
-$s_0/s_\ell$: $1.04$ for the RTX 4090, $1.05$ for Thor, and $1.19$ at the T4's latency. This
-leaves E3's desktop-GPU and Thor conclusions intact and widens the gap to devices near or beyond
-${\sim}600$\,ms per chunk (Orin Nano at its predicted 669\,ms, and AGX Orin if it is
-underpredicted as the T4 was).
+\paragraph{Results under a deadline.} Point estimates fall with latency (Table~\ref{tab:sim},
+Figure~\ref{fig:sim}): 80\% stock, 77\% at the RTX 4090's predicted 182\,ms (paired $\Delta{=}0$ on
+the 7 tasks with per-task logs; the 10-task totals differ by 3 points), 76\% at Thor's published
+308\,ms ($\Delta{=}{-}4$, 95\% CI $-15$ to $+9$, $n{=}50$), 67\% at the T4's measured
+${\sim}630$\,ms ($\Delta{=}{-}13$, CI $-28$ to $+1$, $p{=}0.19$, mostly tasks~4 and~9) and 0/50 at
+1{,}500\,ms ($p{=}0.004$). None of the drops below 1{,}500\,ms is statistically detectable, and
+the Thor interval cannot exclude a 15-point loss. The deadline shrinks the action budget to
+200, 161, 120 and 70 actions, so these numbers measure \emph{deadline} success: at 1{,}500\,ms the
+robot cannot complete a successful stock trajectory within 70 actions, and the zero says nothing
+about whether stalls degrade control. \pend{Action-budget results at 630\,ms and 1{,}500\,ms, which
+separate the two, are pending.} Combining success with simulated time (physics steps\,/\,20 per
+success, from the wrapper's per-episode logs), the robot spends 8.8\,s per success stock,
+11.4\,s at 182\,ms, 13.1\,s at 308\,ms and 18.4\,s at ${\sim}630$\,ms.
+
+\paragraph{Consequence for E3.} E3's synchronous model already charges the stall time; any
+success loss that comes from running out of a deadline is a separate cost that applies only when
+the deployment has one. Under a 14\,s deadline the point estimates would raise SmolVLA's robot
+cost per success by $s_0/s_\ell{=}1.04$, $1.05$ and $1.19$ at 182, 308 and ${\sim}630$\,ms, with
+intervals that include $1$; we have not folded this into the Monte Carlo. Without a deadline, the correction is whatever the action-budget runs
+show. E4 covers SmolVLA only; we do not extrapolate it to other models.
 
 \paragraph{A prospective latency check.} The same runs give an unplanned out-of-sample test of
 the predictor. \bottle{} predicted 281\,ms for SmolVLA on a T4 in E3, which assumes half
 precision; the checkpoint runs in fp32, for which it predicts 399\,ms. The measured median is
 624\,ms (task medians 605--687\,ms), $1.56\times$ the fp32 prediction ($-36\%$), outside E2's
-typical 28\% error but within its worst case. Part of the gap is likely Colab's two-vCPU host,
-whose prior is optimistic; precision is the larger lesson: a cost prediction is only as good as
+typical 28\% error but within its worst case; it is not part of the error distribution E3's Monte
+Carlo samples. Colab's two-vCPU host, whose prior may be optimistic, is a candidate for the rest of
+the gap, which we have not measured; precision is the larger lesson: a cost prediction is only as good as
 its assumption about how the model is actually deployed.
 
 \section{Discussion and Limitations}
@@ -388,11 +403,11 @@ can change success; precision changes (e.g.\ INT4) can too. \bottle{} accepts pe
 success rates when available, but our LIBERO study uses published simulator success, in which the
 environment waits for the policy, so E3 cannot capture latency-induced failures. Success rates
 also come from different codebases and evaluation scripts (Table~\ref{tab:success}) and are only
-approximately comparable. E4 tests the latency assumption in closed loop: it holds up to
-Thor's 308\,ms, while ${\sim}630$\,ms per chunk costs about 13 points (not significant) and
-1{,}500\,ms leaves too few actions in the episode budget to succeed. E4 covers one model, one suite and synchronous execution only, with 5--10
+approximately comparable. E4 tests the latency assumption in closed loop: under a deadline,
+no loss is detectable up to ${\sim}630$\,ms per chunk (Thor's interval still allows 15 points),
+and 1{,}500\,ms leaves too few actions to succeed. E4 covers one model, one suite and synchronous execution only, with 5--10
 episodes per task and pure holds rather than the sensor staleness of asynchronous execution.
-E3's Monte Carlo rankings do not yet include the measured $s_0/s_\ell$ correction.
+E3's Monte Carlo does not include the $s_0/s_\ell$ correction or the prospective T4 miss.
 \textbf{No measured bill.} Cost per success is computed, not measured end to end on a deployment.
 \textbf{Approximations.} Several device peaks (A10G, Thor, Orin) and some GR00T N1.6/N1.7 and
 SmolVLA dimensions are approximate; embedding tables are excluded from parameter counts; the
@@ -409,9 +424,10 @@ owning the hardware---provided the estimate accounts for the host overhead that 
 eager VLA stacks. \bottle{} makes this estimate one CLI command. Our study shows that the
 optimal device depends on what the deployer pays for, that cost-per-success model rankings are more
 stable than latency rankings across software stacks, and that many apparent differences do not
-survive the uncertainty of predicting unowned hardware. Closed-loop simulation shows the
-remaining assumption, that success does not depend on latency, holds at desktop-GPU and Thor speed but
-fails on slow devices, which pay twice: once in stalls and again in lost successes. Code, data and
+survive the uncertainty of predicting unowned hardware. Closed-loop simulation can test the
+remaining assumption, that success does not depend on latency, without target hardware; for
+SmolVLA we detect no loss up to ${\sim}630$\,ms per chunk under a deadline, and complete
+failure at 1{,}500\,ms. Code, data and
 the Colab notebook are released at \url{https://github.com/PKM100/BoTTLE}.
 
 \bibliographystyle{plainnat}
